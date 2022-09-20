@@ -27,12 +27,6 @@ class Registration extends Component {
                 password: password,
                 mobile: mobile,
             })
-        }).then(function(response) {
-            if(response.status === 200) {
-                console.log("User registered")
-            } else {
-                console.log("FAIL!!1!")
-            }
         }).catch(function(error) {
             console.log("error!");
         });
@@ -78,8 +72,7 @@ class Registration extends Component {
                 </div>
                 <div className="d-grid gap-2 mt-3">
                     <Card.Footer style={{"textAlign":"left"}}>
-                    <Button size="md" type="success" className="btn btn-success" style={{width : "30%"}}
-                    onClick = {this.registerUser}>
+                    <Button size="md" type="success" className="btn btn-success" style={{width : "30%"}}>
                         <FaSignInAlt />{' '}Register
                     </Button>{' '}
                     <Button size="md" type="info" className="btn btn-info" style={{width : "30%"}}
