@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import Login from './components/Login';
+import Registration from './components/Registration';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <NavigationBar />
       <Switch>
       <Route path='/login' exact component={Login}/>
+      <Route path='/register' exact component={Registration}/>
       </Switch>
     </Router>
   );
