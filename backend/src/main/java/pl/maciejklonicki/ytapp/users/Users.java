@@ -21,6 +21,11 @@ public class Users {
     @NotNull
     private String username;
 
+    private String email;
+
     @NotNull
     private String password;
+
+    private String mobile;
+
 }

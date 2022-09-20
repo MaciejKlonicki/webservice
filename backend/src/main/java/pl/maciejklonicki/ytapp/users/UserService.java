@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public ResponseEntity addNewUser (Users users) {
-        Optional<Users> username = userRepository.findByUsername(users.getUsername());
+        Optional<Users> username = userRepository.findByEmail(users.getEmail());
 
         if (username.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
