@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { FaUndo, FaSignInAlt } from 'react-icons/fa';
+import RegistrationAlert from './RegistrationAlert';
 
 class Registration extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.registrationAlert = React.createRef();
+    }
 
     refreshPage() {
         window.location.reload(false);
@@ -13,6 +20,12 @@ class Registration extends Component {
         this.registerUser(event.target.username.value, event.target.email.value, event.target.password.value, event.target.mobile.value);
     };
 
+    showRegistrationAlert(variant, heading, message) {
+        this.registrationAlert.current.setVariant(variant);
+        this.registrationAlert.current.setHeading(heading);
+        this.registrationAlert.current.setMessage(message);
+        this.registrationAlert.current.setVisible(true);
+    }
 
     registerUser(username, email, password, mobile) {
         fetch('http://localhost:8080/users', {
@@ -27,13 +40,20 @@ class Registration extends Component {
                 password: password,
                 mobile: mobile,
             })
-        }).catch(function(error) {
-            console.log("error!");
-        });
+        }).then(function(response) {
+            if(response.status === 200) {
+                this.showRegistrationAlert("success", "Zarejestrowano!", "Teraz możesz się zalogować.");
+            } else {
+                this.showRegistrationAlert("danger", "Użytkownik istnieje!", "Zmień adres email");
+            }
+        }.bind(this)).catch(function(error) {
+            this.showRegistrationAlert("danger", "Error", "Something went wrong")
+        }.bind(this));
     }
 
   render() {
     return (
+        <>
         <div className='Auth-form-container'>
             <form className='Auth-form' onSubmit={this.handleSubmit}>
                 <div className='Auth-form-content'>
@@ -86,6 +106,8 @@ class Registration extends Component {
                 </div>
             </form>
         </div>
+        <RegistrationAlert ref={this.registrationAlert}/>
+        </>
     )
   }
 }

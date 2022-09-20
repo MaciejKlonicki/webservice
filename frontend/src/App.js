@@ -4,7 +4,6 @@ import NavigationBar from './components/NavigationBar';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 
-
 function App() {
   return (
     <Router>
