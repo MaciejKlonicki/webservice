@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { FaUndo, FaSignInAlt } from 'react-icons/fa';
 
-class Registration extends Component {
+class Login extends Component {
 
     resetLoginForm = () => {
         this.setState(() => this.initialState);
@@ -13,14 +13,7 @@ class Registration extends Component {
         <div className='Auth-form-container'>
             <form className='Auth-form'>
                 <div className='Auth-form-content'>
-                    <h3 className='Auth-form-title'>Registry</h3>
-                    <div className="form-group mt-3">
-                        <label>Name</label>
-                        <input
-                            type="text"
-                            className="form-control mt-1"
-                            placeholder="Enter name" />
-                </div>
+                    <h3 className='Auth-form-title'>Login</h3>
                     <div className='form-group mt-3'>
                         <label>Email Address</label>
                         <input
@@ -35,22 +28,17 @@ class Registration extends Component {
                             className="form-control mt-1"
                             placeholder="Enter password" />
                 </div>
-                <div className="form-group mt-3">
-                        <label>Phone number</label>
-                        <input
-                            type="mobile"
-                            className="form-control mt-1"
-                            placeholder="Enter mobile phone" />
-                </div>
                 <div className="d-grid gap-2 mt-3">
                     <Card.Footer style={{"textAlign":"left"}}>
-                    <Button size="sm" type="success" className="btn btn-success" style={{width : "25%"}}>
-                        <FaSignInAlt />{' '}Registry
+                    <Button size="md" type="success" className="btn btn-success" style={{width : "30%"}}>
+                        <FaSignInAlt />{' '}Login
                     </Button>{' '}
-                    <Button size="sm" type="info" className="btn btn-info" style={{width : "25%"}} onClick={this.resetLoginForm}>
+                    <Button size="md" type="info" className="btn btn-info" style={{width : "30%"}} onClick={this.resetLoginForm}>
                         <FaUndo />{' '}Reset
                     </Button>
                     </Card.Footer>
+                    <br></br>
+                    <p style={{"padding-left": "2%", "color" : "rgb(255, 255, 255)"}}>You don't have account? <a href="/register">Create an account</a></p>
                 </div>
                 </div>
             </form>
@@ -59,4 +47,4 @@ class Registration extends Component {
   }
 }
 
-export default Registration;
+export default Login;
