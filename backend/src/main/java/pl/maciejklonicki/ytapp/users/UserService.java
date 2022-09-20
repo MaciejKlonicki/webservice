@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +19,12 @@ public class UserService {
     }
 
     public ResponseEntity addNewUser (Users users) {
-        List<Users> username = userRepository.findByUsername(users.getUsername());
+        Optional<Users> username = userRepository.findByUsername(users.getUsername());
 
-        if (!username.isEmpty()) {
+        if (username.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
+
         Users savedUsers = userRepository.save((users));
         return ResponseEntity.ok(savedUsers);
     }
