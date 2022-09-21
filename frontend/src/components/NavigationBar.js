@@ -13,7 +13,7 @@ class NavigationBar extends React.Component {
         <Navbar bg="dark" variant="dark" style={{paddingRight : "550px"}}>
           <Container>
             <Navbar.Brand href='/'><img src = '/images/places.png' alt = 'place-logo' />{' '}Web Service</Navbar.Brand>
-            <Nav className='me-auto'>
+            <Nav className='me-auto' style={{gridGap : "20px"}}>
               <Nav.Link href='/'><FaHome />{' '}Home</Nav.Link>
               <Nav.Link href='/profile'><CgProfile />{' '}Profile</Nav.Link>
               <Nav.Link href='/setting'><FiSettings />{' '}Settings</Nav.Link>

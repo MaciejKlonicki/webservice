@@ -39,7 +39,11 @@ class Login extends Component {
             })
         }).then(function (response){
             if (response.status === 200) {
-                this.showRegistrationAlert("success", "Zalogowano się", "Zostałeś zalogowany");
+                this.showRegistrationAlert("success", "Zalogowano się", "Za chwilę zostaniesz przeniesiony na stronę główną");
+                setTimeout(() => {
+                    this.props.history.push('/')
+                    this.refreshPage();
+                },4000)
             } else {
                 this.showRegistrationAlert("danger", "Złe dane logowania", "Zły login lub hasło");
             }
