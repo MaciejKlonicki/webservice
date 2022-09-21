@@ -5,6 +5,16 @@ import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 
 function App() {
+
+  // window.onbeforeunload = (event) => {
+  //   const e = event || window.event;
+  //   e.preventDefault();
+  //   if (e) {
+  //     e.returnValue = '';
+  //   }
+  //   return '';
+  // };
+
   return (
     <Router>
       <NavigationBar />
