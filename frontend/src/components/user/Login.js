@@ -37,7 +37,7 @@ class Login extends Component {
                 email: email,
                 password: password,
             })
-        }).then(function (response){
+        }).then(function(response){
             if (response.status === 200) {
                 this.showRegistrationAlert("success", "Zalogowano się", "Za chwilę zostaniesz przeniesiony na stronę główną");
                 setTimeout(() => {

@@ -70,7 +70,7 @@ class Registration extends Component {
                             placeholder="Enter name" />
                 </div>
                     <div className='form-group mt-3'>
-                        <label>Email Address</label>
+                        <label>Email address</label>
                         <input
                             name='email'
                             type="email"
@@ -104,7 +104,7 @@ class Registration extends Component {
                     </Button>
                     </Card.Footer>
                     <br></br>
-                    <p style={{"paddingLeft": "2%", "color" : "rgb(255, 255, 255)"}}>You have account? <a href="/login">Login</a></p>
+                    <p style={{"paddingLeft": "2%", "color" : "rgb(255, 255, 255)"}}>You have an account? <a href="/login">Login</a></p>
                 </div>
                 </div>
             </form>
