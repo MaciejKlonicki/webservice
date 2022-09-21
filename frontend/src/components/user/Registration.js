@@ -5,7 +5,6 @@ import RegistrationAlert from './RegistrationAlert';
 
 class Registration extends Component {
 
-
     constructor(props) {
         super(props);
         this.registrationAlert = React.createRef();
@@ -55,7 +54,7 @@ class Registration extends Component {
     return (
         <>
         <div className='Auth-form-container'>
-            <form className='Auth-form' onSubmit={this.handleSubmit}>
+            <form className='Auth-form' onSubmit={this.handleSubmit} style={{textAlign : "center"}}>
                 <div className='Auth-form-content'>
                     <h2 className='Auth-form-title'>Register</h2>
                     <div className="form-group mt-3">
