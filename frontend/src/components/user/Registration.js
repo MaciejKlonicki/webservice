@@ -57,7 +57,7 @@ class Registration extends Component {
         <div className='Auth-form-container'>
             <form className='Auth-form' onSubmit={this.handleSubmit}>
                 <div className='Auth-form-content'>
-                    <h3 className='Auth-form-title'>Register</h3>
+                    <h2 className='Auth-form-title'>Register</h2>
                     <div className="form-group mt-3">
                         <label>Name</label>
                         <input

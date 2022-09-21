@@ -28,4 +28,19 @@ public class UserService {
         Users savedUsers = userRepository.save((users));
         return ResponseEntity.ok(savedUsers);
     }
+
+    public ResponseEntity logInUser (Users users) {
+        Optional<Users> loginUser = userRepository.findByEmail(users.getEmail());
+
+        if (loginUser.isEmpty() || wrongPassword(loginUser, users)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    private boolean wrongPassword(Optional<Users> loginUser, Users users) {
+        return !loginUser.get().getPassword().equals(users.getPassword());
+    }
+
+
 }

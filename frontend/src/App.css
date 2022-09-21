@@ -23,9 +23,10 @@
 .Auth-form-title {
   text-align: center;
   margin-bottom: 1em;
-  font-size: 22px;
+  font-size: 21px;
   color: rgb(255, 255, 255);
-  font-weight: 800;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif
 }
 
 label {

@@ -4,24 +4,28 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/users")
     List<Users> findAllUsers() {
         return userService.findAllUsers();
     }
 
-    @PostMapping
-    ResponseEntity addNewUser (@RequestBody Users users) {
+    @PostMapping("/users")
+    private ResponseEntity addNewUser (@RequestBody Users users) {
         return userService.addNewUser(users);
+    }
+
+    @PostMapping("/login")
+    private ResponseEntity login (@RequestBody Users users) {
+        return userService.logInUser(users);
     }
 
 }
