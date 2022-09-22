@@ -1,6 +1,5 @@
 import React from 'react'
 import {Container, Nav, Navbar} from 'react-bootstrap';
-import { CgProfile } from 'react-icons/cg';
 import { FiSettings } from 'react-icons/fi';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsFillPersonPlusFill} from 'react-icons/bs';
@@ -23,11 +22,10 @@ class NavigationBar extends React.Component {
 
     const userLinks = (
       <>
-      <Nav.Link href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}Profile</Nav.Link>
-      <Nav.Link style={{position : "relative", left: "1400px"}} href='/setting'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}Settings</Nav.Link>
-      <Nav.Link style={{position:"relative", left:"380px"}}>Logged as: <b>{localStorage.getItem("email")}</b></Nav.Link>
+      <Nav.Link style={{position : "relative", left: "1500px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}Settings</Nav.Link>
+      <Nav.Link style={{position:"relative", left:"480px"}}>Logged as: <b>{localStorage.getItem("email")}</b></Nav.Link>
       <span></span>
-      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1050px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}Logout</Nav.Link></div> : null}
+      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1150px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}Logout</Nav.Link></div> : null}
       </>
     );
 

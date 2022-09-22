@@ -5,6 +5,7 @@ import NavigationBar from './components/NavigationBar';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 import About from './components/user/About';
+import Settings from './components/Settings';
 
 class App extends Component {
   state = { email: "", isAuthenticated : false };
@@ -28,6 +29,7 @@ class App extends Component {
       <Switch>
       <Route path="/login" render={props => <Login updateEmail={this.updateEmail} />}/>
       <Route path='/register' component={Registration}/>
+      <Route path='/settings' component={Settings}/>
       <PrivateRoute path='/about' component={About}/>
       </Switch>
     </Router>
