@@ -40,13 +40,13 @@ class Registration extends Component {
             })
         }).then(function(response) {
             if(response.status === 200) {
-                this.showRegistrationAlert("success", "Zarejestrowano!", "Za chwilę zostaniesz przeniesiony na stronę logowania.");
+                this.showRegistrationAlert("success", "Registered!", "You will be redirected to the login page in a moment.");
                 setTimeout(() => {
                     this.props.history.push('/login')
                     this.refreshPage();
                 },4000)
             } else {
-                this.showRegistrationAlert("danger", "Użytkownik istnieje!", "Zmień adres email.");
+                this.showRegistrationAlert("danger", "User exist!", "Change your email.");
             }
         }.bind(this)).catch(function(error) {
             this.showRegistrationAlert("danger", "Error", "Something went wrong")

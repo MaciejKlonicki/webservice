@@ -1,9 +1,8 @@
 import React from 'react'
 import {Container, Nav, Navbar} from 'react-bootstrap';
-import { FaHome } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { FiSettings } from 'react-icons/fi';
-import { BiLogIn } from 'react-icons/bi';
+import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsFillPersonPlusFill} from 'react-icons/bs';
 
 class NavigationBar extends React.Component {
@@ -24,12 +23,11 @@ class NavigationBar extends React.Component {
 
     const userLinks = (
       <>
-      <Nav.Link href='/'><FaHome />{' '}Home</Nav.Link>
       <Nav.Link href='/profile'><CgProfile />{' '}Profile</Nav.Link>
-      <Nav.Link href='/setting'><FiSettings />{' '}Settings</Nav.Link>
-      <Nav.Link>Logged in user: {localStorage.getItem("email")}</Nav.Link>
+      <Nav.Link style={{position : "relative", left: "1400px"}} href='/setting'><FiSettings />{' '}Settings</Nav.Link>
+      <Nav.Link style={{position:"relative", left:"380px"}}>Logged as: <b>{localStorage.getItem("email")}</b></Nav.Link>
       <span></span>
-      {localStorage.getItem("email") !== null ? <div><a href="/login" onClick={this.logout}>Logout</a></div> : null}
+      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1050px"}} href="/login" onClick={this.logout}><BiLogOut />{' '}Logout</Nav.Link></div> : null}
       </>
     );
 

@@ -39,11 +39,11 @@ class Login extends Component {
             })
         }).then(function(response){
             if (response.status === 200) {
-                this.showRegistrationAlert("success", "Zalogowano się", "Udało się poprawnie zalogować");
+                this.showRegistrationAlert("success", "Logged in successfuly");
                 localStorage.setItem("email", email);
                 this.props.updateEmail();
             } else {
-                this.showRegistrationAlert("danger", "Złe dane logowania", "Zły login lub hasło");
+                this.showRegistrationAlert("danger", "Bad credentials", "Wrong login or password");
             }
         }.bind(this)).catch(function (error) {
             this.showRegistrationAlert("danger", "Error", "Something went wrong.");
