@@ -1,28 +1,56 @@
+import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
+import About from './components/user/About';
 
-function App() {
+class App extends Component {
+  state = { email: "", isAuthenticated : false };
 
-  // window.onbeforeunload = (event) => {
-  //   const e = event || window.event;
-  //   e.preventDefault();
-  //   if (e) {
-  //     e.returnValue = '';
-  //   }
-  //   return '';
-  // };
+  updateEmail = () => {
+    const email = localStorage.getItem("email");
+    this.setState({ email: email });
+    if (email.length > 0) {
+      this.setState({isAuthenticated : true});
+      console.log("true");
+    } else {
+      this.setState({isAuthenticated : false});
+      console.log("false");
+    }
+  };
 
+  render() {
   return (
     <Router>
       <NavigationBar />
       <Switch>
-      <Route path='/login' exact component={Login}/>
-      <Route path='/register' exact component={Registration}/>
+      <Route path="/login" render={props => <Login updateEmail={this.updateEmail} />}/>
+      <Route path='/register' component={Registration}/>
+      <PrivateRoute path='/about' component={About}/>
       </Switch>
     </Router>
+  );
+}
+}
+
+function PrivateRoute({ component: Component, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+      localStorage.getItem("email") !== null ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+        to={{
+          pathname: "/login",
+          state: {from: props.location}
+        }}
+        />
+      )}
+      />
   );
 }
 

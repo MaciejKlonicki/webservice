@@ -8,6 +8,11 @@ import { BsFillPersonPlusFill} from 'react-icons/bs';
 
 class NavigationBar extends React.Component {
 
+  logout = () => {
+    localStorage.clear();
+    this.setState({email : "", isAuthenticated: false});
+  }
+
   render() {
     return (
       <div>
@@ -19,7 +24,10 @@ class NavigationBar extends React.Component {
               <Nav.Link href='/profile'><CgProfile />{' '}Profile</Nav.Link>
               <Nav.Link href='/setting'><FiSettings />{' '}Settings</Nav.Link>
               <Nav.Link href='/register' style={{position: 'absolute', right: 0, bottom: 10}}><BsFillPersonPlusFill />{' '}Register</Nav.Link>
-        <Nav.Link href='/login' style={{position: 'absolute', right: 100, bottom: 10}}><BiLogIn />{' '}Login</Nav.Link>
+              <Nav.Link href='/login' style={{position: 'absolute', right: 100, bottom: 10}}><BiLogIn />{' '}Login</Nav.Link>
+              <Nav.Link>Logged in user: {localStorage.getItem("email")}</Nav.Link>
+              <span></span>
+              {localStorage.getItem("email") !== null ? <div><a href="/login" onClick={this.logout}>Logout</a></div> : null}
             </Nav>
           </Container>
         </Navbar>

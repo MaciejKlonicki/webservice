@@ -11,7 +11,7 @@ class RegistrationAlert extends Component {
             variant: this.props.variant,
             heading: this.props.heading,
             message: this.props.message
-        }
+        };
     }
 
     setMessage = (message) => {
@@ -22,8 +22,8 @@ class RegistrationAlert extends Component {
         this.setState({variant: variant});
     }
 
-    setVisible = (visible) => {
-        this.setState({visible: visible});
+    setVisible = (isVisible) => {
+        this.setState({visible: isVisible});
     }
 
     setHeading = (heading) => {

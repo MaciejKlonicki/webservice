@@ -4,7 +4,6 @@ import { FaUndo, FaSignInAlt } from 'react-icons/fa';
 import RegistrationAlert from './RegistrationAlert';
 
 class Registration extends Component {
-
     constructor(props) {
         super(props);
         this.registrationAlert = React.createRef();
