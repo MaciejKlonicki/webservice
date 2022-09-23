@@ -13,10 +13,9 @@ class Settings extends Component {
   }
 
   handel = (element) => {
-    element = <Card bg="dark" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderRadius: '0px', borderRadius: "5px"}}>
-      <Card.Body style={{color: "white"}}>
-        <Card.Title>Language</Card.Title>
-        <br></br>Wybierz język:
+    element = <Card bg="transparent" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderStyle: 'none'}}>
+      <Card.Body style={{color: "rgb(156, 156, 156)"}}>
+        <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>Choose Language</Card.Title>
       </Card.Body>
     </Card>
     this.setState({
