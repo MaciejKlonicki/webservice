@@ -29,7 +29,7 @@ class App extends Component {
       <Switch>
       <Route path="/login" render={props => <Login updateEmail={this.updateEmail} />}/>
       <Route path='/register' component={Registration}/>
-      <Route path='/settings' component={Settings}/>
+      <Route path='/settings' exact component={Settings}/>
       <PrivateRoute path='/about' component={About}/>
       </Switch>
     </Router>
