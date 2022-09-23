@@ -1,0 +1,29 @@
+.movedown-menu-webservice {
+    color: rgb(42, 219, 7) 1px 1px 10px;
+    width: 110px;
+    position: absolute;
+    top: 50px;
+    right: 200px;
+    list-style: none;
+    text-align: center;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .movedown-link-webservice {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    right: 15px;
+    position: relative;
+    font-size: 15px;
+  }
+
+  .movedown-link-webservice:hover {
+    transform: scale(1.1);
+    transition: all 0.2s ease-out;
+  }
