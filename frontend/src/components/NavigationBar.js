@@ -23,11 +23,11 @@ class NavigationBar extends React.Component {
 
     const userLinks = (
       <>
-      <Nav.Link style={{position : "relative", left: "1390px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}Profile</Nav.Link>
+      <Nav.Link style={{position : "relative", left: "1400px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}Profile</Nav.Link>
       <Nav.Link style={{position : "relative", left: "1400px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}Settings</Nav.Link>
       <Nav.Link style={{position:"relative", left:"400px"}}>Logged as: <b>{localStorage.getItem("email")}</b></Nav.Link>
       <span></span>
-      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1050px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}Logout</Nav.Link></div> : null}
+      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1140px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}Logout</Nav.Link></div> : null}
       </>
     );
 
@@ -35,7 +35,7 @@ class NavigationBar extends React.Component {
       <div>
         <Navbar bg="dark" variant="dark" style={{paddingRight : "550px"}}>
           <Container>
-            <Navbar.Brand href='/'><img src = '/images/places.png' alt = 'place-logo' />{' '}Web Service</Navbar.Brand>
+            <Navbar.Brand style={{color: "gray"}} href='/'><img src = '/images/places.png' alt = 'place-logo' />{' '}Web Service</Navbar.Brand>
             <Nav className='me-auto' style={{gridGap : "20px"}}>
               {localStorage.getItem("email") === null ? guestLinks : userLinks}
             </Nav>
