@@ -25,7 +25,7 @@ class NavigationBar extends React.Component {
       <>
       <Nav.Link style={{position : "relative", left: "1400px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}Profile</Nav.Link>
       <Nav.Link style={{position : "relative", left: "1400px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}Settings</Nav.Link>
-      <Nav.Link style={{position:"relative", left:"400px"}}>Logged as: <b>{localStorage.getItem("email")}</b></Nav.Link>
+      <Nav.Link style={{position:"relative", left:"400px"}}>Logged as: <b style={{fontFamily: "Arial, Helvetica, sans-serif"}}>{localStorage.getItem("email")}</b></Nav.Link>
       <span></span>
       {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1140px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}Logout</Nav.Link></div> : null}
       </>
