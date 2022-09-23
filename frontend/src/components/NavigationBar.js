@@ -1,17 +1,11 @@
 import React from 'react'
 import {Container, Nav, Navbar} from 'react-bootstrap';
-import { BiLogIn } from 'react-icons/bi';
+import { FiSettings } from 'react-icons/fi';
+import {CgProfile } from 'react-icons/cg'
+import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsFillPersonPlusFill} from 'react-icons/bs';
-import MoveDownAccount from './SlideMenu/MoveDownAccount';
 
 class NavigationBar extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      account: false
-    }
-  }
 
   logout = () => {
     localStorage.clear();
@@ -19,22 +13,6 @@ class NavigationBar extends React.Component {
   }
 
   render() {
-
-    const onMouseEnterAccount = () => {
-      if (window.innerWidth < 540) {
-        this.setState({account: false})
-      } else {
-        this.setState({account: true})
-      }
-    };
-
-    const onMouseLeaveAccount = () => {
-      if (window.innerWidth < 540) {
-        this.setState({account: false})
-      } else {
-        this.setState({account: false})
-      }
-    };
 
     const guestLinks = (
       <>
@@ -45,13 +23,11 @@ class NavigationBar extends React.Component {
 
     const userLinks = (
       <>
-      <li
-      onMouseEnter={onMouseEnterAccount}
-      onMouseLeave={onMouseLeaveAccount}>
-      <Nav.Link style={{position:"relative", left:"1320px"}}>Logged as: <b>{localStorage.getItem("email")}</b></Nav.Link>
-      {this.state.account && <MoveDownAccount />}
-      </li>
-      {localStorage.getItem("email") !== null ? <Nav.Link style={{position: "relative", left:"1290px", fontFamily: "Segoe UI', Tahoma, Geneva, Verdana, sans-serif"}} href="/login" onClick={this.logout}>(Logout)</Nav.Link> : null}
+      <Nav.Link style={{position : "relative", left: "1390px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}Profile</Nav.Link>
+      <Nav.Link style={{position : "relative", left: "1400px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}Settings</Nav.Link>
+      <Nav.Link style={{position:"relative", left:"400px"}}>Logged as: <b>{localStorage.getItem("email")}</b></Nav.Link>
+      <span></span>
+      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1050px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}Logout</Nav.Link></div> : null}
       </>
     );
 
