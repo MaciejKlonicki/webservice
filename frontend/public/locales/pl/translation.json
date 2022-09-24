@@ -36,9 +36,33 @@
         "1": "Informacje"
     },
     "InformationTextHeader": {
-        "1": "Web Service - twoje forum"
+        "1": "Web Service"
     },
     "InformationText": {
-        "1": "asd pl"
+        "1": "Forum poświęcone swobodnemu udostępnianiu dowolnych treści."
+    },
+    "InformationTextFunc": {
+        "1": "Funkcjonalności"
+    },
+    "InformationTextToDoFirst": {
+        "1": "- Logowanie i rejestracja użytkowników"
+    },
+    "InformationTextToDoSecond": {
+        "1": "- Dodawanie nowych użytkowników do bazy danych"
+    },
+    "InformationTextToDoThird": {
+        "1": "- Zmiana języka strony"
+    },
+    "InformationTextToDoFourth": {
+        "1": "- Zmiana kolorów strony"
+    },
+    "InformationTextToDoFifth": {
+        "1": "- Dodanie możliwości edycji profilu"
+    },
+    "InformationTextToDoSixth": {
+        "1": "- Dodanie możliwości dodania postów"
+    },
+    "InformationTextToDoSeventh": {
+        "1": "- Dodanie możliwości edycji postów"
     }
 }

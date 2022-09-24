@@ -4,6 +4,8 @@ import { ListGroup } from 'react-bootstrap';
 import './Settings.css';
 import { withTranslation } from 'react-i18next';
 import i18n from '../../i18next';
+import { MdDone } from 'react-icons/md';
+import { AiOutlineClose } from 'react-icons/ai';
 
 class Settings extends Component {
 
@@ -41,8 +43,16 @@ class Settings extends Component {
     element = <Card bg="transparent" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderStyle: 'none'}}>
       <Card.Body style={{color: "rgb(156, 156, 156)"}}>
         <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>{t('Informations.1')}</Card.Title>
-        <h3>{t('InformationTextHeader.1')}</h3>
+        <h3 style={{textAlign: "center"}}>{t('InformationTextHeader.1')}</h3>
         <p>{t('InformationText.1')}</p>
+        <p style={{textAlign: "center"}}><b>{t('InformationTextFunc.1')}</b></p>
+        <p>{t('InformationTextToDoFirst.1')}{' '}<MdDone /></p>
+        <p>{t('InformationTextToDoSecond.1')}{' '}<MdDone /></p>
+        <p>{t('InformationTextToDoThird.1')}{' '}<MdDone /></p>
+        <p>{t('InformationTextToDoFourth.1')}{' '}<AiOutlineClose /></p>
+        <p>{t('InformationTextToDoFifth.1')}{' '}<AiOutlineClose /></p>
+        <p>{t('InformationTextToDoSixth.1')}{' '}<AiOutlineClose /></p>
+        <p>{t('InformationTextToDoSeventh.1')}{' '}<AiOutlineClose /></p>
       </Card.Body>
     </Card>
     this.setState({
