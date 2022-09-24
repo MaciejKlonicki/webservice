@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
 import './Settings.css';
-import { useTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import i18n from '../../i18next';
 
 class Settings extends Component {
@@ -33,14 +33,16 @@ class Settings extends Component {
   }
 
   render() {
+
+    const { t } = this.props;
     
     return (
       <Card bg="dark" variant="dark" style={{ width: '250px', height: '93.7vh', borderRadius: "0px"}}>
       <Card.Body>
-        <Card.Title style={{color: "white", textTransform: "uppercase", fontFamily: "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif", fontWeight: "500", letterSpacing: "10px", textAlign: "center", borderBottom: "1px solid rgba(255,255,255,.25)"}}>General</Card.Title>
+        <Card.Title style={{color: "white", textTransform: "uppercase", fontFamily: "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif", fontWeight: "500", letterSpacing: "10px", textAlign: "center", borderBottom: "1px solid rgba(255,255,255,.25)"}}>{t('General.1')}</Card.Title>
         <ListGroup>
-        <button onClick={this.handel} style={{background: "transparent", color: "gray", borderRadius: "0px", textAlign: "center"}} className="list-group-item"><p style={{position: "relative", marginBottom: "2px", fontFamily:"Arial, Helvetica, sans-serif"}}>Language</p></button>
-        <button style={{background: "transparent", color: "gray", borderRadius: "0px", textAlign: "center"}} className="list-group-item"><p style={{position: "relative", marginBottom: "2px", fontFamily:"Arial, Helvetica, sans-serif"}}>About</p></button>
+        <button onClick={this.handel} style={{background: "transparent", color: "gray", borderRadius: "0px", textAlign: "center"}} className="list-group-item"><p style={{position: "relative", marginBottom: "2px", fontFamily:"Arial, Helvetica, sans-serif"}}>{t('Language.1')}</p></button>
+        <button style={{background: "transparent", color: "gray", borderRadius: "0px", textAlign: "center"}} className="list-group-item"><p style={{position: "relative", marginBottom: "2px", fontFamily:"Arial, Helvetica, sans-serif"}}>{t('About.1')}</p></button>
         </ListGroup>
       </Card.Body>
       {this.state.change}
@@ -49,4 +51,4 @@ class Settings extends Component {
   }
 }
 
-export default Settings;
+export default withTranslation()(Settings);
