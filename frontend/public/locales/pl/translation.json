@@ -31,5 +31,14 @@
     },
     "Login": {
         "1": "Zaloguj"
+    },
+    "Informations": {
+        "1": "Informacje"
+    },
+    "InformationTextHeader": {
+        "1": "Web Service - twoje forum"
+    },
+    "InformationText": {
+        "1": "asd pl"
     }
 }

@@ -31,5 +31,14 @@
     },
     "Login": {
         "1": "Login"
+    },
+    "Informations": {
+        "1": "Informations"
+    },
+    "InformationTextHeader": {
+        "1": "Web service - your forum"
+    },
+    "InformationText": {
+        "1": "asd en"
     }
 }
