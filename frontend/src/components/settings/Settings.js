@@ -6,6 +6,7 @@ import { withTranslation } from 'react-i18next';
 import i18n from '../../i18next';
 
 class Settings extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,11 +21,13 @@ class Settings extends Component {
 
 
   handel = (element) => {
+    const { t } = this.props;
     element = <Card bg="transparent" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderStyle: 'none'}}>
       <Card.Body style={{color: "rgb(156, 156, 156)"}}>
-        <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>Choose Language</Card.Title>
+        <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>{t('Choose.1')}</Card.Title>
         <Button onClick={() => this.handleClick('pl')} variant="secondary">Polski</Button>{' '}
         <Button onClick={() => this.handleClick('en')} variant="secondary">English</Button>
+        <Button style={{position: "relative", left: "245px"}} onClick={() => window.location.reload(false)} variant="info">{t('Refresh.1')}</Button>
       </Card.Body>
     </Card>
     this.setState({

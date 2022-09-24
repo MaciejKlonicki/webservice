@@ -4,6 +4,8 @@ import { FiSettings } from 'react-icons/fi';
 import {CgProfile } from 'react-icons/cg'
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsFillPersonPlusFill} from 'react-icons/bs';
+import { withTranslation } from 'react-i18next';
+import i18n from '../i18next';
 
 class NavigationBar extends React.Component {
 
@@ -12,22 +14,28 @@ class NavigationBar extends React.Component {
     this.setState({email : "", isAuthenticated: false});
   }
 
+  handleClick = (lang) => {
+    i18n.changeLanguage(lang);
+  }
+
   render() {
+
+    const { t } = this.props;
 
     const guestLinks = (
       <>
-      <Nav.Link href='/register' style={{position: 'absolute', right: 0, bottom: 10}}><BsFillPersonPlusFill style={{position : "relative", bottom: "2px"}}/>{' '}Register</Nav.Link>
-      <Nav.Link href='/login' style={{position: 'absolute', right: 100, bottom: 10}}><BiLogIn style={{position : "relative", bottom: "2px"}}/>{' '}Login</Nav.Link>
+      <Nav.Link href='/register' style={{position: 'absolute', right: 0, bottom: 10}}><BsFillPersonPlusFill style={{position : "relative", bottom: "2px"}}/>{' '}{t('Register.1')}</Nav.Link>
+      <Nav.Link href='/login' style={{position: 'absolute', right: 100, bottom: 10}}><BiLogIn style={{position : "relative", bottom: "2px"}}/>{' '}{t('Login.1')}</Nav.Link>
       </>
       );
 
     const userLinks = (
       <>
-      <Nav.Link style={{position : "relative", left: "1400px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}Profile</Nav.Link>
-      <Nav.Link style={{position : "relative", left: "1400px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}Settings</Nav.Link>
-      <Nav.Link style={{position:"relative", left:"400px"}}>Logged as: <b style={{fontFamily: "Arial, Helvetica, sans-serif"}}>{localStorage.getItem("email")}</b></Nav.Link>
+      <Nav.Link style={{position : "relative", left: "1410px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</Nav.Link>
+      <Nav.Link style={{position : "relative", left: "1400px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}{t('Settings.1')}</Nav.Link>
+      <Nav.Link style={{position:"relative", left:"400px"}}>{t('Logged.1')}<b style={{fontFamily: "Arial, Helvetica, sans-serif"}}>{localStorage.getItem("email")}</b></Nav.Link>
       <span></span>
-      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1140px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}Logout</Nav.Link></div> : null}
+      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1150px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}{t('Logout.1')}</Nav.Link></div> : null}
       </>
     );
 
@@ -46,4 +54,4 @@ class NavigationBar extends React.Component {
   }
 }
 
-export default NavigationBar;
+export default withTranslation()(NavigationBar);

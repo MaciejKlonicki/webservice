@@ -1,11 +1,35 @@
 {
     "General": {
-        "1": "ustawienia ogolne"
+        "1": "ustawienia ogólne"
     },
     "Language": {
-        "1": "Jezyk"
+        "1": "Język"
     },
     "About": {
         "1": "Informacje"
+    },
+    "Choose": {
+        "1": "Wybierz język (odśwież strone po wybraniu innego języka)"
+    },
+    "Refresh": {
+        "1": "Odśwież"
+    },
+    "Logged": {
+        "1": "Konto: "
+    },
+    "Profile": {
+        "1": "Profil"
+    },
+    "Settings": {
+        "1": "Ustawienia"
+    },
+    "Logout": {
+        "1": "Wyloguj"
+    },
+    "Register": {
+        "1": "Rejestracja"
+    },
+    "Login": {
+        "1": "Zaloguj"
     }
 }

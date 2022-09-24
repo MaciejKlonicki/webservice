@@ -7,5 +7,29 @@
     },
     "About": {
         "1": "About"
+    },
+    "Choose": {
+        "1": "Pick language (refresh the page after choosing another language)"
+    },
+    "Refresh": {
+        "1": "Refresh"
+    },
+    "Logged": {
+        "1": "Logged: "
+    },
+    "Profile": {
+        "1": "Profile"
+    },
+    "Settings": {
+        "1": "Settings"
+    },
+    "Logout": {
+        "1": "Logout"
+    },
+    "Register": {
+        "1": "Register"
+    },
+    "Login": {
+        "1": "Login"
     }
 }
