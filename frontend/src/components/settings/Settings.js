@@ -53,6 +53,8 @@ class Settings extends Component {
         <p>{t('InformationTextToDoSixth.1')}{' '}<AiOutlineClose /></p>
         <p>{t('InformationTextToDoSeventh.1')}{' '}<AiOutlineClose /></p>
         <p>{t('InformationTextToDoEigth.1')}{' '}<MdDone /></p>
+        <p>{t('InformationTextToDoNineth.1')}{' '}<AiOutlineClose /></p>
+        <Card.Footer style={{borderTop: '0.5px solid rgba(255, 255, 255, 0.336)', paddingTop: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>&copy; {new Date().getFullYear()}{t('Footer.1')}</Card.Footer>
       </Card.Body>
     </Card>
     this.setState({
