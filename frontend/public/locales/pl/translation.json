@@ -64,5 +64,68 @@
     },
     "InformationTextToDoSeventh": {
         "1": "- Dodanie możliwości edycji postów"
+    },
+    "InformationTextToDoEigth": {
+        "1": "- Formularze logowania i rejestracji"
+    },
+
+
+
+    "Email": {
+        "1": "Adres mailowy"
+    },
+    "Password": {
+        "1": "Hasło"
+    },
+    "NoAccount": {
+        "1": "Nie masz konta?"
+    },
+    "CreateAccount": {
+        "1": "Stwórz konto"
+    },
+    "EnterEmail": {
+        "1": "Wprowadź e-mail"
+    },
+    "EnterPassword": {
+        "1": "Wprowadź hasło"
+    },
+
+
+
+    "RegisterTitle": {
+        "1": "Rejestracja"
+    },
+    "RegisterName": {
+        "1": "Nazwa"
+    },
+    "RegisterEmail": {
+        "1": "Adres mailowy"
+    },
+    "RegisterPassword": {
+        "1": "Hasło"
+    },
+    "RegisterPhone": {
+        "1": "Numer telefonu"
+    },
+    "RegisterFinal": {
+        "1": "Zarejestruj"
+    },
+    "RegisterExist": {
+        "1": "Masz już konto?"
+    },
+    "RegisterLogin": {
+        "1": "Zaloguj"
+    },
+    "EnterNameRegister": {
+        "1": "Wprowadź nazwę użytkownika"
+    },
+    "EnterEmailRegister": {
+        "1": "Wprowadź adres mailowy"
+    },
+    "EnterPasswordRegister": {
+        "1": "Wprowadź hasło"
+    },
+    "EnterPhoneRegister": {
+        "1": "Wprowadź numer telefonu"
     }
 }

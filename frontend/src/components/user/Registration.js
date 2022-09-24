@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { FaUndo, FaSignInAlt } from 'react-icons/fa';
 import RegistrationAlert from './RegistrationAlert';
+import { withTranslation } from 'react-i18next';
+import i18n from '../../i18next';
 
 class Registration extends Component {
     constructor(props) {
@@ -12,6 +14,10 @@ class Registration extends Component {
     refreshPage() {
         window.location.reload(false);
     }
+
+    handleClick = (lang) => {
+        i18n.changeLanguage(lang);
+      }
 
     handleSubmit = event => {
         event.preventDefault();
@@ -54,56 +60,58 @@ class Registration extends Component {
     }
 
   render() {
+    const { t } = this.props;
+
     return (
         <>
         <div className='Auth-form-container'>
             <form className='Auth-form' onSubmit={this.handleSubmit} style={{textAlign : "center"}}>
                 <div className='Auth-form-content'>
-                    <h2 className='Auth-form-title'>Register</h2>
+                    <h2 className='Auth-form-title'>{t('RegisterTitle.1')}</h2>
                     <div className="form-group mt-3">
-                        <label>Name</label>
+                        <label>{t('RegisterName.1')}</label>
                         <input
                             name='username'
                             type="text"
                             className="form-control mt-1"
-                            placeholder="Enter name" />
+                            placeholder={t('EnterNameRegister.1')} />
                 </div>
                     <div className='form-group mt-3'>
-                        <label>Email address</label>
+                        <label>{t('RegisterEmail.1')}</label>
                         <input
                             name='email'
                             type="email"
                             className="form-control mt-1"
-                            placeholder="Enter email" />
+                            placeholder={t('EnterEmailRegister.1')} />
                     </div>
                     <div className="form-group mt-3">
-                        <label>Password</label>
+                        <label>{t('RegisterPassword.1')}</label>
                         <input
                             name='password'
                             type="password"
                             className="form-control mt-1"
-                            placeholder="Enter password" />
+                            placeholder={t('EnterPasswordRegister.1')} />
                 </div>
                 <div className="form-group mt-3">
-                        <label>Phone number</label>
+                        <label>{t('RegisterPhone.1')}</label>
                         <input
                             name='mobile'
                             type="text"
                             className="form-control mt-1"
-                            placeholder="Enter mobile phone" />
+                            placeholder={t('EnterPhoneRegister.1')} />
                 </div>
                 <div className="d-grid gap-2 mt-3">
                     <Card.Footer style={{"textAlign":"left"}}>
-                    <Button size="md" type="success" className="btn btn-success" style={{width : "30%"}}>
-                        <FaSignInAlt />{' '}Register
+                    <Button size="md" type="success" className="btn btn-success" style={{width : "32%"}}>
+                        <FaSignInAlt />{' '}{t('RegisterFinal.1')}
                     </Button>{' '}
-                    <Button size="md" type="info" className="btn btn-info" style={{width : "30%"}}
+                    <Button size="md" type="info" className="btn btn-info" style={{width : "32%"}}
                         onClick = {this.refreshPage}>
                         <FaUndo />{' '}Reset
                     </Button>
                     </Card.Footer>
                     <br></br>
-                    <p style={{"paddingLeft": "2%", "color" : "rgb(255, 255, 255)"}}>You have an account? <a href="/login">Login</a></p>
+                    <p style={{"paddingLeft": "2%", "color" : "rgb(255, 255, 255)"}}>{t('RegisterExist.1')}{' '}<a href="/login">{t('RegisterLogin.1')}</a></p>
                 </div>
                 </div>
             </form>
@@ -114,4 +122,4 @@ class Registration extends Component {
   }
 }
 
-export default Registration;
+export default withTranslation()(Registration);

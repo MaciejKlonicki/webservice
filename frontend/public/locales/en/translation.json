@@ -39,6 +39,93 @@
         "1": "Web service"
     },
     "InformationText": {
-        "1": "asd en"
+        "1": "Forum dedicated to the free sharing of any content."
+    },
+    "InformationTextFunc": {
+        "1": "Functionalities"
+    },
+    "InformationTextToDoFirst": {
+        "1": "- User login and registration"
+    },
+    "InformationTextToDoSecond": {
+        "1": "- Adding new users to the database"
+    },
+    "InformationTextToDoThird": {
+        "1": "- Change the language of the site"
+    },
+    "InformationTextToDoFourth": {
+        "1": "- Change the colors of the page"
+    },
+    "InformationTextToDoFifth": {
+        "1": "- Adding the ability to edit the profile"
+    },
+    "InformationTextToDoSixth": {
+        "1": "- Adding the ability to add posts"
+    },
+    "InformationTextToDoSeventh": {
+        "1": "- Adding the ability to edit posts"
+    },
+    "InformationTextToDoEigth": {
+        "1": "- Login and registration forms"
+    },
+
+
+
+    "Email": {
+        "1": "E-mail address"
+    },
+    "Password": {
+        "1": "Password"
+    },
+    "NoAccount": {
+        "1": "You do not have an account?"
+    },
+    "CreateAccount": {
+        "1": "Create an account"
+    },
+    "EnterEmail": {
+        "1": "Enter e-mail"
+    },
+    "EnterPassword": {
+        "1": "Enter hasło"
+    },
+
+
+
+    "RegisterTitle": {
+        "1": "Registration"
+    },
+    "RegisterName": {
+        "1": "Name"
+    },
+    "RegisterEmail": {
+        "1": "E-mail address"
+    },
+    "RegisterPassword": {
+        "1": "Password"
+    },
+    "RegisterPhone": {
+        "1": "Phone number"
+    },
+    "RegisterFinal": {
+        "1": "Register"
+    },
+    "RegisterExist": {
+        "1": "Already have an account?"
+    },
+    "RegisterLogin": {
+        "1": "Login"
+    },
+    "EnterNameRegister": {
+        "1": "Enter username"
+    },
+    "EnterEmailRegister": {
+        "1": "Enter e-mail"
+    },
+    "EnterPasswordRegister": {
+        "1": "Wprowadź password"
+    },
+    "EnterPhoneRegister": {
+        "1": "Enter phone number"
     }
 }

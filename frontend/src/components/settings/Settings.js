@@ -22,7 +22,6 @@ class Settings extends Component {
     i18n.changeLanguage(lang);
   }
 
-
   handel = (element) => {
     const { t } = this.props;
     element = <Card bg="transparent" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderStyle: 'none'}}>
@@ -53,6 +52,7 @@ class Settings extends Component {
         <p>{t('InformationTextToDoFifth.1')}{' '}<AiOutlineClose /></p>
         <p>{t('InformationTextToDoSixth.1')}{' '}<AiOutlineClose /></p>
         <p>{t('InformationTextToDoSeventh.1')}{' '}<AiOutlineClose /></p>
+        <p>{t('InformationTextToDoEigth.1')}{' '}<MdDone /></p>
       </Card.Body>
     </Card>
     this.setState({

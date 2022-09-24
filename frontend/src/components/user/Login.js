@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { FaUndo, FaSignInAlt } from 'react-icons/fa';
 import RegistrationAlert from './RegistrationAlert';
+import { withTranslation } from 'react-i18next';
+import i18n from '../../i18next';
 
 class Login extends Component {
 
@@ -9,6 +11,10 @@ class Login extends Component {
         super(props);
         this.registrationAlert = React.createRef();
     }
+
+    handleClick = (lang) => {
+        i18n.changeLanguage(lang);
+      }
 
     refreshPage() {
         window.location.reload(false);
@@ -51,6 +57,8 @@ class Login extends Component {
     }
 
   render() {
+    const { t } = this.props;
+
     return (
         <>
         <div className='Auth-form-container'>
@@ -58,32 +66,32 @@ class Login extends Component {
                 <div className='Auth-form-content'>
                     <h3 className='Auth-form-title'>Login</h3>
                     <div className='form-group mt-3'>
-                        <label>Email Address</label>
+                        <label>{t('Email.1')}</label>
                         <input
                             name='email'
                             type="email"
                             className="form-control mt-1"
-                            placeholder="Enter email" />
+                            placeholder={t('EnterEmail.1')} />
                     </div>
                     <div className="form-group mt-3">
-                        <label>Password</label>
+                        <label>{t('Password.1')}</label>
                         <input
                             name='password'
                             type="password"
                             className="form-control mt-1"
-                            placeholder="Enter password" />
+                            placeholder={t('EnterPassword.1')} />
                 </div>
                 <div className="d-grid gap-2 mt-3">
                     <Card.Footer style={{"textAlign":"left"}}>
-                    <Button size="md" type="success" className="btn btn-success" style={{width : "30%"}}>
+                    <Button size="md" type="success" className="btn btn-success" style={{width : "32%"}}>
                         <FaSignInAlt />{' '}Login
                     </Button>{' '}
-                    <Button size="md" type="info" className="btn btn-info" style={{width : "30%"}} onClick={this.refreshPage}>
+                    <Button size="md" type="info" className="btn btn-info" style={{width : "32%"}} onClick={this.refreshPage}>
                         <FaUndo />{' '}Reset
                     </Button>
                     </Card.Footer>
                     <br></br>
-                    <p style={{"paddingLeft": "2%", "color" : "rgb(255, 255, 255)"}}>You don't have account? <a href="/register">Create an account</a></p>
+                    <p style={{"paddingLeft": "2%", "color" : "rgb(255, 255, 255)"}}>{t('NoAccount.1')}{' '}<a href="/register">{t('CreateAccount.1')}</a></p>
                 </div>
                 </div>
             </form>
@@ -94,4 +102,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withTranslation()(Login);
