@@ -3,22 +3,21 @@ package pl.maciejklonicki.ytapp.users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping
     List<Users> findAllUsers() {
         return userService.findAllUsers();
     }
 
-    @PostMapping("/users")
+    @PostMapping
     private ResponseEntity addNewUser (@RequestBody Users users) {
         return userService.addNewUser(users);
     }

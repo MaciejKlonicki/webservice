@@ -8,17 +8,18 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/posts")
+    @GetMapping
     List<Post> findAllPosts() {
         return postService.allPosts();
     }
 
-    @PostMapping("/posts")
+    @PostMapping
     public ResponseEntity addPost (@RequestHeader("email") String email, @RequestBody String body) {
         return postService.addPost(email, body);
     }

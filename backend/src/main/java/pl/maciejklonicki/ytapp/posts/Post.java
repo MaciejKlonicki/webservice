@@ -1,13 +1,10 @@
 package pl.maciejklonicki.ytapp.posts;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 import pl.maciejklonicki.ytapp.users.Users;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "posts")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
