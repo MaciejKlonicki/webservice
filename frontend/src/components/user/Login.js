@@ -33,7 +33,7 @@ class Login extends Component {
     }
 
     loginUser(email, password) {
-        fetch('http://localhost:8080/login', {
+        fetch('http://localhost:8080/api/users/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

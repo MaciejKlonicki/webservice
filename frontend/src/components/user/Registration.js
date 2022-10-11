@@ -32,7 +32,7 @@ class Registration extends Component {
     }
 
     registerUser(username, email, password, mobile) {
-        fetch('http://localhost:8080/users', {
+        fetch('http://localhost:8080/api/users', {
             method: 'POST',
             headers: {
                 'Accept' : 'application/json',

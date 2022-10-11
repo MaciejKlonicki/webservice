@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
@@ -7,7 +7,10 @@ import Registration from './components/user/Registration';
 import About from './components/user/About';
 import Settings from './components/settings/Settings';
 
+export const ThemeContext = createContext(null);
+
 class App extends Component {
+
   state = { email: "", isAuthenticated : false };
 
   updateEmail = () => {
