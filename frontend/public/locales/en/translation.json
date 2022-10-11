@@ -74,6 +74,19 @@
     "Footer": {
         "1": "- All rights reserved | Terms of Service | Privacy"
     },
+    "DarkStyle": {
+        "1": "Dark"
+    },
+    "BrightStyle": {
+        "1": "Bright"
+    },
+    "ChooseColor": {
+        "1": "Choose style of settings."
+    },
+    "Color": {
+        "1": "Settings style"
+    },
+    
 
 
 

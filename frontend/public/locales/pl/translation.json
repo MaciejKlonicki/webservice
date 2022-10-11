@@ -74,6 +74,18 @@
     "Footer": {
         "1": "- Wszelkie prawa zastrzeżone | Prywatność"
     },
+    "DarkStyle": {
+        "1": "Ciemny"
+    },
+    "BrightStyle": {
+        "1": "Jasny"
+    },
+    "ChooseColor": {
+        "1": "Wybierz styl ustawień."
+    },
+    "Color": {
+        "1": "Styl ustawień"
+    },
 
 
 
