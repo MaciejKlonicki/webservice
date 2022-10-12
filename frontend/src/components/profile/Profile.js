@@ -5,9 +5,10 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { useState } from 'react';
 import img from "./profile.png";
+import './Profile.css';
 
 const Profile = () => {
-    const [imagecrop, setImagecrop] = useState("")
+    const [imagecrop, setImagecrop] = useState(false)
     const [image, setImage] = useState("")
     const [src, setSrc] = useState(false)
     const [profile, setProfile] = useState([])
@@ -30,59 +31,47 @@ const Profile = () => {
 
   return (
     <div>
-    <div className='profile_img text-center p-4'>
-    <div className='flex flex-column justify-content-center align-items-center'>
-
-    <img
-    style={{
-        width: "200px",
-        height: "200px",
-        borderRadius: "50%", 
-        objectFit: "cover",
-        border: "4px solid gray"
-    }}
-    onClick={() => setImagecrop(true)}
-    src = {profileFinal.length ? profileFinal : img} alt="" />
-    <label htmlFor='' className='mt-3 font-semibold text-5xl'>UZYTKOWNIK</label> 
-
-    <Dialog
-    visible={imagecrop}
-        header={() => (
-            <p htmlFor="" className='text-2xl font-semibold textColor'>
-                Update Profile
-            </p>
-        )}
-        onHide={() => setImagecrop(false)}
-    >
-    <div className='confirmation-content flex flex-column align-items-center'>
-        <Avatar
-            width={500}
-            height={400}
-            onCrop={onCrop}
-            onClose={onClose}
-            src={src}
-            shadingColor={"#474649"}
-            backgroundColor={"#474649"}
-            />
-
+        <div className='profile_img text-center p-4'>
+            <div className='flex flex-column justify-content-center align-items-center'>
+                <img
+                    style={{
+                        position: "relative",
+                        right: "750px",
+                        top: "30px",
+                        width: "250px",
+                        height: "250px",
+                        borderRadius: "50%", 
+                        objectFit: "cover",
+                        border: "4px solid gray"
+                        }}
+                        onClick={() => setImagecrop(true)}
+                        src = {profileFinal.length ? profileFinal : img} alt="" /> 
+    <Dialog style={{position: "relative", left: "20px"}}
+        visible={imagecrop}
+        onHide={() => setImagecrop(false)}>
+    <Avatar
+        width={350}
+        height={300}
+        onCrop={onCrop}
+        onClose={onClose}
+        src={src}/>
+            
             <div className='flex flex-column align-items-center mt-5 w-12'>
                 <div className='flex justify-content-around w-12 mt-4'>
-                    <Button
+                    <Button className='buttonProfile'
                     onClick={saveCropImage}
                     label="Save"
-                    icon="pi pi-check"
                     />
                 </div>
             </div>
-    </div>
     </Dialog>
     <InputText 
     type="file"
-    accept='/image/*'
+    accept='image/*'
     style={{display: "none"}}
     onChange={(event) => {
-        const file = file.type.files[0];
-        if(file && file.type.substring(0,5) === "image") {
+        const file = event.target.files[0];
+        if(file && file.type.substring(0, 5) === "image") {
             setImage(file);
         } else {
             setImage(null);
