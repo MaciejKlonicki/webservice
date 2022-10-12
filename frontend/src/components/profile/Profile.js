@@ -5,6 +5,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { useState } from 'react';
 import img from "./profile.png";
+import img2 from "./man.png";
 import './Profile.css';
 
 const Profile = () => {
