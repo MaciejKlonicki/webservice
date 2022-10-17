@@ -64,18 +64,27 @@ class Login extends Component {
         <div className='Auth-form-container'>
             <form className='Auth-form' style={{textAlign : "center"}} onSubmit={this.handleSubmit}>
                 <div className='Auth-form-content'>
-                    <h3 className='Auth-form-title'>Login</h3>
-                    <div className='form-group mt-3'>
+                    <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>Login</h3>
+                    <div style={{color: 'white'}} className='form-group mt-3'>
                         <label>{t('Email.1')}</label>
-                        <input
+                        <input style={{
+                                position: 'relative',
+                                left: '800px',
+                                maxWidth: "300px",
+                            }}
                             name='email'
                             type="email"
                             className="form-control mt-1"
                             placeholder={t('EnterEmail.1')} />
                     </div>
-                    <div className="form-group mt-3">
+                    <div style={{color: 'white'}} className="form-group mt-3">
                         <label>{t('Password.1')}</label>
                         <input
+                            style={{
+                                position: 'relative',
+                                left: '800px',
+                                maxWidth: "300px",
+                            }}
                             name='password'
                             type="password"
                             className="form-control mt-1"
