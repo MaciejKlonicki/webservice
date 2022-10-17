@@ -24,7 +24,7 @@ const Profile = () => {
                             top: "50px",
                             right: "740px",
                             color: 'white'
-                        }}>{localStorage.getItem('email')}</p>
+                        }}>{localStorage.getItem("email")}</p>
             </div>
         </div>
     </div>
