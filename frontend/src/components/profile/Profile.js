@@ -1,11 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from 'react-avatar-edit';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { useState } from 'react';
 import img from "./profile.png";
-import img2 from "./man.png";
 import './Profile.css';
 
 const Profile = () => {
@@ -29,6 +27,15 @@ const Profile = () => {
         setProfile([...profile, {pview}]);
         setImagecrop(false);
     };
+    
+    useEffect(() => {
+        const data = window.localStorage.getItem('saveImage');
+        setPview(JSON.parse(data));
+    })
+
+    useEffect(() => {
+        window.localStorage.setItem('saveImage', JSON.stringify(profileFinal))
+    }, [profileFinal])
 
   return (
     <div>
