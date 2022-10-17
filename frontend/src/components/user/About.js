@@ -7,6 +7,7 @@ class About extends Component {
     <>
       <div className='About'>
         About {localStorage.getItem("email")}
+        {localStorage.getItem("username")}
       </div>
     </>
     );
