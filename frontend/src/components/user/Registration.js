@@ -12,7 +12,7 @@ class Registration extends Component {
     }
 
     initialState = {
-        success: '', errors: ''
+        success: '', errors: '', password: ''
     };
 
     refreshPage() {

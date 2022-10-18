@@ -8,6 +8,7 @@ import About from './components/user/About';
 import Settings from './components/settings/Settings';
 import Profile from './components/profile/Profile';
 
+
 export const ThemeContext = createContext(null);
 
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
       <Route path="/login" render={props => <Login updateEmail={this.updateEmail} />}/>
       <Route path='/register' component={Registration}/>
       <Route path='/settings' exact component={Settings}/>
-      <Route path='/profile' exact component={Profile}/>
+      <Route path='/profile' component={Profile}/>
       <PrivateRoute path='/about' component={About}/>
       </Switch>
     </Router>

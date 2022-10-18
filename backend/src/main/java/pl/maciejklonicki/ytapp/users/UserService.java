@@ -17,6 +17,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Users findSingleUser (Long id) {
+        return userRepository.findById(id).orElseThrow();
+    }
+
     public ResponseEntity addNewUser (Users users) {
         Optional<Users> username = userRepository.findByEmail(users.getEmail());
 

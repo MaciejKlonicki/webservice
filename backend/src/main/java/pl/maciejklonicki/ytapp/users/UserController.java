@@ -17,6 +17,11 @@ public class UserController {
         return userService.findAllUsers();
     }
 
+    @GetMapping("/{id}")
+    private Users findSingleUser(@PathVariable Long id) {
+        return userService.findSingleUser(id);
+    }
+
     @PostMapping
     private ResponseEntity addNewUser (@RequestBody Users users) {
         return userService.addNewUser(users);

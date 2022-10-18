@@ -19,22 +19,20 @@ class NavigationBar extends React.Component {
   }
 
   render() {
-
     const { t } = this.props;
-
     const guestLinks = (
       <>
-      <Nav.Link href='/register' style={{position: 'absolute', right: 0, bottom: 10}}><BsFillPersonPlusFill style={{position : "relative", bottom: "2px"}}/>{' '}{t('Register.1')}</Nav.Link>
-      <Nav.Link href='/login' style={{position: 'absolute', right: 110, bottom: 10}}><BiLogIn style={{position : "relative", bottom: "2px"}}/>{' '}{t('Login.1')}</Nav.Link>
+        <Nav.Link href='/register' style={{position: 'absolute', right: 0, bottom: 10}}><BsFillPersonPlusFill style={{position : "relative", bottom: "2px"}}/>{' '}{t('Register.1')}</Nav.Link>
+        <Nav.Link href='/login' style={{position: 'absolute', right: 110, bottom: 10}}><BiLogIn style={{position : "relative", bottom: "2px"}}/>{' '}{t('Login.1')}</Nav.Link>
       </>
       );
 
     const userLinks = (
       <>
-      <Nav.Link style={{position: "relative", left: "1350px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</Nav.Link>
-      <Nav.Link style={{position: "relative", left: "1350px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}{t('Settings.1')}</Nav.Link>
-      <span></span>
-      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left: "1330px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}{t('Logout.1')}</Nav.Link></div> : null}
+        <Nav.Link style={{position: "relative", left: "1405px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</Nav.Link>
+        <Nav.Link style={{position: "relative", left: "1390px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}{t('Settings.1')}</Nav.Link>
+        <span></span>
+        {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left: "1350px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}{t('Logout.1')}</Nav.Link></div> : null}
       </>
     );
 
