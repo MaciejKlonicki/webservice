@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Alert, Button, Card } from 'react-bootstrap';
 import { FaUndo, FaSignInAlt } from 'react-icons/fa';
 import { withTranslation } from 'react-i18next';
 import i18n from '../../i18next';
@@ -8,7 +8,12 @@ class Registration extends Component {
     constructor(props) {
         super(props);
         this.registrationAlert = React.createRef();
+        this.state = this.initialState;
     }
+
+    initialState = {
+        success: '', errors: ''
+    };
 
     refreshPage() {
         window.location.reload(false);
@@ -38,13 +43,12 @@ class Registration extends Component {
             })
         }).then(function(response) {
             if(response.status === 200) {
-                setTimeout(() => {
                     this.props.history.push('/login')
-                    this.refreshPage();
-                },4000)
-            } else {
+                    this.refreshPage(100000);
+                    this.setState({"success": "You create an account successfully!"})
             }
         }.bind(this)).catch(function(error) {
+            this.setState({"errors": "Something went wrong!"})
         }.bind(this));
     }
 
@@ -55,6 +59,8 @@ class Registration extends Component {
         <>
         <div className='Auth-form-container'>
             <form className='Auth-form' onSubmit={this.handleSubmit} style={{textAlign : "center"}}>
+                {this.state.errors && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='danger'>{this.state.errors}</Alert>}
+                {this.state.success && <Alert style={{marginTop: "20px", maxWidth: "350px", marginLeft: "760px"}} variant='success'>{this.state.success}</Alert>}
                 <div style={{color:'white'}} className='Auth-form-content'>
                     <h2 style={{marginTop: '50px'}} className='Auth-form-title'>{t('RegisterTitle.1')}</h2>
                     <div  className="form-group mt-3">

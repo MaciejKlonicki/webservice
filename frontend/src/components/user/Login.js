@@ -45,7 +45,7 @@ class Login extends Component {
                 this.props.updateEmail();
                 this.setState({"success": "You are logged in!"})
             } else {
-                this.refreshPage(40000);
+                this.refreshPage(100000);
                 this.setState({"error":"Invalid credentials"})
             }
         }.bind(this)).catch(function (error) {
