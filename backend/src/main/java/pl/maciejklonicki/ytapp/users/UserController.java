@@ -1,6 +1,7 @@
 package pl.maciejklonicki.ytapp.users;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/users")
 public class UserController {
+
     private final UserService userService;
 
     @GetMapping
@@ -18,8 +20,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    private Users findSingleUser(@PathVariable Long id) {
-        return userService.findSingleUser(id);
+    private ResponseEntity<Users> findUserById (@PathVariable Integer id) {
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
     @PostMapping

@@ -1,19 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Profile.css';
 import UserService from '../services/UserService';
 
-class Profile extends React.Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            users: []
+            id: this.props.match.params.id,
+            users: {}
         }
     }
 
     componentDidMount() {
-        UserService.getUserById().then((res) => {
-            this.setState({ users: res.data })
+        UserService.getUserById(this.state.id).then(res => {
+            this.setState({ users: res.data });
         })
     }
 
@@ -43,29 +44,16 @@ class Profile extends React.Component {
             </div>
         </div>
         <div>
-            <h2 className='text-center'>Users List</h2>
-            <div className='row'>
-                <table className='table table-striped table-bordered'>
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.users.map(
-                                user =>
-                                <tr key={user.id}>
-                                    <td>{user.username}</td>
-                                    <td>{user.email}</td>
-                                    <td>{user.mobile}</td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
+            <br></br>
+            <div className='card col-md-6 offset-md-3'>
+                <h3 className='text-center'>View User Details</h3>
+                <div className='card-body'>
+                    <div className='row'>
+                        <label>User first name: </label>
+                        <div>{ this.state.users.username }</div>
+                        <div>{ this.state.users.email }</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
