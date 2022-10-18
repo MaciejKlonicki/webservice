@@ -31,11 +31,10 @@ class NavigationBar extends React.Component {
 
     const userLinks = (
       <>
-      <Nav.Link style={{position : "relative", left: "1410px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</Nav.Link>
-      <Nav.Link style={{position : "relative", left: "1400px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}{t('Settings.1')}</Nav.Link>
-      <Nav.Link style={{position:"relative", left:"400px"}}>{t('Logged.1')}<b style={{fontFamily: "Arial, Helvetica, sans-serif"}}>{localStorage.getItem("email")}</b></Nav.Link>
+      <Nav.Link style={{position: "relative", left: "1350px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</Nav.Link>
+      <Nav.Link style={{position: "relative", left: "1350px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}{t('Settings.1')}</Nav.Link>
       <span></span>
-      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left:"1065px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}{t('Logout.1')}</Nav.Link></div> : null}
+      {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left: "1330px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}{t('Logout.1')}</Nav.Link></div> : null}
       </>
     );
 

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Alert, Button, Card } from 'react-bootstrap';
 import { FaUndo, FaSignInAlt } from 'react-icons/fa';
-import RegistrationAlert from './RegistrationAlert';
 import { withTranslation } from 'react-i18next';
 import i18n from '../../i18next';
 
 class Login extends Component {
-
     constructor(props) {
         super(props);
         this.registrationAlert = React.createRef();
+        this.state = this.initialState;
     }
+
+    initialState = {
+        error: '', success: '', errors: ''
+    };
 
     handleClick = (lang) => {
         i18n.changeLanguage(lang);
@@ -25,13 +28,6 @@ class Login extends Component {
         this.loginUser(event.target.email.value, event.target.password.value);
     };
 
-    showRegistrationAlert(variant, heading, message) {
-        this.registrationAlert.current.setVariant(variant);
-        this.registrationAlert.current.setHeading(heading);
-        this.registrationAlert.current.setMessage(message);
-        this.registrationAlert.current.setVisible(true);
-    }
-
     loginUser(email, password) {
         fetch('http://localhost:8080/api/users/login', {
             method: 'POST',
@@ -45,14 +41,15 @@ class Login extends Component {
             })
         }).then(function(response){
             if (response.status === 200) {
-                this.showRegistrationAlert("success", "Logged in successfuly");
                 localStorage.setItem("email", email);
                 this.props.updateEmail();
+                this.setState({"success": "You are logged in!"})
             } else {
-                this.showRegistrationAlert("danger", "Bad credentials", "Wrong login or password");
+                this.refreshPage(40000);
+                this.setState({"error":"Invalid credentials"})
             }
         }.bind(this)).catch(function (error) {
-            this.showRegistrationAlert("danger", "Error", "Something went wrong.");
+            this.setState({"errors": "Something went wrong!"})
         }.bind(this));
     }
 
@@ -63,14 +60,17 @@ class Login extends Component {
         <>
         <div className='Auth-form-container'>
             <form className='Auth-form' style={{textAlign : "center"}} onSubmit={this.handleSubmit}>
+                {this.state.error && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='danger'>{this.state.error}</Alert>}
+                {this.state.errors && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='danger'>{this.state.errors}</Alert>}
+                {this.state.success && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='success'>{this.state.success}</Alert>}
                 <div className='Auth-form-content'>
-                    <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>Login</h3>
+                    <h3 style={{ color: 'white', marginTop: '50px'}} className='Auth-form-title'>Login</h3>
                     <div style={{color: 'white'}} className='form-group mt-3'>
                         <label>{t('Email.1')}</label>
                         <input style={{
                                 position: 'relative',
-                                left: '800px',
-                                maxWidth: "300px",
+                                left: '765px',
+                                maxWidth: "350px",
                             }}
                             name='email'
                             type="email"
@@ -82,8 +82,8 @@ class Login extends Component {
                         <input
                             style={{
                                 position: 'relative',
-                                left: '800px',
-                                maxWidth: "300px",
+                                left: '765px',
+                                maxWidth: "350px",
                             }}
                             name='password'
                             type="password"
@@ -92,10 +92,11 @@ class Login extends Component {
                 </div>
                 <div className="d-grid gap-2 mt-3">
                     <Card.Footer style={{"textAlign":"left"}}>
-                    <Button size="md" type="success" className="btn btn-success" style={{width : "32%"}}>
+                    <Button size="sm" type="success" className="btn btn-success" 
+                    style={{width : "4.5%", height: "90%", marginLeft: "765px"}}>
                         <FaSignInAlt />{' '}Login
                     </Button>{' '}
-                    <Button size="md" type="info" className="btn btn-info" style={{width : "32%"}} onClick={this.refreshPage}>
+                    <Button size="md" type="info" className="btn btn-info" style={{width : "4.5%", height: "90%"}} onClick={this.refreshPage}>
                         <FaUndo />{' '}Reset
                     </Button>
                     </Card.Footer>
@@ -105,7 +106,6 @@ class Login extends Component {
                 </div>
             </form>
         </div>
-        <RegistrationAlert ref={this.registrationAlert} />
         </>
     )
   }
