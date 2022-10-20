@@ -6,6 +6,7 @@ import About from './components/user/About';
 import Settings from './components/settings/Settings';
 import Profile from './components/profile/Profile';
 import NavigationBar from './components/NavigationBar';
+import AllUsers from './components/user/AllUsers';
 
 
 export const ThemeContext = createContext(null);

@@ -41,16 +41,7 @@ class NavigationBar extends React.Component {
 
     const userLinks = (
       <>
-      {
-        this.state.users.map(
-          user => 
-          <tr key={user.id}>
-            <td>
-              <button style={{position : "static", left: "1410px"}} onClick={() => this.viewUser(user.id)}><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</button>
-            </td>
-          </tr>
-        )
-      }
+      <Nav.Link style={{position : "static", left: "1410px"}} href="/profile/49"><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</Nav.Link>
       <Nav.Link style={{position : "static", left: "1400px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}{t('Settings.1')}</Nav.Link>
       <Nav.Link style={{position:"static", left:"400px"}}>{t('Logged.1')}<b style={{fontFamily: "Arial, Helvetica, sans-serif"}}>{localStorage.getItem("email")}</b></Nav.Link>
       <span></span>
