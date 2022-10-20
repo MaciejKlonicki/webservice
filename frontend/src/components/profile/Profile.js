@@ -4,7 +4,7 @@ import UserService from '../services/UserService';
 
 class Profile extends Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             id: this.props.match.params.id,
@@ -21,7 +21,7 @@ class Profile extends Component {
     render() {
     return (
     <div>
-        <div className='profile_img text-center p-4'>
+        {/* <div className='profile_img text-center p-4'>
             <div className='flex flex-column justify-content-center align-items-center'>
                 <img alt='profileImage'
                     style={{
@@ -42,7 +42,7 @@ class Profile extends Component {
                             color: 'white'
                         }}></p>
             </div>
-        </div>
+        </div> */}
         <div>
             <br></br>
             <div className='card col-md-6 offset-md-3'>
@@ -61,4 +61,4 @@ class Profile extends Component {
 }
 }
 
-export default Profile
+export default Profile;

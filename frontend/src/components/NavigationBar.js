@@ -1,54 +1,62 @@
-import React from 'react'
-import {Container, Nav, Navbar} from 'react-bootstrap';
-import { FiSettings } from 'react-icons/fi';
-import {CgProfile } from 'react-icons/cg'
-import { BiLogIn, BiLogOut } from 'react-icons/bi';
-import { BsFillPersonPlusFill} from 'react-icons/bs';
-import { withTranslation } from 'react-i18next';
-import i18n from '../i18next';
+import React, { Component } from 'react'
+import UserService from './services/UserService';
 
-class NavigationBar extends React.Component {
+class NavigationBar extends Component {
+    constructor(props) {
+        super(props)
 
-  logout = () => {
-    localStorage.clear();
-    this.setState({email : "", isAuthenticated: false});
+        this.state = {
+                users: []
+        }
+    }
+
+    viewUser(id){
+      this.props.history.push(`/profile/${id}`);
+      window.location.reload();
+    }
+
+    componentDidMount(){
+      UserService.getUsers().then((res) => {
+          this.setState({ users: res.data});
+      });
   }
 
-  handleClick = (lang) => {
-    i18n.changeLanguage(lang);
-  }
+    render() {
+        return (
+            <div>
+                 <h2 className="text-center">User List</h2>
+                 <div className = "row">
+                        <table className = "table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.state.users.map(
+                                        user => 
+                                        <tr key = {user.id}>
+                                             <td> {user.username} </td>   
+                                             <td> {user.email}</td>
+                                             <td> {user.mobile}</td>
+                                             <td>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.viewUser(user.id)} className="btn btn-info">View </button>
+                                             </td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
 
-  render() {
-    const { t } = this.props;
-    const guestLinks = (
-      <>
-        <Nav.Link href='/register' style={{position: 'absolute', right: 0, bottom: 10}}><BsFillPersonPlusFill style={{position : "relative", bottom: "2px"}}/>{' '}{t('Register.1')}</Nav.Link>
-        <Nav.Link href='/login' style={{position: 'absolute', right: 110, bottom: 10}}><BiLogIn style={{position : "relative", bottom: "2px"}}/>{' '}{t('Login.1')}</Nav.Link>
-      </>
-      );
+                 </div>
 
-    const userLinks = (
-      <>
-        <Nav.Link style={{position: "relative", left: "1405px"}} href='/profile'><CgProfile style={{position : "relative", bottom: "1px"}}/>{' '}{t('Profile.1')}</Nav.Link>
-        <Nav.Link style={{position: "relative", left: "1390px"}} href='/settings'><FiSettings style={{position : "relative", bottom: "1px"}}/>{' '}{t('Settings.1')}</Nav.Link>
-        <span></span>
-        {localStorage.getItem("email") !== null ? <div><Nav.Link style={{position: "relative", left: "1350px"}} href="/login" onClick={this.logout}><BiLogOut style={{position : "relative", bottom: "1px"}}/>{' '}{t('Logout.1')}</Nav.Link></div> : null}
-      </>
-    );
-
-    return (
-      <div>
-        <Navbar bg="dark" variant="dark" style={{paddingRight : "550px"}}>
-          <Container>
-            <Navbar.Brand style={{color: "gray"}} href='/'><img src = '/images/places.png' alt = 'place-logo' />{' '}Web Service</Navbar.Brand>
-            <Nav className='me-auto' style={{gridGap : "20px"}}>
-              {localStorage.getItem("email") === null ? guestLinks : userLinks}
-            </Nav>
-          </Container>
-        </Navbar>
-      </div>
-    )
-  }
+            </div>
+        )
+    }
 }
 
-export default withTranslation()(NavigationBar);
+export default NavigationBar
