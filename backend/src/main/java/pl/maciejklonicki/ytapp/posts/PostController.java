@@ -1,18 +1,20 @@
 package pl.maciejklonicki.ytapp.posts;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
 
     private final PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     @GetMapping
     List<Post> findAllPosts() {
