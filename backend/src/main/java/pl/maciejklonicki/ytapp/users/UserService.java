@@ -17,8 +17,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Users getUserById (Integer id) {
-        return userRepository.findById(id).orElseThrow();
+    public Optional<Users> getUserById (Integer id) {
+        return userRepository.findById(id);
     }
 
     public ResponseEntity addNewUser (Users users) {

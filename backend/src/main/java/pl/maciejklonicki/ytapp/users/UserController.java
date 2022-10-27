@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +24,9 @@ public class UserController {
 
     @GetMapping("/{id}")
     private ResponseEntity<Users> findUserById (@PathVariable Integer id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        Optional<Users> users = userService.getUserById(id);
+        return users.map(response -> ResponseEntity.ok().body(response))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
