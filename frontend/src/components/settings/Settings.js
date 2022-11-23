@@ -29,6 +29,7 @@ class Settings extends Component {
   gfg_RunLight = () => {
   this.changeColor('#dee1e4c0');
   }
+  
   gfg_RunDark = () => {
     this.changeColor('#25292e');
     }  
