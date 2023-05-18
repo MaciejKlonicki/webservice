@@ -145,5 +145,30 @@
     },
     "EnterPhoneRegister": {
         "1": "Wprowadź numer telefonu"
+    },
+
+    "CreatePost": {
+        "1": "Stwórz post"
+    },
+    "Sort": {
+        "1": "Sortuj według"
+    },
+    "CreationDate": {
+        "1": "Data powstania"
+    },
+    "Popularity": {
+        "1": "Popularność"
+    },
+    "Stars": {
+        "1": "Gwiazdki"
+    },
+    "Sport": {
+        "1": "Sport"
+    },
+    "Education": {
+        "1": "Edukacja"
+    },
+    "Music": {
+        "1": "Muzyka"
     }
 }

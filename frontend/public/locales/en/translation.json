@@ -144,5 +144,30 @@
     },
     "EnterPhoneRegister": {
         "1": "Enter phone number"
+    },
+
+    "CreatePost": {
+        "1": "Create post"
+    },
+    "Sort": {
+        "1": "Sort by"
+    },
+    "CreationDate": {
+        "1": "Creation date"
+    },
+    "Popularity": {
+        "1": "Popularity"
+    },
+    "Stars": {
+        "1": "Stars"
+    },
+    "Sport": {
+        "1": "Sport"
+    },
+    "Education": {
+        "1": "Education"
+    },
+    "Music": {
+        "1": "Music"
     }
 }

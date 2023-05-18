@@ -4,7 +4,6 @@ import { FiSettings } from 'react-icons/fi';
 import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsFillPersonPlusFill} from 'react-icons/bs';
 import { withTranslation } from 'react-i18next';
-import i18n from '../i18next';
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -18,10 +17,6 @@ class NavigationBar extends React.Component {
   logout = () => {
     localStorage.clear();
     this.setState({email : "", isAuthenticated: false});
-  }
-
-  handleClick = (lang) => {
-    i18n.changeLanguage(lang);
   }
 
   render() {
