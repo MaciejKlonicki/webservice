@@ -15,10 +15,7 @@
         "1": "Odśwież"
     },
     "Logged": {
-        "1": "Konto: "
-    },
-    "Profile": {
-        "1": "Profil"
+        "1": "Zalogowany jako: "
     },
     "Settings": {
         "1": "Ustawienia"
@@ -85,6 +82,9 @@
     },
     "Color": {
         "1": "Styl ustawień"
+    },
+    "Menu": {
+        "1": "Profil"
     },
 
 

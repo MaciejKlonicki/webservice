@@ -4,7 +4,6 @@ import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 import About from './components/user/About';
 import Settings from './components/settings/Settings';
-import Profile from './components/profile/Profile';
 import NavigationBar from './components/NavigationBar';
 import Body from './components/posts/Body';
 
@@ -36,7 +35,6 @@ class App extends Component {
         <Route path="/login" render={props => <Login updateEmail={this.updateEmail} />}/>
         <Route path='/register' component={Registration} />
         <Route path='/settings' exact component={Settings} />
-        <Route path='/profile/:id' component={Profile} />
         <PrivateRoute path='/about' component={About} />
       </Switch>
     </Router>

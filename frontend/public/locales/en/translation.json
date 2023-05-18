@@ -17,9 +17,6 @@
     "Logged": {
         "1": "Logged: "
     },
-    "Profile": {
-        "1": "Profile"
-    },
     "Settings": {
         "1": "Settings"
     },
@@ -86,8 +83,9 @@
     "Color": {
         "1": "Settings style"
     },
-    
-
+    "Menu": {
+        "1": "Profile"
+    },
 
 
     "Email": {
