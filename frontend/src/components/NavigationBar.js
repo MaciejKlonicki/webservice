@@ -8,9 +8,8 @@ import { withTranslation } from 'react-i18next';
 class NavigationBar extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = {
-            users: []
+      users: []
     }
 }
 
@@ -40,11 +39,11 @@ class NavigationBar extends React.Component {
             style={{ marginLeft: "500px" }}
             drop='start'
           >
-            <NavDropdown.Item href='#action/3.1'>
+            <NavDropdown.Item href='settings'>
               <Nav.Link style={{ position: "static", left: "1400px" }} href='/settings'><FiSettings style={{ position: "relative", bottom: "1px" }} />{' '}{t('Settings.1')}</Nav.Link>
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href='#action/3.2'>
+            <NavDropdown.Item href='login'>
             {localStorage.getItem("email") !== null ? <div><Nav.Link href="/login" onClick={this.logout}><BiLogOut style={{ position: "relative", bottom: "1px" }} />{' '}{t('Logout.1')}</Nav.Link></div> : null}
             </NavDropdown.Item>
           </NavDropdown>
