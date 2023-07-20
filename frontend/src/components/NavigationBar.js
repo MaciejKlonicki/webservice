@@ -36,7 +36,7 @@ class NavigationBar extends React.Component {
             id='nav-dropdown-dark-example'
             title={t('Menu.1')}
             menuVariant='dark'
-            style={{ marginLeft: "500px" }}
+            style={{ marginLeft: "600px" }}
             drop='start'
           >
             <NavDropdown.Item href='settings'>
@@ -56,7 +56,7 @@ class NavigationBar extends React.Component {
       <div>
         <Navbar bg="dark" variant="dark" style={{paddingRight : "550px"}}>
           <Container>
-            <Navbar.Brand style={{color: "gray"}} href='/'><img src = '/images/places.png' alt = 'place-logo' />{' '}Web Service</Navbar.Brand>
+            <Navbar.Brand style={{color: "gray", position: "relative", right: "100px"}} href='/'><img src = '/images/places.png' alt = 'place-logo' />{' '}Web Service</Navbar.Brand>
             <Nav className='me-auto' style={{gridGap : "20px"}}>
               {localStorage.getItem("email") === null ? guestLinks : userLinks}
             </Nav>
