@@ -60,16 +60,16 @@ class Login extends Component {
         <>
         <div className='Auth-form-container'>
             <form className='Auth-form' style={{textAlign : "center"}} onSubmit={this.handleSubmit}>
-                {this.state.error && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='danger'>{this.state.error}</Alert>}
-                {this.state.errors && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='danger'>{this.state.errors}</Alert>}
-                {this.state.success && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='success'>{this.state.success}</Alert>}
+                {this.state.error && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "920px"}} variant='danger'>{this.state.error}</Alert>}
+                {this.state.errors && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "920px"}} variant='danger'>{this.state.errors}</Alert>}
+                {this.state.success && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "920px"}} variant='success'>{this.state.success}</Alert>}
                 <div className='Auth-form-content'>
                     <h3 style={{ color: 'white', marginTop: '50px'}} className='Auth-form-title'>Login</h3>
                     <div style={{color: 'white'}} className='form-group mt-3'>
                         <label>{t('Email.1')}</label>
                         <input style={{
                                 position: 'relative',
-                                left: '765px',
+                                left: '865px',
                                 maxWidth: "350px",
                             }}
                             name='email'
@@ -82,7 +82,7 @@ class Login extends Component {
                         <input
                             style={{
                                 position: 'relative',
-                                left: '765px',
+                                left: '865px',
                                 maxWidth: "350px",
                             }}
                             name='password'
@@ -93,7 +93,7 @@ class Login extends Component {
                 <div className="d-grid gap-2 mt-3">
                     <Card.Footer style={{"textAlign":"left"}}>
                     <Button size="sm" type="success" className="btn btn-success" 
-                    style={{width : "4.5%", height: "90%", marginLeft: "765px"}}>
+                    style={{width : "4.5%", height: "90%", marginLeft: "865px"}}>
                         <FaSignInAlt />{' '}Login
                     </Button>{' '}
                     <Button size="md" type="info" className="btn btn-info" style={{width : "4.5%", height: "90%"}} onClick={this.refreshPage}>
