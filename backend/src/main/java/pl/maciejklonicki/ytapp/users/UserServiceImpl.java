@@ -42,6 +42,4 @@ public class UserServiceImpl implements UserService {
     private boolean wrongPassword(Optional<Users> loginUser, Users users) {
         return !loginUser.get().getPassword().equals(users.getPassword());
     }
-
-
 }
