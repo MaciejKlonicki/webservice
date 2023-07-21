@@ -12,18 +12,13 @@ public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
-    @GetMapping("/{id}")
-    public Users getSingleUser(@PathVariable Long id) {
-        return userServiceImpl.getSingleUser(id);
-    }
-
     @PostMapping
     private ResponseEntity<Users> addNewUser (@RequestBody Users users) {
         return userServiceImpl.addNewUser(users);
     }
 
     @PostMapping("/login")
-    private ResponseEntity<Users> login (@RequestBody Users users) {
+    private ResponseEntity<Users> loginUser (@RequestBody Users users) {
         return userServiceImpl.logInUser(users);
     }
 

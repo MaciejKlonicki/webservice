@@ -73,7 +73,8 @@ class Registration extends Component {
                             name='username'
                             type="text"
                             className="form-control mt-1"
-                            placeholder={t('EnterNameRegister.1')} />
+                            placeholder={t('EnterNameRegister.1')}
+                            required />
                 </div>
                     <div className='form-group mt-3'>
                         <label>{t('RegisterEmail.1')}</label>
@@ -85,7 +86,8 @@ class Registration extends Component {
                             name='email'
                             type="email"
                             className="form-control mt-1"
-                            placeholder={t('EnterEmailRegister.1')} />
+                            placeholder={t('EnterEmailRegister.1')}
+                            required />
                     </div>
                     <div className="form-group mt-3">
                         <label>{t('RegisterPassword.1')}</label>
@@ -97,7 +99,8 @@ class Registration extends Component {
                             name='password'
                             type="password"
                             className="form-control mt-1"
-                            placeholder={t('EnterPasswordRegister.1')} />
+                            placeholder={t('EnterPasswordRegister.1')}
+                            requ />
                 </div>
                 <div className="form-group mt-3">
                         <label>{t('RegisterPhone.1')}</label>
