@@ -3,9 +3,9 @@ package pl.maciejklonicki.ytapp.users;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
 import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,11 +23,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity addNewUser (Users users) {
+    public ResponseEntity<Users> addNewUser (Users users) {
         Optional<Users> username = userRepository.findByEmail(users.getEmail());
 
         if (username.isPresent()) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+            throw new UsersEmailAlreadyExistsException(users.getEmail());
         }
 
         Users savedUsers = userRepository.save((users));
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity logInUser (Users users) {
+    public ResponseEntity<Users> logInUser (Users users) {
         Optional<Users> loginUser = userRepository.findByEmail(users.getEmail());
 
         if (loginUser.isEmpty() || wrongPassword(loginUser, users)) {

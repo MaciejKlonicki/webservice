@@ -59,15 +59,15 @@ class Registration extends Component {
         <>
         <div className='Auth-form-container'>
             <form className='Auth-form' onSubmit={this.handleSubmit} style={{textAlign : "center"}}>
-                {this.state.errors && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "820px"}} variant='danger'>{this.state.errors}</Alert>}
-                {this.state.success && <Alert style={{marginTop: "20px", maxWidth: "350px", marginLeft: "760px"}} variant='success'>{this.state.success}</Alert>}
+                {this.state.errors && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "880px"}} variant='danger'>{this.state.errors}</Alert>}
+                {this.state.success && <Alert style={{marginTop: "20px", maxWidth: "350px", marginLeft: "880px"}} variant='success'>{this.state.success}</Alert>}
                 <div style={{color:'white'}} className='Auth-form-content'>
                     <h2 style={{marginTop: '50px'}} className='Auth-form-title'>{t('RegisterTitle.1')}</h2>
                     <div  className="form-group mt-3">
                         <label>{t('RegisterName.1')}</label>
                         <input style={{
                                 position: 'relative',
-                                left: '765px',
+                                left: '865px',
                                 maxWidth: "350px",
                             }}
                             name='username'
@@ -79,7 +79,7 @@ class Registration extends Component {
                         <label>{t('RegisterEmail.1')}</label>
                         <input style={{
                                 position: 'relative',
-                                left: '765px',
+                                left: '865px',
                                 maxWidth: "350px",
                             }}
                             name='email'
@@ -91,7 +91,7 @@ class Registration extends Component {
                         <label>{t('RegisterPassword.1')}</label>
                         <input style={{
                                 position: 'relative',
-                                left: '765px',
+                                left: '865px',
                                 maxWidth: "350px",
                             }}
                             name='password'
@@ -103,7 +103,7 @@ class Registration extends Component {
                         <label>{t('RegisterPhone.1')}</label>
                         <input style={{
                                 position: 'relative',
-                                left: '765px',
+                                left: '865px',
                                 maxWidth: "350px",
                             }}
                             name='mobile'
@@ -113,7 +113,7 @@ class Registration extends Component {
                 </div>
                 <div className="d-grid gap-2 mt-3">
                     <Card.Footer style={{"textAlign":"left"}}>
-                    <Button size="md" type="success" className="btn btn-success" style={{width : "6.5%", height: "95%", marginLeft: "765px"}}>
+                    <Button size="md" type="success" className="btn btn-success" style={{width : "6.5%", height: "95%", marginLeft: "865px"}}>
                         <FaSignInAlt />{' '}{t('RegisterFinal.1')}
                     </Button>{' '}
                     <Button size="md" type="info" className="btn btn-info" style={{width : "6.5%", height: "95%"}}
