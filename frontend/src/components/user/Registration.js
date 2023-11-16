@@ -65,61 +65,46 @@ class Registration extends Component {
                     <h2 style={{marginTop: '50px'}} className='Auth-form-title'>{t('RegisterTitle.1')}</h2>
                     <div  className="form-group mt-3">
                         <label>{t('RegisterName.1')}</label>
-                        <input style={{
-                                position: 'relative',
-                                left: '865px',
-                                maxWidth: "350px",
-                            }}
+                        <input
                             name='username'
                             type="text"
                             className="form-control mt-1"
-                            placeholder={t('EnterNameRegister.1')}
-                            required />
+                            style={{ width: '320px', margin: '0 auto' }}
+                            placeholder={t('EnterNameRegister.1')} />
                 </div>
                     <div className='form-group mt-3'>
                         <label>{t('RegisterEmail.1')}</label>
-                        <input style={{
-                                position: 'relative',
-                                left: '865px',
-                                maxWidth: "350px",
-                            }}
+                        <input
                             name='email'
                             type="email"
                             className="form-control mt-1"
-                            placeholder={t('EnterEmailRegister.1')}
-                            required />
+                            style={{ width: '320px', margin: '0 auto' }}
+                            placeholder={t('EnterEmailRegister.1')} />
                     </div>
                     <div className="form-group mt-3">
                         <label>{t('RegisterPassword.1')}</label>
-                        <input style={{
-                                position: 'relative',
-                                left: '865px',
-                                maxWidth: "350px",
-                            }}
+                        <input
                             name='password'
                             type="password"
                             className="form-control mt-1"
-                            placeholder={t('EnterPasswordRegister.1')}
-                            requ />
+                            style={{ width: '320px', margin: '0 auto' }}
+                            placeholder={t('EnterPasswordRegister.1')} />
                 </div>
                 <div className="form-group mt-3">
                         <label>{t('RegisterPhone.1')}</label>
-                        <input style={{
-                                position: 'relative',
-                                left: '865px',
-                                maxWidth: "350px",
-                            }}
+                        <input
                             name='mobile'
                             type="text"
                             className="form-control mt-1"
+                            style={{ width: '320px', margin: '0 auto' }}
                             placeholder={t('EnterPhoneRegister.1')} />
                 </div>
                 <div className="d-grid gap-2 mt-3">
-                    <Card.Footer style={{"textAlign":"left"}}>
-                    <Button size="md" type="success" className="btn btn-success" style={{width : "6.5%", height: "95%", marginLeft: "865px"}}>
+                    <Card.Footer style={{textAlign: "center"}}>
+                    <Button size="sm" type="success" className="btn btn-success">
                         <FaSignInAlt />{' '}{t('RegisterFinal.1')}
                     </Button>{' '}
-                    <Button size="md" type="info" className="btn btn-info" style={{width : "6.5%", height: "95%"}}
+                    <Button size="sm" type="info" className="btn btn-info"
                         onClick = {this.refreshPage}>
                         <FaUndo />{' '}Reset
                     </Button>
