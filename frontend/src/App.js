@@ -32,9 +32,9 @@ class App extends Component {
       <Route path="/" component={NavigationBar} />
       <Switch>
         <Route path="/" exact component={Body} />
-        <Route path="/login" render={props => <Login updateEmail={this.updateEmail} />}/>
+        <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />}/>
         <Route path='/register' component={Registration} />
-        <Route path='/settings' exact component={Settings} />
+        <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/about' component={About} />
       </Switch>
     </Router>

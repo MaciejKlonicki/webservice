@@ -48,7 +48,7 @@ class Registration extends Component {
                 setTimeout(() => {
                     this.props.history.push('/login');
                     this.refreshPage()
-                }, 2000);
+                }, 1000);
             }
         }.bind(this)).catch(function(error) {
             this.setState({"errors": "Something went wrong!"})
