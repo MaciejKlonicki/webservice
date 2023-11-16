@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
-import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
 import java.util.Optional;
 
@@ -18,15 +17,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users getSingleUser (Long usersId) {
-        return userRepository.findById(usersId).orElseThrow(() -> new UsersNotFoundException(usersId));
-    }
-
-    @Override
     public ResponseEntity<Users> addNewUser (Users users) {
-        Optional<Users> username = userRepository.findByEmail(users.getEmail());
+        Optional<Users> userEmail = userRepository.findByEmail(users.getEmail());
+        Optional<Users> userName = userRepository.findByUsername(users.getUsername());
 
-        if (username.isPresent()) {
+        if (userEmail.isPresent() || userName.isPresent()) {
             throw new UsersEmailAlreadyExistsException(users.getEmail());
         }
 
@@ -47,6 +42,4 @@ public class UserServiceImpl implements UserService {
     private boolean wrongPassword(Optional<Users> loginUser, Users users) {
         return !loginUser.get().getPassword().equals(users.getPassword());
     }
-
-
 }
