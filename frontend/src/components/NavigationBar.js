@@ -29,14 +29,14 @@ class NavigationBar extends React.Component {
 
     const userLinks = (
       <>
-      <Nav.Link style={{ marginLeft: "600px", width: "500px" }}>{t('Logged.1')}<b style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>{localStorage.getItem("email")}</b></Nav.Link>
-      <Navbar.Toggle aria-controls="navbar-dark-example" /><Navbar.Collapse id='navbar-dark-example'>
-        <Nav>
+      <Nav.Link>{t('Logged.1')}<b style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>{localStorage.getItem("email")}</b></Nav.Link>
+      <Navbar.Toggle aria-controls="navbar-dark-example" />
+      <Navbar.Collapse id='navbar-dark-example'>
+        <Nav style={{position: "absolute", right: 5}}>
           <NavDropdown
             id='nav-dropdown-dark-example'
             title={t('Menu.1')}
             menuVariant='dark'
-            style={{ marginLeft: "600px" }}
             drop='start'
           >
             <NavDropdown.Item href='settings'>
