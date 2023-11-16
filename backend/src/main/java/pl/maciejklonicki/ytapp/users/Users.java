@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Users {
 
     @Id
