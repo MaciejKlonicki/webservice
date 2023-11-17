@@ -44,7 +44,7 @@ class Settings extends Component {
 
   handel = (element) => {
     const { t } = this.props;
-    element = <Card bg="transparent" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderStyle: 'none'}}>
+    element = <Card bg="transparent" variant="dark" style={{position: "absolute", marginLeft: "250px", marginTop: "50px", width: '500px', height: '500px', borderStyle: 'none'}}>
       <Card.Body style={{color: "rgb(156, 156, 156)"}}>
         <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>{t('Choose.1')}</Card.Title>
         <Button onClick={() => this.handleClick('pl')} variant="secondary">Polski</Button>{' '}
@@ -59,7 +59,7 @@ class Settings extends Component {
 
   about = (element) => {
     const { t } = this.props;
-    element = <Card bg="transparent" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderStyle: 'none'}}>
+    element = <Card bg="transparent" variant="dark" style={{position: 'absolute', marginLeft: "350px", marginTop: "25px", width: '500px', height: '500px', borderStyle: 'none'}}>
       <Card.Body style={{color: "rgb(156, 156, 156)"}}>
         <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>{t('Informations.1')}</Card.Title>
         <h3 style={{textAlign: "center"}}>{t('InformationTextHeader.1')}</h3>
@@ -82,20 +82,6 @@ class Settings extends Component {
     });
   }
 
-  color = (element) => {
-    const { t } = this.props;
-    element = <Card bg="transparent" variant="dark" style={{position: 'relative', left: '335px',bottom: '335px', width: '500px', height: '500px', borderStyle: 'none'}}>
-      <Card.Body style={{color: "rgb(156, 156, 156)"}}>
-        <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>{t('ChooseColor.1')}</Card.Title>
-        <Button onClick={this.gfg_RunDark} variant="dark">{t('DarkStyle.1')}</Button>{' '}
-        <Button onClick={this.gfg_RunLight} variant="light">{t('BrightStyle.1')}</Button>
-      </Card.Body>
-    </Card>
-    this.setState({
-      change: element
-    });
-  }
-
   render() {
 
     const { t } = this.props;
@@ -107,7 +93,6 @@ class Settings extends Component {
         <ListGroup>
         <button onClick={this.handel} style={{background: "transparent", color: "gray", borderRadius: "0px", textAlign: "center"}} className="list-group-item"><p style={{position: "relative", marginBottom: "2px", fontFamily:"Arial, Helvetica, sans-serif"}}>{t('Language.1')}</p></button>
         <button onClick={this.about} style={{background: "transparent", color: "gray", borderRadius: "0px", textAlign: "center"}} className="list-group-item"><p style={{position: "relative", marginBottom: "2px", fontFamily:"Arial, Helvetica, sans-serif"}}>{t('About.1')}</p></button>
-        <button onClick={this.color} style={{background: "transparent", color: "gray", borderRadius: "0px", textAlign: "center"}} className="list-group-item"><p style={{position: "relative", marginBottom: "2px", fontFamily:"Arial, Helvetica, sans-serif"}}>{t('Color.1')}</p></button>
         </ListGroup>
       </Card.Body>
       {this.state.change}
