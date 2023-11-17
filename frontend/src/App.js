@@ -6,6 +6,7 @@ import About from './components/user/About';
 import Settings from './components/settings/Settings';
 import NavigationBar from './components/NavigationBar';
 import Body from './components/posts/Body';
+import CreatePost from './components/posts/CreatePost';
 
 
 export const ThemeContext = createContext(null);
@@ -36,6 +37,7 @@ class App extends Component {
         <Route path='/register' component={Registration} />
         <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/about' component={About} />
+        <PrivateRoute path='/create-post' component={CreatePost} />
       </Switch>
     </Router>
   );

@@ -13,9 +13,15 @@ function Body({ t }) {
             window.location.reload(true);
           }
 
+          const handleSubmit = () => {
+            let createPost = `create-post`
+            history.push(createPost)
+            window.location.reload(true)
+          }
+
         return (
             <div style={{position: "absolute", height: "90.5%", marginTop: "15px", paddingRight: "15px" ,borderRight: "1.8px solid #444444"}}>
-                <button style={{marginLeft: "20px", marginTop: "20px", width: "150px"}} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
+                <button onClick={handleSubmit} style={{marginLeft: "20px", marginTop: "20px", width: "150px"}} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
                 <Dropdown>
                     <Dropdown.Toggle style={{position: "fixed", left: "20px", top: "160px", width: "150px"}} className="btn btn-primary" id="dropdown-basic">
                     {t('Sort.1')}
