@@ -22,10 +22,6 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
-    public List<Post> allPosts () {
-        return postRepository.findAll();
-    }
-
     public ResponseEntity addPost (@RequestHeader("email") String email, @RequestBody String body) {
         Optional<Users> byEmail = userRepository.findByEmail(email);
 

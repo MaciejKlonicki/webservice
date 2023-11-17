@@ -62,8 +62,8 @@ class Registration extends Component {
         <>
         <div className='Auth-form-container'>
             <form className='Auth-form' onSubmit={this.handleSubmit} style={{textAlign : "center"}}>
-                {this.state.errors && <Alert style={{marginTop: "20px", maxWidth: "250px", marginLeft: "800px"}} variant='danger'>{this.state.errors}</Alert>}
-                {this.state.success && <Alert style={{marginTop: "20px", maxWidth: "350px", marginLeft: "800px"}} variant='success'>{this.state.success}</Alert>}
+                {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
+                {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
                 <div style={{color:'white'}} className='Auth-form-content'>
                     <h2 style={{marginTop: '50px'}} className='Auth-form-title'>{t('RegisterTitle.1')}</h2>
                     <div  className="form-group mt-3">

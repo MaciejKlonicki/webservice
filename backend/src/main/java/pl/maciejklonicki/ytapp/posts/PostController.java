@@ -16,11 +16,6 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping
-    List<Post> findAllPosts() {
-        return postService.allPosts();
-    }
-
     @PostMapping
     public ResponseEntity addPost (@RequestHeader("email") String email, @RequestBody String body) {
         return postService.addPost(email, body);
