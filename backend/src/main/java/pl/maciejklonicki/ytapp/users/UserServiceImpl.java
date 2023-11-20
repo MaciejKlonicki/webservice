@@ -2,6 +2,7 @@ package pl.maciejklonicki.ytapp.users;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
 
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
             throw new UsersEmailAlreadyExistsException(users.getEmail());
         }
 
+        String hashedPassword = hashPassword(users.getPassword());
+        users.setPassword(hashedPassword);
+
         Users savedUsers = userRepository.save((users));
         return ResponseEntity.ok(savedUsers);
     }
@@ -39,6 +43,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean wrongPassword(Optional<Users> loginUser, Users users) {
-        return !loginUser.get().getPassword().equals(users.getPassword());
+        return !BCrypt.checkpw(users.getPassword(), loginUser.get().getPassword());
+    }
+
+    private String hashPassword(String plainPassword) {
+        return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
     }
 }
