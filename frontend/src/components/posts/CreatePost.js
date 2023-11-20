@@ -83,7 +83,7 @@ class CreatePost extends Component {
                         required
                         name="author"
                     />
-                    <button style={{ background: "blue", color: "#fff", border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "20px" }}>Add post</button>
+                    <button className="btn btn-primary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "20px" }}>Add post</button>
                 </form>
             </div>
         );

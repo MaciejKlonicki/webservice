@@ -2,7 +2,8 @@ package pl.maciejklonicki.ytapp.posts;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Service
 public class PostService {
@@ -17,5 +18,13 @@ public class PostService {
 
         Post savedPost = postRepository.save(newPost);
         return ResponseEntity.ok(savedPost);
+    }
+
+    public List<Post> getAllPosts () {
+        return postRepository.findAll();
+    }
+
+    public Post getSinglePost (Long id) {
+        return postRepository.findById(id).orElseThrow();
     }
 }
