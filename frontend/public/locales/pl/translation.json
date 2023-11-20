@@ -170,5 +170,21 @@
     },
     "Music": {
         "1": "Muzyka"
+    },
+
+    "AddNewPost": {
+        "1": "Dodaj nowy post"
+    },
+    "BlogTitle": {
+        "1": "Tytuł bloga:"
+    },
+    "BlogBody": {
+        "1": "Treść:"
+    },
+    "BlogAuthor": {
+        "1": "Autor:"
+    },
+    "AddPostButton": {
+        "1": "Dodaj post"
     }
 }

@@ -17,9 +17,9 @@ const PostDetails = ({ match }) => {
 
     return (
         <div>
-            <h2 style={{ color: 'white' }}>{post.title}</h2>
-            <p style={{ color: 'white' }}>Written by <b>{post.author}</b></p>
-            <p style={{ color: 'white' }}>{post.body}</p>
+            <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>{post.title}</h2>
+            <p style={{ color: 'white', textAlign: 'center', margin: "0px 100px 50px 100px" }}>{post.body}</p>
+            <p style={{ color: 'white', textAlign: 'right', marginRight: "100px" }}>Written by <b>{post.author}</b></p>
         </div>
     );
 };

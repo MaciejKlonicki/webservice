@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import i18n from '../../i18next';
 
 
 class CreatePost extends Component {
@@ -18,10 +17,6 @@ class CreatePost extends Component {
 
     refreshPage() {
         window.location.reload(false);
-    }
-
-    handleClick = (lang) => {
-        i18n.changeLanguage(lang);
     }
 
     handleSubmit = event => {
@@ -59,31 +54,31 @@ class CreatePost extends Component {
         const { t } = this.props;
         return (
             <div style={{ maxWidth: "400px", margin: "0 auto", textAlign: "center" }}>
-                <h2 style={{ fontSize: "20px", color: "white", marginTop: "30px", marginBottom: "30px" }}>Add new post</h2>
+                <h2 style={{ fontSize: "20px", color: "white", marginTop: "30px", marginBottom: "30px" }}>{t('AddNewPost.1')}</h2>
                 <form onSubmit={this.handleSubmit}>
                 {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
                 {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
-                    <label style={{ textAlign: "left", display: "block", color: "white" }}>Blog title:</label>
+                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogTitle.1')}</label>
                     <input
                         style={{ width: "100%", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
                         name="title"
                         type="text"
                         required
                     />
-                    <label style={{ textAlign: "left", display: "block", color: "white" }}>Body:</label>
+                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogBody.1')}</label>
                     <textarea
                         style={{ width: "100%", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
                         required
                         name="body"
                     />
-                    <label style={{ textAlign: "left", display: "block", color: "white" }}>Author:</label>
+                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogAuthor.1')}</label>
                     <input
                         style={{ width: "100%", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
                         type="text"
                         required
                         name="author"
                     />
-                    <button className="btn btn-primary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "20px" }}>Add post</button>
+                    <button className="btn btn-primary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "20px" }}>{t('AddPostButton.1')}</button>
                 </form>
             </div>
         );
