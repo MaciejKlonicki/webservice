@@ -6,6 +6,8 @@ import About from './components/user/About';
 import Settings from './components/settings/Settings';
 import NavigationBar from './components/NavigationBar';
 import Body from './components/posts/Body';
+import CreatePost from './components/posts/CreatePost';
+import PostDetails from './components/posts/PostDetails';
 
 
 export const ThemeContext = createContext(null);
@@ -32,10 +34,12 @@ class App extends Component {
       <Route path="/" component={NavigationBar} />
       <Switch>
         <Route path="/" exact component={Body} />
-        <Route path="/login" render={props => <Login updateEmail={this.updateEmail} />}/>
+        <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />}/>
         <Route path='/register' component={Registration} />
-        <Route path='/settings' exact component={Settings} />
+        <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/about' component={About} />
+        <PrivateRoute path='/create-post' component={CreatePost} />
+        <PrivateRoute path='/posts/:id' component={PostDetails} />
       </Switch>
     </Router>
   );

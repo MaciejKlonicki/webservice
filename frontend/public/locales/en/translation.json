@@ -15,7 +15,7 @@
         "1": "Refresh"
     },
     "Logged": {
-        "1": "Logged: "
+        "1": "Logged as: "
     },
     "Settings": {
         "1": "Settings"
@@ -169,5 +169,21 @@
     },
     "Music": {
         "1": "Music"
+    },
+
+    "AddNewPost": {
+        "1": "Add new post"
+    },
+    "BlogTitle": {
+        "1": "Blog title:"
+    },
+    "BlogBody": {
+        "1": "Blog body:"
+    },
+    "BlogAuthor": {
+        "1": "Author:"
+    },
+    "AddPostButton": {
+        "1": "Add post"
     }
 }

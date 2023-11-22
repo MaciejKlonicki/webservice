@@ -17,12 +17,22 @@ public class PostController {
     }
 
     @GetMapping
-    List<Post> findAllPosts() {
-        return postService.allPosts();
+    public List<Post> getAllPosts() {
+        return postService.getAllPosts();
+    }
+
+    @GetMapping("/{id}")
+    public Post getSinglePost(@PathVariable Long id) {
+        return postService.getSinglePost(id);
     }
 
     @PostMapping
-    public ResponseEntity addPost (@RequestHeader("email") String email, @RequestBody String body) {
-        return postService.addPost(email, body);
+    public ResponseEntity addPost (@RequestBody Post post) {
+        return postService.addPost(post);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
     }
 }

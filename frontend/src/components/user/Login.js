@@ -41,12 +41,19 @@ class Login extends Component {
             })
         }).then(function (response) {
             if (response.status === 200) {
-                localStorage.setItem("email", email);
-                this.props.updateEmail();
                 this.setState({ "success": "You are logged in!" })
+                
+                setTimeout(() => {
+                    localStorage.setItem("email", email);
+                    this.props.updateEmail();
+                    this.props.history.push('/');
+                    this.refreshPage();
+                }, 1000)
             } else {
-                this.refreshPage();
                 this.setState({ "error": "Invalid credentials" })
+                setTimeout(() => {
+                    this.refreshPage();
+                }, 1000)
             }
         }.bind(this)).catch(function (error) {
             this.setState({ "errors": "Something went wrong!" })
@@ -59,9 +66,9 @@ class Login extends Component {
         return (
                 <div className='Auth-form-container'>
                     <form className='Auth-form' style={{ textAlign: "center" }} onSubmit={this.handleSubmit}>
-                        {this.state.error && <Alert style={{ marginTop: "20px", maxWidth: "250px", marginLeft: "830px" }} variant='danger'>{this.state.error}</Alert>}
-                        {this.state.errors && <Alert style={{ marginTop: "20px", maxWidth: "250px", marginLeft: "830px" }} variant='danger'>{this.state.errors}</Alert>}
-                        {this.state.success && <Alert style={{ marginTop: "20px", maxWidth: "250px", marginLeft: "830px" }} variant='success'>{this.state.success}</Alert>}
+                        {this.state.error && <Alert variant='danger'>{this.state.error}</Alert>}
+                        {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
+                        {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
                         <div className='Auth-form-content'>
                             <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>Login</h3>
                             <div style={{ color: 'white', textAlign: 'center' }} className='form-group mt-3'>

@@ -22,5 +22,4 @@ public class UserController {
     private ResponseEntity<Users> loginUser (@RequestBody Users users) {
         return userServiceImpl.logInUser(users);
     }
-
 }
