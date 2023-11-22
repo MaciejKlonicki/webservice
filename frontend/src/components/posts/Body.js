@@ -10,7 +10,7 @@ function Body({ t }) {
 
     const history = useHistory();
     const [posts, setPosts] = useState([]);
-    const [isHovered, setIsHovered] = useState(false);
+    const [hoveredPostId, setHoveredPostId] = useState(null);
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -35,6 +35,14 @@ function Body({ t }) {
             let updatePost = [...posts].filter(i => i.id !== id);
             setPosts(updatePost);
         })
+    }
+
+    const handleMouseEnter = (postId) => {
+        setHoveredPostId(postId);
+    }
+
+    const handleMouseLeave = () => {
+        setHoveredPostId(null);
     }
 
     useEffect(() => {
@@ -84,20 +92,20 @@ function Body({ t }) {
                             cursor: 'pointer',
                         }}>
                         <Card.Body
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
+                            onMouseEnter={() => handleMouseEnter(post.id)}
+                            onMouseLeave={handleMouseLeave}
                         >
                             <Card.Title style={{ color: 'white' }}>
                                 {post.title}
-                                {isHovered && (
+                                {hoveredPostId === post.id && (
                                     <>
                                         <MdDeleteForever
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 remove(post.id);
                                             }}
-                                            style={{ marginLeft: '70px' }} />
-                                        <MdModeEdit />
+                                            style={{ position: 'absolute', right: 5 }} />
+                                        <MdModeEdit style={{ position: 'absolute', right: 25 }} />
                                     </>
                                 )}
                             </Card.Title>
