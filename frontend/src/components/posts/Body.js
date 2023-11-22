@@ -45,6 +45,12 @@ function Body({ t }) {
         setHoveredPostId(null);
     }
 
+    const editPost = (id) => {
+        let path = `/edit/${id}`
+        history.push(path)
+        window.location.reload(true)
+    }
+
     useEffect(() => {
         fetch('http://localhost:8080/api/posts')
             .then((response) => response.json())
@@ -105,7 +111,12 @@ function Body({ t }) {
                                                 remove(post.id);
                                             }}
                                             style={{ position: 'absolute', right: 5 }} />
-                                        <MdModeEdit style={{ position: 'absolute', right: 25 }} />
+                                        <MdModeEdit
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                editPost(post.id)
+                                            }}
+                                            style={{ position: 'absolute', right: 25 }} />
                                     </>
                                 )}
                             </Card.Title>
