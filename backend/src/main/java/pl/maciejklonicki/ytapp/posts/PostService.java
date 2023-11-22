@@ -27,4 +27,8 @@ public class PostService {
     public Post getSinglePost (Long id) {
         return postRepository.findById(id).orElseThrow();
     }
+
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
+    }
 }
