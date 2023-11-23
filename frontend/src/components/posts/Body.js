@@ -1,22 +1,22 @@
-import React from 'react';
-import { Dropdown, Card } from 'react-bootstrap';
-import { useHistory } from "react-router-dom";
-import { withTranslation } from 'react-i18next';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { MdDeleteForever, MdModeEdit } from "react-icons/md";
+import React from 'react'
+import { Dropdown, Card } from 'react-bootstrap'
+import { useHistory } from "react-router-dom"
+import { withTranslation } from 'react-i18next'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { MdDeleteForever, MdModeEdit } from "react-icons/md"
 
 function Body({ t }) {
 
-    const history = useHistory();
-    const [posts, setPosts] = useState([]);
-    const [hoveredPostId, setHoveredPostId] = useState(null);
-    const [hoveredIcon, setHoveredIcon] = useState(null);
+    const history = useHistory()
+    const [posts, setPosts] = useState([])
+    const [hoveredPostId, setHoveredPostId] = useState(null)
+    const [hoveredIcon, setHoveredIcon] = useState(null)
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
-        history.push(postDetails);
-        window.location.reload(true);
+        history.push(postDetails)
+        window.location.reload(true)
     }
 
     const handleSubmit = () => {
@@ -33,17 +33,17 @@ function Body({ t }) {
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            let updatePost = [...posts].filter(i => i.id !== id);
-            setPosts(updatePost);
+            let updatePost = [...posts].filter(i => i.id !== id)
+            setPosts(updatePost)
         })
     }
 
     const handleMouseEnter = (postId) => {
-        setHoveredPostId(postId);
+        setHoveredPostId(postId)
     }
 
     const handleMouseLeave = () => {
-        setHoveredPostId(null);
+        setHoveredPostId(null)
     }
 
     const editPost = (id) => {
@@ -55,7 +55,7 @@ function Body({ t }) {
     useEffect(() => {
         fetch('http://localhost:8080/api/posts')
             .then((response) => response.json())
-            .then((data) => setPosts(data));
+            .then((data) => setPosts(data))
     }, []);
 
     return (
@@ -133,4 +133,4 @@ function Body({ t }) {
         </>
     );
 }
-export default withTranslation()(Body);
+export default withTranslation()(Body)

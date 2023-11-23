@@ -186,5 +186,15 @@
     },
     "AddPostButton": {
         "1": "Dodaj post"
+    },
+
+    "EditPost": {
+        "1": "Edytuj Post"
+    },
+    "UpdatePost": {
+        "1": "Aktualizuj"
+    },
+    "Cancel": {
+        "1": "Wróć"
     }
 }

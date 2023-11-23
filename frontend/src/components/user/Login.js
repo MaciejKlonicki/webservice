@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Alert, Button, Card } from 'react-bootstrap';
-import { FaUndo, FaSignInAlt } from 'react-icons/fa';
-import { withTranslation } from 'react-i18next';
-import i18n from '../../i18next';
+import React, { Component } from 'react'
+import { Alert, Button, Card } from 'react-bootstrap'
+import { FaUndo, FaSignInAlt } from 'react-icons/fa'
+import { withTranslation } from 'react-i18next'
+import i18n from '../../i18next'
 
 class Login extends Component {
     constructor(props) {
-        super(props);
-        this.registrationAlert = React.createRef();
-        this.state = this.initialState;
+        super(props)
+        this.registrationAlert = React.createRef()
+        this.state = this.initialState
     }
 
     initialState = {
@@ -16,16 +16,16 @@ class Login extends Component {
     };
 
     handleClick = (lang) => {
-        i18n.changeLanguage(lang);
+        i18n.changeLanguage(lang)
     }
 
     refreshPage() {
-        window.location.reload(false);
+        window.location.reload(false)
     }
 
     handleSubmit = event => {
-        event.preventDefault();
-        this.loginUser(event.target.email.value, event.target.password.value);
+        event.preventDefault()
+        this.loginUser(event.target.email.value, event.target.password.value)
     };
 
     loginUser(email, password) {
@@ -44,20 +44,20 @@ class Login extends Component {
                 this.setState({ "success": "You are logged in!" })
                 
                 setTimeout(() => {
-                    localStorage.setItem("email", email);
-                    this.props.updateEmail();
-                    this.props.history.push('/');
-                    this.refreshPage();
+                    localStorage.setItem("email", email)
+                    this.props.updateEmail()
+                    this.props.history.push('/')
+                    this.refreshPage()
                 }, 1000)
             } else {
                 this.setState({ "error": "Invalid credentials" })
                 setTimeout(() => {
-                    this.refreshPage();
+                    this.refreshPage()
                 }, 1000)
             }
         }.bind(this)).catch(function (error) {
             this.setState({ "errors": "Something went wrong!" })
-        }.bind(this));
+        }.bind(this))
     }
 
     render() {
@@ -106,4 +106,4 @@ class Login extends Component {
     }
 }
 
-export default withTranslation()(Login);
+export default withTranslation()(Login)

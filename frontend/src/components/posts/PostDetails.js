@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 const PostDetails = ({ match }) => {
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState(null)
 
     useEffect(() => {
-        const postId = match.params.id;
+        const postId = match.params.id
 
         fetch(`http://localhost:8080/api/posts/${postId}`)
             .then((response) => response.json())
-            .then((data) => setPost(data));
-    }, [match.params.id]);
+            .then((data) => setPost(data))
+    }, [match.params.id])
 
     if (!post) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>
     }
 
     return (
@@ -24,4 +24,4 @@ const PostDetails = ({ match }) => {
     );
 };
 
-export default PostDetails;
+export default PostDetails

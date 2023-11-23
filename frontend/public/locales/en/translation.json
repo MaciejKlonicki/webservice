@@ -185,5 +185,15 @@
     },
     "AddPostButton": {
         "1": "Add post"
+    },
+
+    "EditPost": {
+        "1": "Edit Post"
+    },
+    "UpdatePost": {
+        "1": "Update Post"
+    },
+    "Cancel": {
+        "1": "Cancel"
     }
 }

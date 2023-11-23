@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Alert, Button, Card } from 'react-bootstrap';
-import { FaUndo, FaSignInAlt } from 'react-icons/fa';
-import { withTranslation } from 'react-i18next';
-import i18n from '../../i18next';
+import React, { Component } from 'react'
+import { Alert, Button, Card } from 'react-bootstrap'
+import { FaUndo, FaSignInAlt } from 'react-icons/fa'
+import { withTranslation } from 'react-i18next'
+import i18n from '../../i18next'
 
 class Registration extends Component {
     constructor(props) {
-        super(props);
-        this.registrationAlert = React.createRef();
-        this.state = this.initialState;
+        super(props)
+        this.registrationAlert = React.createRef()
+        this.state = this.initialState
     }
 
     initialState = {
@@ -16,16 +16,16 @@ class Registration extends Component {
     }
 
     refreshPage() {
-        window.location.reload(false);
+        window.location.reload(false)
     }
 
     handleClick = (lang) => {
-        i18n.changeLanguage(lang);
+        i18n.changeLanguage(lang)
       }
 
     handleSubmit = event => {
-        event.preventDefault();
-        this.registerUser(event.target.username.value, event.target.email.value, event.target.password.value, event.target.mobile.value);
+        event.preventDefault()
+        this.registerUser(event.target.username.value, event.target.email.value, event.target.password.value, event.target.mobile.value)
     }
 
     registerUser(username, email, password, mobile) {
@@ -43,20 +43,22 @@ class Registration extends Component {
             })
         }).then(function(response) {
             if (response.status === 200) {
-                this.setState({ "success": "You created an account successfully!" });
+                this.setState({ "success": "You created an account successfully!" })
             
                 setTimeout(() => {
-                    this.props.history.push('/login');
+                    this.props.history.push('/login')
                     this.refreshPage()
-                }, 1000);
+                }, 1000)
+            } else {
+                this.setState({"errors": "Something went wrong!"})
             }
         }.bind(this)).catch(function(error) {
             this.setState({"errors": "Something went wrong!"})
-        }.bind(this));
+        }.bind(this))
     }
 
   render() {
-    const { t } = this.props;
+    const { t } = this.props
 
     return (
         <>
@@ -70,6 +72,7 @@ class Registration extends Component {
                         <label>{t('RegisterName.1')}</label>
                         <input
                             name='username'
+                            required
                             type="text"
                             className="form-control mt-1"
                             style={{ width: '320px', margin: '0 auto' }}
@@ -79,6 +82,7 @@ class Registration extends Component {
                         <label>{t('RegisterEmail.1')}</label>
                         <input
                             name='email'
+                            required
                             type="email"
                             className="form-control mt-1"
                             style={{ width: '320px', margin: '0 auto' }}
@@ -88,6 +92,7 @@ class Registration extends Component {
                         <label>{t('RegisterPassword.1')}</label>
                         <input
                             name='password'
+                            required
                             type="password"
                             className="form-control mt-1"
                             style={{ width: '320px', margin: '0 auto' }}
@@ -123,4 +128,4 @@ class Registration extends Component {
   }
 }
 
-export default withTranslation()(Registration);
+export default withTranslation()(Registration)

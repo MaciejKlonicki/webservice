@@ -10,34 +10,34 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
 
-    private final PostService postService;
+    private final PostServiceImpl postServiceImpl;
 
-    public PostController(PostService postService) {
-        this.postService = postService;
+    public PostController(PostServiceImpl postServiceImpl) {
+        this.postServiceImpl = postServiceImpl;
     }
 
     @GetMapping
     public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+        return postServiceImpl.getAllPosts();
     }
 
     @GetMapping("/{id}")
     public Post getSinglePost(@PathVariable Long id) {
-        return postService.getSinglePost(id);
+        return postServiceImpl.getSinglePost(id);
     }
 
     @PostMapping
     public ResponseEntity<Post> addPost (@RequestBody Post post) {
-        return postService.addPost(post);
+        return postServiceImpl.addPost(post);
     }
 
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
+        postServiceImpl.deletePost(id);
     }
 
     @PutMapping("/{id}")
     public Post updatePost (@RequestBody Post post, @PathVariable Long id) {
-        return postService.updatePost(post, id);
+        return postServiceImpl.updatePost(post, id);
     }
 }

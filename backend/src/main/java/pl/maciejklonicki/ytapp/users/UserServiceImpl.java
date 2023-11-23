@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import pl.maciejklonicki.ytapp.users.dto.UsersDTO;
 import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
 import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
@@ -34,20 +35,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<Users> logInUser (Users users) {
-        Optional<Users> loginUser = userRepository.findByEmail(users.getEmail());
+    public ResponseEntity<Users> logInUser (UsersDTO usersDTO) {
+        Optional<Users> loginUser = userRepository.findByEmail(usersDTO.email());
 
-        if (loginUser.isEmpty() || wrongPassword(loginUser, users)) {
+        if (loginUser.isEmpty() || wrongPassword(loginUser, usersDTO)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         return ResponseEntity.ok().build();
     }
 
-    private boolean wrongPassword(Optional<Users> loginUser, Users users) {
+    private boolean wrongPassword(Optional<Users> loginUser, UsersDTO usersDTO) {
         if (loginUser.isEmpty()) {
-            throw new UsersNotFoundException(users.getId());
+            throw new UsersNotFoundException(usersDTO.email());
         }
-        return !BCrypt.checkpw(users.getPassword(), loginUser.get().getPassword());
+        return !BCrypt.checkpw(usersDTO.password(), loginUser.get().getPassword());
     }
 
     private String hashPassword(String plainPassword) {
