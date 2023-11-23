@@ -14,12 +14,12 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
     @PostMapping
-    private ResponseEntity<Users> addNewUser (@RequestBody Users users) {
+    public ResponseEntity<Users> addNewUser (@RequestBody Users users) {
         return userServiceImpl.addNewUser(users);
     }
 
     @PostMapping("/login")
-    private ResponseEntity<Users> loginUser (@RequestBody Users users) {
+    public ResponseEntity<Users> loginUser (@RequestBody Users users) {
         return userServiceImpl.logInUser(users);
     }
 }

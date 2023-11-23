@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
+import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
 import java.util.Optional;
 
@@ -43,6 +44,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean wrongPassword(Optional<Users> loginUser, Users users) {
+        if (loginUser.isEmpty()) {
+            throw new UsersNotFoundException(users.getId());
+        }
         return !BCrypt.checkpw(users.getPassword(), loginUser.get().getPassword());
     }
 

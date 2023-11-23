@@ -11,6 +11,7 @@ function Body({ t }) {
     const history = useHistory();
     const [posts, setPosts] = useState([]);
     const [hoveredPostId, setHoveredPostId] = useState(null);
+    const [hoveredIcon, setHoveredIcon] = useState(null);
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -106,17 +107,21 @@ function Body({ t }) {
                                 {hoveredPostId === post.id && (
                                     <>
                                         <MdDeleteForever
+                                            onMouseEnter={() => setHoveredIcon('delete')}
+                                            onMouseLeave={() => setHoveredIcon(null)}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 remove(post.id);
                                             }}
-                                            style={{ position: 'absolute', right: 5 }} />
+                                            style={{ position: 'absolute', right: 5, color: hoveredIcon === 'delete' ? 'white' : 'gray' }} />
                                         <MdModeEdit
+                                            onMouseEnter={() => setHoveredIcon('edit')}
+                                            onMouseLeave={() => setHoveredIcon(null)}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 editPost(post.id)
                                             }}
-                                            style={{ position: 'absolute', right: 25 }} />
+                                            style={{ position: 'absolute', right: 25, color: hoveredIcon === 'edit' ? 'white' : 'gray' }} />
                                     </>
                                 )}
                             </Card.Title>

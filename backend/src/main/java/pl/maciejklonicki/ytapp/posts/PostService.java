@@ -2,6 +2,7 @@ package pl.maciejklonicki.ytapp.posts;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public ResponseEntity addPost (Post newPost) {
+    public ResponseEntity<Post> addPost (Post newPost) {
 
         Post savedPost = postRepository.save(newPost);
         return ResponseEntity.ok(savedPost);
@@ -35,6 +36,9 @@ public class PostService {
 
     public Post updatePost(Post post, Long id) {
         Optional<Post> optionalPost = postRepository.findById(id);
+        if (optionalPost.isEmpty()) {
+            throw new PostNotFoundException(id);
+        }
         Post oldPost = optionalPost.get();
         oldPost.setTitle(post.getTitle());
         oldPost.setBody(post.getBody());

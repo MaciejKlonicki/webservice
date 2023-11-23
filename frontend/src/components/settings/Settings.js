@@ -9,13 +9,6 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 class Settings extends Component {
 
-  componentDidMount() {
-    const savedColor = localStorage.getItem('selectedColor');
-    if (savedColor) {
-      this.changeColor(savedColor);
-    }
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -28,19 +21,6 @@ class Settings extends Component {
   handleClick = (lang) => {
     i18n.changeLanguage(lang);
   }
-
-  changeColor = (color) => {
-    document.body.style.background = color;
-    localStorage.setItem('selectedColor', color);
-  }
-
-  gfg_RunLight = () => {
-  this.changeColor('#dee1e4c0');
-  }
-  
-  gfg_RunDark = () => {
-    this.changeColor('#25292e');
-  }  
 
   handel = (element) => {
     const { t } = this.props;
