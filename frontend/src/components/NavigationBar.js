@@ -1,9 +1,9 @@
 import React from 'react'
-import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap';
-import { FiSettings } from 'react-icons/fi';
-import { BiLogIn, BiLogOut } from 'react-icons/bi';
-import { BsFillPersonPlusFill} from 'react-icons/bs';
-import { withTranslation } from 'react-i18next';
+import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap'
+import { FiSettings } from 'react-icons/fi'
+import { BiLogIn, BiLogOut } from 'react-icons/bi'
+import { BsFillPersonPlusFill} from 'react-icons/bs'
+import { withTranslation } from 'react-i18next'
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -14,12 +14,12 @@ class NavigationBar extends React.Component {
 }
 
   logout = () => {
-    localStorage.clear();
-    this.setState({email : "", isAuthenticated: false});
+    localStorage.clear()
+    this.setState({email : "", isAuthenticated: false})
   }
 
   render() {
-    const { t } = this.props;
+    const { t } = this.props
     const guestLinks = (
       <>
       <Nav.Link href='/register' style={{position: 'absolute', right: 0, bottom: 10}}><BsFillPersonPlusFill style={{position : "relative", bottom: "2px"}}/>{' '}{t('Register.1')}</Nav.Link>
@@ -50,7 +50,7 @@ class NavigationBar extends React.Component {
         </Nav>
       </Navbar.Collapse>
       </>
-    );
+    )
 
     return (
       <div>
@@ -66,4 +66,4 @@ class NavigationBar extends React.Component {
     )
   }
 }
-export default withTranslation()(NavigationBar);
+export default withTranslation()(NavigationBar)

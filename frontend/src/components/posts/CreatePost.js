@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Alert } from 'react-bootstrap';
-import { withTranslation } from 'react-i18next';
+import React, { Component } from 'react'
+import { Alert } from 'react-bootstrap'
+import { withTranslation } from 'react-i18next'
 
 
 class CreatePost extends Component {
 
     constructor(props) {
-        super(props);
-        this.createPostAlert = React.createRef();
-        this.state = this.initialState;
+        super(props)
+        this.createPostAlert = React.createRef()
+        this.state = this.initialState
     }
 
     initialState = {
@@ -16,12 +16,12 @@ class CreatePost extends Component {
     }
 
     refreshPage() {
-        window.location.reload(false);
+        window.location.reload(false)
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        this.addPost(event.target.title.value, event.target.body.value, event.target.author.value);
+        this.addPost(event.target.title.value, event.target.body.value, event.target.author.value)
     }
 
     addPost(title, body, author) {
@@ -38,10 +38,10 @@ class CreatePost extends Component {
             })
         }).then(function (response) {
             if (response.status === 200) {
-                this.setState({ "success": "You created post successfully!" });
+                this.setState({ "success": "You created post successfully!" })
 
                 setTimeout(() => {
-                    this.props.history.push('/');
+                    this.props.history.push('/')
                     this.refreshPage()
                 }, 1000);
             }
@@ -67,7 +67,7 @@ class CreatePost extends Component {
                     />
                     <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogBody.1')}</label>
                     <textarea
-                        style={{ width: "100%", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
+                        style={{ width: "100%", height: "200px", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
                         required
                         name="body"
                     />
@@ -85,4 +85,4 @@ class CreatePost extends Component {
     }
 }
 
-export default withTranslation()(CreatePost);
+export default withTranslation()(CreatePost)

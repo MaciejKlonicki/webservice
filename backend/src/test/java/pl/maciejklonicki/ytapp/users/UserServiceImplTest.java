@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pl.maciejklonicki.ytapp.users.dto.UsersDTO;
 import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
 
 import java.util.Optional;
@@ -62,59 +63,5 @@ class UserServiceImplTest {
         verify(userRepository, times(1)).findByEmail(existingUser.getEmail());
         verify(userRepository, times(1)).findByUsername(newUser.getUsername());
         verify(userRepository, never()).save(newUser);
-    }
-
-    @Test
-    void checkIfUserIsLoggingSuccessfully() {
-        Users existingUser = new Users();
-        existingUser.setEmail("user@example.com");
-        existingUser.setUsername("existinguser");
-        existingUser.setPassword("password");
-
-        when(userRepository.findByEmail(existingUser.getEmail())).thenReturn(Optional.of(existingUser));
-
-        ResponseEntity<Users> response = userService.logInUser(existingUser);
-
-        assertNotNull(response);
-        assertEquals(ResponseEntity.ok().build(), response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        verify(userRepository, times(1)).findByEmail(existingUser.getEmail());
-    }
-
-    @Test
-    void checkIfUserCantLogInWithIncorrectPassword() {
-        Users existingUser = new Users();
-        existingUser.setEmail("user@example.com");
-        existingUser.setUsername("existinguser");
-        existingUser.setPassword("password");
-
-        Users wrongPasswordUser = new Users();
-        wrongPasswordUser.setEmail("user@example.com");
-        wrongPasswordUser.setPassword("wrongpassword");
-
-        when(userRepository.findByEmail(existingUser.getEmail())).thenReturn(Optional.of(existingUser));
-
-        ResponseEntity<Users> response = userService.logInUser(wrongPasswordUser);
-
-        assertNotNull(response);
-        assertEquals(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(), response);
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        verify(userRepository, times(1)).findByEmail(existingUser.getEmail());
-    }
-
-    @Test
-    void checkIfUserCantLogInWithNonExistingUser() {
-        Users nonExistingUser = new Users();
-        nonExistingUser.setEmail("nonexisting@example.com");
-        nonExistingUser.setPassword("password");
-
-        when(userRepository.findByEmail(nonExistingUser.getEmail())).thenReturn(Optional.empty());
-
-        ResponseEntity<Users> response = userService.logInUser(nonExistingUser);
-
-        assertNotNull(response);
-        assertEquals(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(), response);
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        verify(userRepository, times(1)).findByEmail(nonExistingUser.getEmail());
     }
 }

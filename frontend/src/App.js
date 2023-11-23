@@ -1,30 +1,30 @@
-import React, { Component, createContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import Login from './components/user/Login';
-import Registration from './components/user/Registration';
-import About from './components/user/About';
-import Settings from './components/settings/Settings';
-import NavigationBar from './components/NavigationBar';
-import Body from './components/posts/Body';
-import CreatePost from './components/posts/CreatePost';
-import PostDetails from './components/posts/PostDetails';
-import EditPost from './components/posts/EditPost';
+import React, { Component, createContext } from 'react'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import Login from './components/user/Login'
+import Registration from './components/user/Registration'
+import About from './components/user/About'
+import Settings from './components/settings/Settings'
+import NavigationBar from './components/NavigationBar'
+import Body from './components/posts/Body'
+import CreatePost from './components/posts/CreatePost'
+import PostDetails from './components/posts/PostDetails'
+import EditPost from './components/posts/EditPost'
 
-export const ThemeContext = createContext(null);
+export const ThemeContext = createContext(null)
 
 class App extends Component {
 
-  state = { email: "", isAuthenticated : false };
+  state = { email: "", isAuthenticated : false }
 
   updateEmail = () => {
-    const email = localStorage.getItem("email");
-    this.setState({ email: email });
+    const email = localStorage.getItem("email")
+    this.setState({ email: email })
     if (email.length > 0) {
-      this.setState({isAuthenticated : true});
-      console.log("true");
+      this.setState({isAuthenticated : true})
+      console.log("true")
     } else {
-      this.setState({isAuthenticated : false});
-      console.log("false");
+      this.setState({isAuthenticated : false})
+      console.log("false")
     }
   };
 
@@ -66,4 +66,4 @@ function PrivateRoute({ component: Component, ...rest}) {
   );
 }
 
-export default App;
+export default App

@@ -1,10 +1,9 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { initReactI18next } from 'react-i18next'
+import Backend from 'i18next-http-backend'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-import Backend from 'i18next-http-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
-
-const Languages = ['en', 'pl'];
+const Languages = ['en', 'pl']
 
 i18n
 
@@ -22,7 +21,7 @@ i18n
     interpolation: {
       escapeValue: false,
     }
-  });
+  })
 
 
-export default i18n;
+export default i18n

@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { ListGroup } from 'react-bootstrap';
-import './Settings.css';
-import { withTranslation } from 'react-i18next';
-import i18n from '../../i18next';
-import { MdDone } from 'react-icons/md';
-import { AiOutlineClose } from 'react-icons/ai';
+import React, { Component } from 'react'
+import { Card, Button } from 'react-bootstrap'
+import { ListGroup } from 'react-bootstrap'
+import './Settings.css'
+import { withTranslation } from 'react-i18next'
+import i18n from '../../i18next'
+import { MdDone } from 'react-icons/md'
+import { AiOutlineClose } from 'react-icons/ai'
 
 class Settings extends Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       change: '',
     }
-    this.handel = this.handel.bind(this);
-    this.about = this.about.bind(this);
+    this.handel = this.handel.bind(this)
+    this.about = this.about.bind(this)
   }
 
   handleClick = (lang) => {
-    i18n.changeLanguage(lang);
+    i18n.changeLanguage(lang)
   }
 
   handel = (element) => {
@@ -64,7 +64,7 @@ class Settings extends Component {
 
   render() {
 
-    const { t } = this.props;
+    const { t } = this.props
     
     return (
       <Card bg="dark" variant="dark" style={{ width: '250px', height: '93.7vh', borderRadius: "0px"}}>
@@ -81,4 +81,4 @@ class Settings extends Component {
   }
 }
 
-export default withTranslation()(Settings);
+export default withTranslation()(Settings)
