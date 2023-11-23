@@ -47,22 +47,22 @@ const EditPost = (props) => {
         window.location.reload(true)
     };
 
-    const titles = <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>Update Post</h2>;
+    const titles = <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>Edit Post</h2>;
 
     return (
         <Container>
             {titles}
             <Form>
                 <FormGroup>
-                    <Label for="title">Title:</Label>
+                    <Label for="title" style={{ color: 'white' }}>Title</Label>
                     <Input type="text" name="title" value={title} onChange={changeTitleHandler} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="body">Body:</Label>
+                    <Label for="body" style={{ color: 'white' }}>Body</Label>
                     <Input type="text" name="body" value={body} onChange={changeBodyHandler} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="author">Author:</Label>
+                    <Label for="author" style={{ color: 'white' }}>Author</Label>
                     <Input type="text" name="author" value={author} onChange={changeAuthorHandler} />
                 </FormGroup>
                 <FormGroup>
