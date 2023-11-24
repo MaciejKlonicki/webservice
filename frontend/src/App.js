@@ -1,16 +1,14 @@
-import React, { Component, createContext } from 'react'
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Login from './components/user/Login'
 import Registration from './components/user/Registration'
-import About from './components/user/About'
 import Settings from './components/settings/Settings'
 import NavigationBar from './components/NavigationBar'
 import Body from './components/posts/Body'
 import CreatePost from './components/posts/CreatePost'
 import PostDetails from './components/posts/PostDetails'
 import EditPost from './components/posts/EditPost'
-
-export const ThemeContext = createContext(null)
+import NotFound from './components/NotFound'
 
 class App extends Component {
 
@@ -36,8 +34,8 @@ class App extends Component {
         <Route path="/" exact component={Body} />
         <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />}/>
         <Route path='/register' component={Registration} />
+        <Route path='*' component={NotFound} />
         <PrivateRoute path='/settings' exact component={Settings} />
-        <PrivateRoute path='/about' component={About} />
         <PrivateRoute path='/create-post' component={CreatePost} />
         <PrivateRoute path='/posts/:id' component={PostDetails} />
         <PrivateRoute path='/edit/:id' component={EditPost} />

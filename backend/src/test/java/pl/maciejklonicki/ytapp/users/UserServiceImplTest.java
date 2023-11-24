@@ -7,8 +7,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import pl.maciejklonicki.ytapp.users.dto.UsersDTO;
 import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
+import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
 import java.util.Optional;
 
@@ -23,25 +25,6 @@ class UserServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
-
-    @Test
-    void checkIfNewUserIsAddingCorrectly() {
-        Users users = new Users();
-        users.setEmail("test@o2.pl");
-        users.setUsername("user1");
-
-        when(userRepository.findByEmail(users.getEmail())).thenReturn(Optional.empty());
-        when(userRepository.findByUsername(users.getUsername())).thenReturn(Optional.empty());
-        when(userRepository.save(users)).thenReturn(users);
-
-        ResponseEntity<Users> response = userService.addNewUser(users);
-
-        assertNotNull(response);
-        assertEquals(ResponseEntity.ok(users), response);
-        verify(userRepository, times(1)).findByEmail(users.getEmail());
-        verify(userRepository, times(1)).findByUsername(users.getUsername());
-        verify(userRepository, times(1)).save(users);
-    }
 
     @Test
     void checkIfErrorIsThrowingWhenNewUserHasTheSameEmail() {
@@ -63,5 +46,47 @@ class UserServiceImplTest {
         verify(userRepository, times(1)).findByEmail(existingUser.getEmail());
         verify(userRepository, times(1)).findByUsername(newUser.getUsername());
         verify(userRepository, never()).save(newUser);
+    }
+
+    @Test
+    void checkIfPasswordIsHashed() {
+        Users users = new Users();
+        users.setEmail("email@email.com");
+        users.setUsername("username");
+        users.setPassword("password");
+        users.setMobile("123456789");
+
+        ResponseEntity<Users> response = userService.addNewUser(users);
+
+        assertEquals(200, response.getStatusCodeValue());
+
+        String hashedPassword = users.getPassword();
+        assertTrue(BCrypt.checkpw("password", hashedPassword));
+
+        verify(userRepository, times(1)).save(any(Users.class));
+    }
+
+    @Test
+    void checkIfUserCanLoginWithCorrectIdentifiers() {
+        UsersDTO usersDTO = new UsersDTO("email@email.com", "password");
+        Users userWithMatchingPassword = new Users();
+        userWithMatchingPassword.setEmail("email@email.com");
+        userWithMatchingPassword.setPassword(BCrypt.hashpw("password", BCrypt.gensalt()));
+
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(userWithMatchingPassword));
+
+        ResponseEntity<Users> usersResponseEntity = userService.logInUser(usersDTO);
+
+        assertEquals(HttpStatus.OK, usersResponseEntity.getStatusCode());
+        verify(userRepository, times(1)).findByEmail(eq("email@email.com"));
+    }
+
+    @Test
+    void checkIfUserCannotLoginUnauthorized() {
+        UsersDTO usersDTO = new UsersDTO("error@email.com", "wrongPassword");
+
+        ResponseEntity<Users> usersResponseEntity = userService.logInUser(usersDTO);
+        assertEquals(HttpStatus.UNAUTHORIZED, usersResponseEntity.getStatusCode());
+        verify(userRepository, times(1)).findByEmail(eq("error@email.com"));
     }
 }
