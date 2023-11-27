@@ -19,10 +19,8 @@ class App extends Component {
     this.setState({ email: email })
     if (email.length > 0) {
       this.setState({isAuthenticated : true})
-      console.log("true")
     } else {
       this.setState({isAuthenticated : false})
-      console.log("false")
     }
   };
 
@@ -34,11 +32,11 @@ class App extends Component {
         <Route path="/" exact component={Body} />
         <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />}/>
         <Route path='/register' component={Registration} />
-        <Route path='*' component={NotFound} />
         <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/create-post' component={CreatePost} />
         <PrivateRoute path='/posts/:id' component={PostDetails} />
         <PrivateRoute path='/edit/:id' component={EditPost} />
+        <Route path='*' component={NotFound} />
       </Switch>
     </Router>
   );

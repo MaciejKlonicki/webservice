@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import pl.maciejklonicki.ytapp.users.dto.UsersDTO;
 import pl.maciejklonicki.ytapp.users.exception.UsersEmailAlreadyExistsException;
-import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
 import java.util.Optional;
 

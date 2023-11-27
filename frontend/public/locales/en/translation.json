@@ -195,5 +195,15 @@
     },
     "Cancel": {
         "1": "Cancel"
+    },
+
+    "Sorry": {
+        "1": "Sorry"
+    },
+    "PageNotFound": {
+        "1": "That page cannot be found..."
+    },
+    "Back": {
+        "1": "Go back"
     }
 }
