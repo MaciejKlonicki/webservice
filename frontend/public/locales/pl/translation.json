@@ -196,5 +196,15 @@
     },
     "Cancel": {
         "1": "Wróć"
+    },
+
+    "Sorry": {
+        "1": "Niestety"
+    },
+    "PageNotFound": {
+        "1": "Ta strona nie została znaleziona..."
+    },
+    "Back": {
+        "1": "Wróć"
     }
 }
