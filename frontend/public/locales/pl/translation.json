@@ -165,11 +165,17 @@
     "Sport": {
         "1": "Sport"
     },
+    "All": {
+        "1": "Wszystko"
+    },
     "Education": {
         "1": "Edukacja"
     },
     "Music": {
         "1": "Muzyka"
+    },
+    "Other": {
+        "1": "Inne"
     },
 
     "AddNewPost": {
@@ -183,6 +189,9 @@
     },
     "BlogAuthor": {
         "1": "Autor:"
+    },
+    "BlogType": {
+        "1": "Typ:"
     },
     "AddPostButton": {
         "1": "Dodaj post"

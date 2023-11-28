@@ -161,6 +161,9 @@
     "Stars": {
         "1": "Stars"
     },
+    "All": {
+        "1": "All"
+    },
     "Sport": {
         "1": "Sport"
     },
@@ -169,6 +172,9 @@
     },
     "Music": {
         "1": "Music"
+    },
+    "Other": {
+        "1": "Other"
     },
 
     "AddNewPost": {
@@ -182,6 +188,9 @@
     },
     "BlogAuthor": {
         "1": "Author:"
+    },
+    "BlogType": {
+        "1": "Type:"
     },
     "AddPostButton": {
         "1": "Add post"
