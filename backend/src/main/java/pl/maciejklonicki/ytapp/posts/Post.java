@@ -23,4 +23,6 @@ public class Post {
     private String body;
     @Column(nullable = false)
     private String author;
+    @Column(nullable = false)
+    private String type;
 }

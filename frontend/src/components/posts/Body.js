@@ -12,6 +12,8 @@ function Body({ t }) {
     const [posts, setPosts] = useState([])
     const [hoveredPostId, setHoveredPostId] = useState(null)
     const [hoveredIcon, setHoveredIcon] = useState(null)
+    const [selectedType, setSelectedType] = useState('All')
+    const [searchTerm, setSearchTerm] = useState('')
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -76,59 +78,71 @@ function Body({ t }) {
                     <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: "225px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item>{t('Sport.1')}</Dropdown.Item>
-                        <Dropdown.Item>{t('Education.1')}</Dropdown.Item>
-                        <Dropdown.Item>{t('Music.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('All')}>{t('All.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('Sport')}>{t('Sport.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('Education')}>{t('Education.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('Music')}>{t('Music.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('Other')}>{t('Other.1')}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-                <input style={{ position: "fixed", top: "290px", width: "150px", left: "20px" }} type="search" className='form-control rounded' placeholder="Search" />
+                <input
+                    style={{ position: 'fixed', top: '290px', width: '150px', left: '20px' }}
+                    type="search"
+                    className='form-control rounded'
+                    placeholder="Search"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
             </div>
             <div>
-                {posts.map((post) => (
-                    <Card
-                        key={post.id}
-                        onClick={() => routeChange(post.id)}
-                        style={{
-                            display: 'inline-block',
-                            width: '18rem',
-                            margin: '10px',
-                            marginLeft: '100px',
-                            marginTop: '35px',
-                            left: '200px',
-                            backgroundColor: '#1f2124',
-                            cursor: 'pointer',
-                        }}>
-                        <Card.Body
-                            onMouseEnter={() => handleMouseEnter(post.id)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <Card.Title style={{ color: 'white' }}>
-                                {post.title}
-                                {hoveredPostId === post.id && (
-                                    <>
-                                        <MdDeleteForever
-                                            onMouseEnter={() => setHoveredIcon('delete')}
-                                            onMouseLeave={() => setHoveredIcon(null)}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                remove(post.id);
-                                            }}
-                                            style={{ position: 'absolute', right: 5, color: hoveredIcon === 'delete' ? 'white' : 'gray' }} />
-                                        <MdModeEdit
-                                            onMouseEnter={() => setHoveredIcon('edit')}
-                                            onMouseLeave={() => setHoveredIcon(null)}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                editPost(post.id)
-                                            }}
-                                            style={{ position: 'absolute', right: 25, color: hoveredIcon === 'edit' ? 'white' : 'gray' }} />
-                                    </>
-                                )}
-                            </Card.Title>
-                            <Card.Text style={{ color: 'white' }}>Written by <b>{post.author}</b></Card.Text>
-                        </Card.Body>
-                    </Card>
-                ))}
+                {posts
+                    .filter((post) => selectedType === 'All' || post.type === selectedType)
+                    .filter((post) => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
+                    .map((post) => (
+                        <Card
+                            key={post.id}
+                            onClick={() => routeChange(post.id)}
+                            style={{
+                                display: 'inline-block',
+                                width: '18rem',
+                                margin: '10px',
+                                marginLeft: '100px',
+                                marginTop: '35px',
+                                left: '200px',
+                                backgroundColor: '#1f2124',
+                                cursor: 'pointer',
+                            }}>
+                            <Card.Body
+                                onMouseEnter={() => handleMouseEnter(post.id)}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <Card.Title style={{ color: 'white' }}>
+                                    {post.title}
+                                    {hoveredPostId === post.id && (
+                                        <>
+                                            <MdDeleteForever
+                                                onMouseEnter={() => setHoveredIcon('delete')}
+                                                onMouseLeave={() => setHoveredIcon(null)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    remove(post.id);
+                                                }}
+                                                style={{ position: 'absolute', right: 5, color: hoveredIcon === 'delete' ? 'white' : 'gray' }} />
+                                            <MdModeEdit
+                                                onMouseEnter={() => setHoveredIcon('edit')}
+                                                onMouseLeave={() => setHoveredIcon(null)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    editPost(post.id)
+                                                }}
+                                                style={{ position: 'absolute', right: 25, color: hoveredIcon === 'edit' ? 'white' : 'gray' }} />
+                                        </>
+                                    )}
+                                </Card.Title>
+                                <Card.Text style={{ color: 'white' }}>Written by <b>{post.author}</b></Card.Text>
+                            </Card.Body>
+                        </Card>
+                    ))}
             </div>
         </>
     );
