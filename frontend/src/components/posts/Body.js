@@ -48,6 +48,12 @@ function Body({ t }) {
         setHoveredPostId(null)
     }
 
+    const handleSortByCreationDate = () => {
+        const sortedPosts = [...posts];
+        sortedPosts.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
+        setPosts(sortedPosts);
+    };
+
     const editPost = (id) => {
         let path = `/edit/${id}`
         history.push(path)
@@ -69,7 +75,7 @@ function Body({ t }) {
                         {t('Sort.1')}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item>{t('CreationDate.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSortByCreationDate}>{t('CreationDate.1')}</Dropdown.Item>
                         <Dropdown.Item>{t('Popularity.1')}</Dropdown.Item>
                         <Dropdown.Item>{t('Stars.1')}</Dropdown.Item>
                     </Dropdown.Menu>
@@ -139,7 +145,9 @@ function Body({ t }) {
                                         </>
                                     )}
                                 </Card.Title>
-                                <Card.Text style={{ color: 'white' }}>Written by <b>{post.author}</b></Card.Text>
+                                <Card.Text style={{ color: 'white' }}>
+                                    Written by <b>{post.author}</b> on {new Date(post.creationDate).toLocaleString()}
+                                </Card.Text>
                             </Card.Body>
                         </Card>
                     ))}
