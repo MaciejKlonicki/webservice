@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -25,4 +26,7 @@ public class Post {
     private String author;
     @Column(nullable = false)
     private String type;
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 }

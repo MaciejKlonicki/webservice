@@ -25,6 +25,8 @@ class CreatePost extends Component {
     }
 
     addPost(title, body, author, type) {
+        const currentDate = new Date();
+
         fetch('http://localhost:8080/api/posts', {
             method: 'POST',
             headers: {
@@ -35,7 +37,8 @@ class CreatePost extends Component {
                 title: title,
                 body: body,
                 author: author,
-                type: type
+                type: type,
+                creationDate: currentDate.toISOString()
             })
         }).then(function (response) {
             if (response.status === 200) {
