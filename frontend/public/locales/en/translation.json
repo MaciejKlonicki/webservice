@@ -176,6 +176,12 @@
     "Other": {
         "1": "Other"
     },
+    "AddImage": {
+        "1": "Add Image"
+    },
+    "ChooseImage": {
+        "1": "Choose Image"
+    },
 
     "AddNewPost": {
         "1": "Add new post"

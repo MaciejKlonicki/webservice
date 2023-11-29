@@ -21,26 +21,34 @@ class CreatePost extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.addPost(event.target.title.value, event.target.body.value, event.target.author.value, event.target.type.value)
+
+        const formData = new FormData();
+        const title = event.target.title.value;
+        const body = event.target.body.value;
+        const author = event.target.author.value;
+        const type = event.target.type.value;
+        const photo = event.target.photo.files[0];
+
+        if (!title || !body || !author || !type || !photo) {
+            this.setState({ "errors": "Please fill in all the fields." });
+            return;
+        }
+        
+        formData.append('title', event.target.title.value);
+        formData.append('body', event.target.body.value);
+        formData.append('author', event.target.author.value);
+        formData.append('type', event.target.type.value);
+        formData.append('creationDate', new Date().toISOString());
+        formData.append('photo', event.target.photo.files[0]);
+
+        this.addPost(formData)
     }
 
-    addPost(title, body, author, type) {
-        const currentDate = new Date();
-
+    addPost(formData) {
         fetch('http://localhost:8080/api/posts', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                title: title,
-                body: body,
-                author: author,
-                type: type,
-                creationDate: currentDate.toISOString()
-            })
-        }).then(function (response) {
+            body: formData,
+        }).then(response => {
             if (response.status === 200) {
                 this.setState({ "success": "You created post successfully!" })
 
@@ -49,9 +57,9 @@ class CreatePost extends Component {
                     this.refreshPage()
                 }, 1000);
             }
-        }.bind(this)).catch(function (error) {
-            this.setState({ "errors": "Something went wrong!" })
-        }.bind(this));
+        }).catch(error => {
+            this.setState({ "errors" : "Something went wrong!"})
+        })
     }
 
     render() {
@@ -89,7 +97,13 @@ class CreatePost extends Component {
                         <option value="Music">{t('Music.1')}</option>
                         <option value="Other">{t('Other.1')}</option>
                     </select>
-
+                    <label style={{ textAlign: "left", display: "block", color: "white", width: '100%' }}>Photo:</label>
+                    <input
+                        style={{ padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px", width: "100%", color: 'white' }}
+                        type="file"
+                        accept="image/*"
+                        name="photo"
+                    />
                     <button className="btn btn-primary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "20px" }}>{t('AddPostButton.1')}</button>
                 </form>
             </div>

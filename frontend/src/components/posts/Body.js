@@ -122,6 +122,7 @@ function Body({ t }) {
                                 onMouseEnter={() => handleMouseEnter(post.id)}
                                 onMouseLeave={handleMouseLeave}
                             >
+                                {post.photo && <img style={{ width: '250px', height: '250px', borderRadius: '5px', marginBottom: '10px', marginLeft: '3px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
                                 <Card.Title style={{ color: 'white' }}>
                                     {post.title}
                                     {hoveredPostId === post.id && (
@@ -146,7 +147,7 @@ function Body({ t }) {
                                     )}
                                 </Card.Title>
                                 <Card.Text style={{ color: 'white' }}>
-                                    Written by <b>{post.author}</b> on {new Date(post.creationDate).toLocaleString()}
+                                    Written by <b>{post.author}</b> on {new Date(post.creationDate).toLocaleDateString()}
                                 </Card.Text>
                             </Card.Body>
                         </Card>

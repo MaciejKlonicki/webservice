@@ -177,6 +177,12 @@
     "Other": {
         "1": "Inne"
     },
+    "AddImage": {
+        "1": "Dodaj zdjęcie"
+    },
+    "ChooseImage": {
+        "1": "Wybierz zdjęcie"
+    },
 
     "AddNewPost": {
         "1": "Dodaj nowy post"
