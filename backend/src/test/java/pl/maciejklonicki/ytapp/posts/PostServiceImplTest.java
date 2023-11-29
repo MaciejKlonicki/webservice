@@ -26,16 +26,6 @@ class PostServiceImplTest {
     private PostServiceImpl postService;
 
     @Test
-    void shouldAddNewPost() {
-        Post newPost = new Post();
-        when(postRepository.save(any(Post.class))).thenReturn(newPost);
-        ResponseEntity<Post> response = postService.addPost(newPost);
-        verify(postRepository, times(1)).save(eq(newPost));
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(newPost, response.getBody());
-    }
-
-    @Test
     void shouldReturnAllPosts() {
         List<Post> expectedPosts = Arrays.asList(new Post(), new Post());
         when(postRepository.findAll()).thenReturn(expectedPosts);

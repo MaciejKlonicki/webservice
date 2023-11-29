@@ -29,4 +29,7 @@ public class Post {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
+    @Lob
+    @Column(length = 1000)
+    private byte[] photo;
 }
