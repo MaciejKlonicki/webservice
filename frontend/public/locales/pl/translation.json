@@ -177,6 +177,12 @@
     "Other": {
         "1": "Inne"
     },
+    "Written": {
+        "1": "Napisane przez"
+    },
+    "On": {
+        "1": "w"
+    },
     "AddImage": {
         "1": "Dodaj zdjęcie"
     },
@@ -198,6 +204,9 @@
     },
     "BlogType": {
         "1": "Typ:"
+    },
+    "BlogPhoto": {
+        "1": "Zdjęcie:"
     },
     "AddPostButton": {
         "1": "Dodaj post"

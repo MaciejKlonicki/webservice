@@ -1,5 +1,8 @@
 package pl.maciejklonicki.ytapp.posts;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
@@ -23,8 +26,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPosts () {
-        return postRepository.findAll();
+    public List<Post> getAllPosts (int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> postPage = postRepository.findAll(pageable);
+        return postPage.getContent();
     }
 
     @Override

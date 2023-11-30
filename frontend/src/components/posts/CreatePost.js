@@ -65,8 +65,8 @@ class CreatePost extends Component {
     render() {
         const { t } = this.props;
         return (
-            <div style={{ maxWidth: "400px", margin: "0 auto", textAlign: "center" }}>
-                <h2 style={{ fontSize: "20px", color: "white", marginTop: "30px", marginBottom: "30px" }}>{t('AddNewPost.1')}</h2>
+            <div style={{ maxWidth: "600px", margin: "0 auto", textAlign: "center" }}>
+                <h2 style={{ fontSize: "20px", color: "white", marginTop: "20px", marginBottom: "10px" }}>{t('AddNewPost.1')}</h2>
                 <form onSubmit={this.handleSubmit}>
                     {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
                     {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
@@ -97,14 +97,14 @@ class CreatePost extends Component {
                         <option value="Music">{t('Music.1')}</option>
                         <option value="Other">{t('Other.1')}</option>
                     </select>
-                    <label style={{ textAlign: "left", display: "block", color: "white", width: '100%' }}>Photo:</label>
+                    <label style={{ textAlign: "left", display: "block", color: "white", width: '100%' }}>{t('BlogPhoto.1')}</label>
                     <input
                         style={{ padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px", width: "100%", color: 'white' }}
                         type="file"
                         accept="image/*"
                         name="photo"
                     />
-                    <button className="btn btn-primary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "20px" }}>{t('AddPostButton.1')}</button>
+                    <button className="btn btn-primary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "5px", marginBottom: '10px' }}>{t('AddPostButton.1')}</button>
                 </form>
             </div>
         );

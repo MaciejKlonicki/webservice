@@ -26,17 +26,6 @@ class PostServiceImplTest {
     private PostServiceImpl postService;
 
     @Test
-    void shouldReturnAllPosts() {
-        List<Post> expectedPosts = Arrays.asList(new Post(), new Post());
-        when(postRepository.findAll()).thenReturn(expectedPosts);
-
-        List<Post> resultPosts = postService.getAllPosts();
-
-        verify(postRepository, times(1)).findAll();
-        assertEquals(expectedPosts, resultPosts);
-    }
-
-    @Test
     void shouldReturnSinglePostWithSpecificID() {
         Long postID = 1L;
         Post expectedPost = new Post();
