@@ -1,5 +1,6 @@
 package pl.maciejklonicki.ytapp.posts;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +24,12 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAllPosts(
+    public ResponseEntity<Page<Post>> getAllPosts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size
     ) {
-        return postServiceImpl.getAllPosts(page, size);
+        Page<Post> postPage = postServiceImpl.getAllPosts(page, size);
+        return new ResponseEntity<>(postPage, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
