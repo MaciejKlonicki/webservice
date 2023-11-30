@@ -3,6 +3,7 @@ package pl.maciejklonicki.ytapp.posts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
@@ -26,9 +27,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<Post> getAllPosts(int page, int size) {
+    public Page<Post> getAllPosts(int page, int size, String type, String searchTerm) {
         Pageable pageable = PageRequest.of(page, size);
-        return postRepository.findAll(pageable);
+
+        Specification<Post> spec = Specification.where(null);
+
+        if (type != null && !type.isEmpty() && !type.equalsIgnoreCase("All")) {
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("type"), type));
+        }
+
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + searchTerm.toLowerCase() + "%"));
+        }
+
+        return postRepository.findAll(spec, pageable);
     }
 
     @Override
