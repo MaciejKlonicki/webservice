@@ -26,9 +26,11 @@ public class PostController {
     @GetMapping
     public ResponseEntity<Page<Post>> getAllPosts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "12") int size
+            @RequestParam(defaultValue = "12") int size,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String searchTerm
     ) {
-        Page<Post> postPage = postServiceImpl.getAllPosts(page, size);
+        Page<Post> postPage = postServiceImpl.getAllPosts(page, size, type, searchTerm);
         return new ResponseEntity<>(postPage, HttpStatus.OK);
     }
 

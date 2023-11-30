@@ -62,13 +62,13 @@ function Body({ t }) {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/posts?page=${currentPage - 1}&size=${recordPerPage}`)
+        fetch(`http://localhost:8080/api/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`)
             .then((response) => response.json())
             .then((data) => {
                 setPosts(data.content);
                 setTotalPages(data.totalPages); 
             });
-    }, [currentPage]);
+    }, [currentPage, selectedType, searchTerm]);
 
     const showNextPage = () => {
         if (currentPage < totalPages) {
