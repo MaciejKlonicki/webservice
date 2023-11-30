@@ -1,12 +1,13 @@
 package pl.maciejklonicki.ytapp.posts;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface PostService {
     ResponseEntity<Post> addPost (Post newPost);
-    List<Post> getAllPosts (int page, int size);
+    Page<Post> getAllPosts(int page, int size);
     Post getSinglePost (Long id);
     void deletePost(Long id);
     Post updatePost(Post post, Long id);

@@ -12,6 +12,9 @@ function Body({ t }) {
     const [hoveredIcon, setHoveredIcon] = useState(null)
     const [selectedType, setSelectedType] = useState('All')
     const [searchTerm, setSearchTerm] = useState('')
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const recordPerPage = 12;
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -59,10 +62,26 @@ function Body({ t }) {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/posts')
+        fetch(`http://localhost:8080/api/posts?page=${currentPage - 1}&size=${recordPerPage}`)
             .then((response) => response.json())
-            .then((data) => setPosts(data))
-    }, []);
+            .then((data) => {
+                setPosts(data.content);
+                setTotalPages(data.totalPages); 
+            });
+    }, [currentPage]);
+
+    const showNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            console.log("next");
+        }
+    };
+
+    const showPrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
     return (
         <>
@@ -150,6 +169,10 @@ function Body({ t }) {
                             </Card.Body>
                         </Card>
                     ))}
+            </div>
+            <div style={{ position: 'absolute', left: '250px' }}>
+                <button onClick={showPrevPage} disabled={currentPage === 1}>Previous</button>
+                <button onClick={showNextPage} disabled={currentPage === totalPages}>Next</button>
             </div>
         </>
     );
