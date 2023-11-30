@@ -23,8 +23,11 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAllPosts() {
-        return postServiceImpl.getAllPosts();
+    public List<Post> getAllPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size
+    ) {
+        return postServiceImpl.getAllPosts(page, size);
     }
 
     @GetMapping("/{id}")

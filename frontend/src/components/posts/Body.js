@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dropdown, Card } from 'react-bootstrap'
 import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
-import { useState } from 'react'
-import { useEffect } from 'react'
 import { MdDeleteForever, MdModeEdit } from "react-icons/md"
 
 function Body({ t }) {
@@ -68,8 +66,8 @@ function Body({ t }) {
 
     return (
         <>
-            <div style={{ position: "absolute", height: "90.5%", marginTop: "15px", paddingRight: "15px", borderRight: "1.8px solid #444444" }}>
-                <button onClick={handleSubmit} style={{ marginLeft: "20px", marginTop: "20px", width: "150px" }} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
+            <div className='borderRightElement' style={{ position: "fixed", height: "90%", marginTop: "5px", paddingRight: "205px", borderRight: "1.8px solid #444444" }}>
+                <button onClick={handleSubmit} style={{ position: "fixed", left: "20px", top: "100px", width: "150px" }} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
                 <Dropdown>
                     <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: "160px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
                         {t('Sort.1')}
@@ -100,7 +98,7 @@ function Body({ t }) {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <div>
+            <div style={{ marginBottom: '75px' }}>
                 {posts
                     .filter((post) => selectedType === 'All' || post.type === selectedType)
                     .filter((post) => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -147,7 +145,7 @@ function Body({ t }) {
                                     )}
                                 </Card.Title>
                                 <Card.Text style={{ color: 'white' }}>
-                                    Written by <b>{post.author}</b> on {new Date(post.creationDate).toLocaleDateString()}
+                                    {t('Written.1')} <b>{post.author}</b> {t('On.1')} {new Date(post.creationDate).toLocaleDateString()}
                                 </Card.Text>
                             </Card.Body>
                         </Card>

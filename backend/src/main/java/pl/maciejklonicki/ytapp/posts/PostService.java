@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PostService {
     ResponseEntity<Post> addPost (Post newPost);
-    List<Post> getAllPosts ();
+    List<Post> getAllPosts (int page, int size);
     Post getSinglePost (Long id);
     void deletePost(Long id);
     Post updatePost(Post post, Long id);
