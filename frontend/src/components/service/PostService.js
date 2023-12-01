@@ -8,8 +8,12 @@ class PostService {
     }
 
     updatePost(post, id) {
-        return axios.put(POST_URL + '/' + id, post)
-    }
+        return axios.put(`http://localhost:8080/api/posts/${id}`, post, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+      }
 }
 
 export default new PostService()

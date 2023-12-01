@@ -99,6 +99,7 @@ function Body({ t }) {
                 </Dropdown>
                 <Dropdown>
                     <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: "225px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
+                        {t('Type.1')}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => setSelectedType('All')}>{t('All.1')}</Dropdown.Item>
@@ -194,7 +195,7 @@ function Body({ t }) {
                         </button>
                     </li>
                 </ul>
-                <div style={{ fontFamily: 'monospace', color: 'white', position: "absolute", right: '130px' }}>
+                <div style={{ fontFamily: 'monospace', color: 'white', position: "absolute", right: '140px', marginTop: '10px' }}>
                     {currentPage}/{totalPages}
                 </div>
             </div>
