@@ -12,9 +12,9 @@ function Body({ t }) {
     const [hoveredIcon, setHoveredIcon] = useState(null)
     const [selectedType, setSelectedType] = useState('All')
     const [searchTerm, setSearchTerm] = useState('')
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const recordPerPage = 12;
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const recordPerPage = 12
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -50,9 +50,9 @@ function Body({ t }) {
     }
 
     const handleSortByCreationDate = () => {
-        const sortedPosts = [...posts];
-        sortedPosts.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
-        setPosts(sortedPosts);
+        const sortedPosts = [...posts]
+        sortedPosts.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate))
+        setPosts(sortedPosts)
     };
 
     const editPost = (id) => {
@@ -65,23 +65,23 @@ function Body({ t }) {
         fetch(`http://localhost:8080/api/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`)
             .then((response) => response.json())
             .then((data) => {
-                setPosts(data.content);
-                setTotalPages(data.totalPages); 
-            });
-    }, [currentPage, selectedType, searchTerm]);
+                setPosts(data.content)
+                setTotalPages(data.totalPages)
+            })
+    }, [currentPage, selectedType, searchTerm])
 
     const showNextPage = () => {
         if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-            console.log("next");
+            setCurrentPage(currentPage + 1)
+            console.log("next")
         }
-    };
+    }
 
     const showPrevPage = () => {
         if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+            setCurrentPage(currentPage - 1)
         }
-    };
+    }
 
     return (
         <>
@@ -117,10 +117,8 @@ function Body({ t }) {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-            <div style={{ marginBottom: '75px' }}>
+            <div style={{ marginBottom: '25px' }}>
                 {posts
-                    .filter((post) => selectedType === 'All' || post.type === selectedType)
-                    .filter((post) => post.title.toLowerCase().includes(searchTerm.toLowerCase()))
                     .map((post) => (
                         <Card
                             key={post.id}
@@ -170,10 +168,37 @@ function Body({ t }) {
                         </Card>
                     ))}
             </div>
-            <div style={{ position: 'absolute', left: '250px' }}>
-                <button onClick={showPrevPage} disabled={currentPage === 1}>Previous</button>
-                <button onClick={showNextPage} disabled={currentPage === totalPages}>Next</button>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '50px' }}>
+                <ul class="pagination" style={{ marginTop: '30px', position: "absolute", left: '300px' }}>
+                    <li class="page-item">
+                        <button
+                            type="button"
+                            class="page-link"
+                            disabled={currentPage === 1 ? true : false}
+                            onClick={showPrevPage}
+                            className='btn btn-primary'
+                            style={{ marginRight: '5px' }}
+                        >
+                            {t('Previous.1')}
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button
+                            type="button"
+                            class="page-link"
+                            disabled={currentPage === totalPages ? true : false}
+                            onClick={showNextPage}
+                            className='btn btn-primary'
+                        >
+                            {t('Next.1')}
+                        </button>
+                    </li>
+                </ul>
+                <div style={{ fontFamily: 'monospace', color: 'white', position: "absolute", right: '130px' }}>
+                    {currentPage}/{totalPages}
+                </div>
             </div>
+
         </>
     );
 }

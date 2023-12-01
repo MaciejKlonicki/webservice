@@ -182,6 +182,12 @@
     "Written": {
         "1": "Written by"
     },
+    "Previous": {
+        "1": "Previous"
+    },
+    "Next": {
+        "1": "Next"
+    },
     "AddImage": {
         "1": "Add Image"
     },
