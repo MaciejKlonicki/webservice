@@ -93,7 +93,7 @@ const EditPost = ({ t }) => {
                 </FormGroup>
                 <FormGroup>
                     <Button style={{ marginTop: "10px" }} onClick={updatePost}>{t('UpdatePost.1')}</Button>{' '}
-                    <Button style={{ marginTop: "10px" }} onClick={cancel}>{t('Cancel.1')}</Button>
+                    <Button className="btn btn-secondary" style={{ marginTop: "10px" }} onClick={cancel}>{t('Cancel.1')}</Button>
                 </FormGroup>
             </Form>
         </Container>

@@ -19,6 +19,12 @@ class CreatePost extends Component {
         window.location.reload(false)
     }
 
+    routeChange = () => {
+        let postDetails = '/'
+        this.props.history.push(postDetails)
+        window.location.reload(true)
+    }
+
     handleSubmit = event => {
         event.preventDefault();
 
@@ -33,7 +39,7 @@ class CreatePost extends Component {
             this.setState({ "errors": "Please fill in all the fields." });
             return;
         }
-        
+
         formData.append('title', event.target.title.value);
         formData.append('body', event.target.body.value);
         formData.append('author', event.target.author.value);
@@ -58,15 +64,15 @@ class CreatePost extends Component {
                 }, 1000);
             }
         }).catch(error => {
-            this.setState({ "errors" : "Something went wrong!"})
+            this.setState({ "errors": "Something went wrong!" })
         })
     }
 
     render() {
         const { t } = this.props;
         return (
-            <div style={{ maxWidth: "600px", margin: "0 auto", textAlign: "center" }}>
-                <h2 style={{ fontSize: "20px", color: "white", marginTop: "20px", marginBottom: "10px" }}>{t('AddNewPost.1')}</h2>
+            <div style={{ maxWidth: "1300px", margin: "0 auto", textAlign: "center" }}>
+                <h2 style={{ color: "white", marginTop: "20px", marginBottom: "10px" }}>{t('AddNewPost.1')}</h2>
                 <form onSubmit={this.handleSubmit}>
                     {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
                     {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
@@ -104,6 +110,7 @@ class CreatePost extends Component {
                         accept="image/*"
                         name="photo"
                     />
+                    <button onClick={this.routeChange} className="btn btn-secondary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "5px", marginBottom: '10px', marginRight: '10px' }}>{t('Cancel.1')}</button>
                     <button className="btn btn-primary" style={{ border: "0", padding: "8px", borderRadius: "8px", cursor: "pointer", marginTop: "5px", marginBottom: '10px' }}>{t('AddPostButton.1')}</button>
                 </form>
             </div>
