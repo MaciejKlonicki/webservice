@@ -8,8 +8,8 @@ class PostService {
     }
 
     updatePost(post, id) {
-        return axios.put(POST_URL + '/' + id, post)
-    }
+      return axios.put(POST_URL + '/' + id, post)
+  }
 }
 
 export default new PostService()
