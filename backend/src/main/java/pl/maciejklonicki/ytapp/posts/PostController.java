@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -40,7 +39,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> addPost (
+    public ResponseEntity<Post> addPost(
             @RequestParam("title") String title,
             @RequestParam("body") String body,
             @RequestParam("author") String author,
@@ -73,7 +72,17 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public Post updatePost (@RequestBody Post post, @PathVariable Long id) {
+    public Post updatePost(@RequestParam("title") String title,
+                           @RequestParam("body") String body,
+                           @RequestParam("author") String author,
+                           @RequestParam("type") String type,
+                           @RequestParam("photo") MultipartFile photo, @PathVariable Long id) throws IOException {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setBody(body);
+        post.setAuthor(author);
+        post.setType(type);
+        post.setPhoto(photo.getBytes());
         return postServiceImpl.updatePost(post, id);
     }
 }
