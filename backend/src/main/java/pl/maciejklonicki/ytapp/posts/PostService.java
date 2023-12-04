@@ -11,4 +11,7 @@ public interface PostService {
     Post getSinglePost (Long id);
     void deletePost(Long id);
     Post updatePost(Post post, Long id);
+    void incrementPostPopularity(Long postId);
+    List<Post> getAllPostsOrderedByPopularity();
+    List<Post> getAllPostsOrderedByCreationDate();
 }

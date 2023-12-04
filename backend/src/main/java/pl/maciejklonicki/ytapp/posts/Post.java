@@ -32,4 +32,10 @@ public class Post {
     @Lob
     @Column(length = 1000)
     private byte[] photo;
+    @Column(nullable = false)
+    private int popularity;
+
+    public void incrementPopularity() {
+        this.popularity++;
+    }
 }

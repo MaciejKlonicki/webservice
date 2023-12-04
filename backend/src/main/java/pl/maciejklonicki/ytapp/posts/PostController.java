@@ -10,16 +10,17 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
 
-    private final PostServiceImpl postServiceImpl;
+    private final PostService postService;
 
-    public PostController(PostServiceImpl postServiceImpl) {
-        this.postServiceImpl = postServiceImpl;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
     @GetMapping
@@ -29,13 +30,13 @@ public class PostController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String searchTerm
     ) {
-        Page<Post> postPage = postServiceImpl.getAllPosts(page, size, type, searchTerm);
+        Page<Post> postPage = postService.getAllPosts(page, size, type, searchTerm);
         return new ResponseEntity<>(postPage, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public Post getSinglePost(@PathVariable Long id) {
-        return postServiceImpl.getSinglePost(id);
+        return postService.getSinglePost(id);
     }
 
     @PostMapping
@@ -63,12 +64,12 @@ public class PostController {
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return postServiceImpl.addPost(post);
+        return postService.addPost(post);
     }
 
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id) {
-        postServiceImpl.deletePost(id);
+        postService.deletePost(id);
     }
 
     @PutMapping("/{id}")
@@ -83,6 +84,24 @@ public class PostController {
         post.setAuthor(author);
         post.setType(type);
         post.setPhoto(photo.getBytes());
-        return postServiceImpl.updatePost(post, id);
+        return postService.updatePost(post, id);
+    }
+
+    @PutMapping("/{id}/increment-popularity")
+    public ResponseEntity<Void> incrementPostPopularity(@PathVariable Long id) {
+        postService.incrementPostPopularity(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/sorted-by-popularity")
+    public ResponseEntity<List<Post>> getPostsSortedByPopularity() {
+        List<Post> sortedPosts = postService.getAllPostsOrderedByPopularity();
+        return ResponseEntity.ok(sortedPosts);
+    }
+
+    @GetMapping("/sorted-by-creation-date")
+    public ResponseEntity<List<Post>> getPostsSortedByCreationDate() {
+        List<Post> sortedPosts = postService.getAllPostsOrderedByCreationDate();
+        return ResponseEntity.ok(sortedPosts);
     }
 }
