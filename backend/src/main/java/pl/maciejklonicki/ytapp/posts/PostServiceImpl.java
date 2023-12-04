@@ -63,6 +63,7 @@ public class PostServiceImpl implements PostService {
         oldPost.setBody(post.getBody());
         oldPost.setAuthor(post.getAuthor());
         oldPost.setType(post.getType());
+        oldPost.setPhoto(post.getPhoto());
         return postRepository.save(oldPost);
     }
 }

@@ -13,6 +13,7 @@ const EditPost = ({ t }) => {
     const [body, setBody] = useState('')
     const [author, setAuthor] = useState('')
     const [type, setType] = useState('')
+    const [photo, setPhoto] = useState(null)
     const [success, setSuccess] = useState('')
     const [errors, setErrors] = useState('')
 
@@ -28,8 +29,15 @@ const EditPost = ({ t }) => {
 
     const updatePost = (e) => {
         e.preventDefault()
-        let post = { title: title, body: body, author: author, type: type }
-        PostService.updatePost(post, id).then((res) => {
+
+        let formData = new FormData();
+        formData.append('title', title);
+        formData.append('body', body);
+        formData.append('author', author);
+        formData.append('type', type);
+        formData.append('photo', photo);
+
+        PostService.updatePost(formData, id).then((res) => {
             setSuccess('Post updated successfully!')
             setTimeout(() => {
                 history.push('/')
@@ -57,6 +65,10 @@ const EditPost = ({ t }) => {
         setType(event.target.value)
     }
 
+    const handlePhotoChange = (event) => {
+        setPhoto(event.target.files[0]);
+    };
+
     const cancel = () => {
         history.push('/')
         window.location.reload(true)
@@ -66,8 +78,8 @@ const EditPost = ({ t }) => {
 
     return (
         <Container>
-            {errors && <Alert variant='danger' style={{ marginTop: '10px' }}>{errors}</Alert>}
-            {success && <Alert variant='success' style={{ marginTop: '10px' }}>{success}</Alert>}
+            {errors && <Alert variant='danger' style={{ marginTop: '10px', textAlign: 'center' }}>{errors}</Alert>}
+            {success && <Alert variant='success' style={{ marginTop: '10px', textAlign: 'center' }}>{success}</Alert>}
             {titles}
             <Form>
                 <FormGroup>
@@ -92,8 +104,12 @@ const EditPost = ({ t }) => {
                     </Input>
                 </FormGroup>
                 <FormGroup>
-                    <Button style={{ marginTop: "10px" }} onClick={updatePost}>{t('UpdatePost.1')}</Button>{' '}
-                    <Button className="btn btn-secondary" style={{ marginTop: "10px" }} onClick={cancel}>{t('Cancel.1')}</Button>
+                    <Label for="photo" style={{ color: 'white' }}>{t('BlogPhoto.1')}</Label>
+                    <Input type="file" name="photo" accept="image/*" onChange={handlePhotoChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Button className="btn btn-secondary" style={{ marginTop: "10px", marginRight: '10px' }} onClick={cancel}>{t('Cancel.1')}</Button>
+                    <Button style={{ marginTop: "10px" }} onClick={updatePost}>{t('UpdatePost.1')}</Button>
                 </FormGroup>
             </Form>
         </Container>
