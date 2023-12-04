@@ -3,11 +3,14 @@ package pl.maciejklonicki.ytapp.posts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,7 +66,24 @@ public class PostServiceImpl implements PostService {
         oldPost.setBody(post.getBody());
         oldPost.setAuthor(post.getAuthor());
         oldPost.setType(post.getType());
-        oldPost.setPhoto(post.getPhoto());
         return postRepository.save(oldPost);
+    }
+
+    @Override
+    @Transactional
+    public void incrementPostPopularity(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId));
+        post.incrementPopularity();
+        postRepository.save(post);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> getAllPostsOrderedByPopularity() {
+        return postRepository.findAllByOrderByPopularityDesc();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> getAllPostsOrderedByCreationDate() {
+        return postRepository.findAllByOrderByCreationDateDesc();
     }
 }

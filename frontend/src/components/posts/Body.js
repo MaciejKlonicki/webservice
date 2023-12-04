@@ -49,10 +49,33 @@ function Body({ t }) {
         setHoveredPostId(null)
     }
 
-    const handleSortByCreationDate = () => {
-        const sortedPosts = [...posts]
-        sortedPosts.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate))
-        setPosts(sortedPosts)
+    const incrementPopularity = async (postId) => {
+        await fetch(`http://localhost:8080/api/posts/${postId}/increment-popularity`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            setCurrentPage(1)
+        })
+    }
+
+    
+    const handleSortByCreationDate = async () => {
+        await fetch(`http://localhost:8080/api/posts/sorted-by-creation-date`)
+            .then((response) => response.json())
+            .then((data) => {
+                setPosts(data)
+            })
+    }
+
+    const handleSortByPopularity = async () => {
+        await fetch(`http://localhost:8080/api/posts/sorted-by-popularity`)
+            .then((response) => response.json())
+            .then((data) => {
+                setPosts(data)
+            })
     }
 
     const editPost = (id) => {
@@ -93,7 +116,7 @@ function Body({ t }) {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={handleSortByCreationDate}>{t('CreationDate.1')}</Dropdown.Item>
-                        <Dropdown.Item>{t('Popularity.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSortByPopularity}>{t('Popularity.1')}</Dropdown.Item>
                         <Dropdown.Item>{t('Stars.1')}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -123,7 +146,10 @@ function Body({ t }) {
                     .map((post) => (
                         <Card
                             key={post.id}
-                            onClick={() => routeChange(post.id)}
+                            onClick={() => {
+                                routeChange(post.id)
+                                incrementPopularity(post.id)
+                            }}
                             style={{
                                 display: 'inline-block',
                                 width: '18rem',
@@ -199,7 +225,6 @@ function Body({ t }) {
                     {currentPage}/{totalPages}
                 </div>
             </div>
-
         </>
     )
 }
