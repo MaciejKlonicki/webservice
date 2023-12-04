@@ -53,7 +53,7 @@ function Body({ t }) {
         const sortedPosts = [...posts]
         sortedPosts.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate))
         setPosts(sortedPosts)
-    };
+    }
 
     const editPost = (id) => {
         let path = `/edit/${id}`
@@ -147,15 +147,15 @@ function Body({ t }) {
                                                 onMouseEnter={() => setHoveredIcon('delete')}
                                                 onMouseLeave={() => setHoveredIcon(null)}
                                                 onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    remove(post.id);
+                                                    e.stopPropagation()
+                                                    remove(post.id)
                                                 }}
                                                 style={{ position: 'absolute', right: 5, color: hoveredIcon === 'delete' ? 'white' : 'gray' }} />
                                             <MdModeEdit
                                                 onMouseEnter={() => setHoveredIcon('edit')}
                                                 onMouseLeave={() => setHoveredIcon(null)}
                                                 onClick={(e) => {
-                                                    e.stopPropagation();
+                                                    e.stopPropagation()
                                                     editPost(post.id)
                                                 }}
                                                 style={{ position: 'absolute', right: 25, color: hoveredIcon === 'edit' ? 'white' : 'gray' }} />
@@ -201,6 +201,6 @@ function Body({ t }) {
             </div>
 
         </>
-    );
+    )
 }
 export default withTranslation()(Body)

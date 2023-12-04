@@ -1,10 +1,10 @@
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"
 import './NotFound.css'
 import { withTranslation } from 'react-i18next'
 
 const NotFound = ({ t }) => {
 
-    const history = useHistory();
+    const history = useHistory()
 
     const handleClick = () => {
         history.push("/")
@@ -19,7 +19,7 @@ const NotFound = ({ t }) => {
                 <button onClick={handleClick} to="/">{t('Back.1')}</button>
             </div>
         </div>
-    );
+    )
 }
 
 export default withTranslation()(NotFound)

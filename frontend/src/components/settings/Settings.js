@@ -23,7 +23,7 @@ class Settings extends Component {
   }
 
   handel = (element) => {
-    const { t } = this.props;
+    const { t } = this.props
     element = <Card bg="transparent" variant="dark" style={{position: "absolute", marginLeft: "250px", marginTop: "50px", width: '500px', height: '500px', borderStyle: 'none'}}>
       <Card.Body style={{color: "rgb(156, 156, 156)"}}>
         <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>{t('Choose.1')}</Card.Title>
@@ -34,11 +34,11 @@ class Settings extends Component {
     </Card>
     this.setState({
       change: element
-    });
+    })
   }
 
   about = (element) => {
-    const { t } = this.props;
+    const { t } = this.props
     element = <Card bg="transparent" variant="dark" style={{position: 'absolute', marginLeft: "350px", marginTop: "25px", width: '500px', height: '500px', borderStyle: 'none'}}>
       <Card.Body style={{color: "rgb(156, 156, 156)"}}>
         <Card.Title style={{borderBottom: '0.5px solid rgba(255, 255, 255, 0.336)', paddingBottom: "10px", fontFamily: 'Arial, Helvetica, sans-serif', letterSpacing: '1px'}}>{t('Informations.1')}</Card.Title>
@@ -59,7 +59,7 @@ class Settings extends Component {
     </Card>
     this.setState({
       change: element
-    });
+    })
   }
 
   render() {
