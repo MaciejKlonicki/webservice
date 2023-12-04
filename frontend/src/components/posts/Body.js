@@ -3,6 +3,7 @@ import { Dropdown, Card } from 'react-bootstrap'
 import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
 import { MdDeleteForever, MdModeEdit } from "react-icons/md"
+import PostService from "../service/PostService"
 
 function Body({ t }) {
 
@@ -49,34 +50,20 @@ function Body({ t }) {
         setHoveredPostId(null)
     }
 
-    const incrementPopularity = async (postId) => {
-        await fetch(`http://localhost:8080/api/posts/${postId}/increment-popularity`, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(() => {
-            setCurrentPage(1)
-        })
-    }
-
-    
     const handleSortByCreationDate = async () => {
-        await fetch(`http://localhost:8080/api/posts/sorted-by-creation-date`)
-            .then((response) => response.json())
-            .then((data) => {
-                setPosts(data)
-            })
-    }
+        const response = await PostService.sortByCreationDate()
+        setPosts(response.data)
+    };
 
     const handleSortByPopularity = async () => {
-        await fetch(`http://localhost:8080/api/posts/sorted-by-popularity`)
-            .then((response) => response.json())
-            .then((data) => {
-                setPosts(data)
-            })
-    }
+        const response = await PostService.sortByPopularity()
+        setPosts(response.data)
+    };
+
+    const incrementPopularity = async (postId) => {
+        await PostService.incrementPopularity(postId)
+        setCurrentPage(1)
+    };
 
     const editPost = (id) => {
         let path = `/edit/${id}`
