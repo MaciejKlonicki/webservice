@@ -13,7 +13,7 @@ class Login extends Component {
 
     initialState = {
         error: '', success: '', errors: ''
-    };
+    }
 
     handleClick = (lang) => {
         i18n.changeLanguage(lang)
@@ -26,7 +26,7 @@ class Login extends Component {
     handleSubmit = event => {
         event.preventDefault()
         this.loginUser(event.target.email.value, event.target.password.value)
-    };
+    }
 
     loginUser(email, password) {
         fetch('http://localhost:8080/api/users/login', {
@@ -61,7 +61,7 @@ class Login extends Component {
     }
 
     render() {
-        const { t } = this.props;
+        const { t } = this.props
 
         return (
                 <div className='Auth-form-container'>

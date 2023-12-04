@@ -22,7 +22,7 @@ class App extends Component {
     } else {
       this.setState({isAuthenticated : false})
     }
-  };
+  }
 
   render() {
   return (
@@ -30,7 +30,7 @@ class App extends Component {
       <Route path="/" component={NavigationBar} />
       <Switch>
         <Route path="/" exact component={Body} />
-        <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />}/>
+        <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />} />
         <Route path='/register' component={Registration} />
         <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/create-post' component={CreatePost} />
@@ -39,7 +39,7 @@ class App extends Component {
         <Route path='*' component={NotFound} />
       </Switch>
     </Router>
-  );
+  )
 }
 }
 
@@ -59,7 +59,7 @@ function PrivateRoute({ component: Component, ...rest}) {
         />
       )}
       />
-  );
+  )
 }
 
 export default App

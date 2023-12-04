@@ -15,21 +15,21 @@ class NavigationBar extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
   handleScroll = () => {
-    const scrollPosition = window.scrollY;
+    const scrollPosition = window.scrollY
     if (scrollPosition > 0) {
-      this.setState({ scrolled: true });
+      this.setState({ scrolled: true })
     } else {
-      this.setState({ scrolled: false });
+      this.setState({ scrolled: false })
     }
-  };
+  }
 
   logout = () => {
     localStorage.clear()
@@ -43,7 +43,7 @@ class NavigationBar extends React.Component {
         <Nav.Link href='/register' style={{ position: 'absolute', right: 0, bottom: 10 }}><BsFillPersonPlusFill style={{ position: "relative", bottom: "2px" }} />{' '}{t('Register.1')}</Nav.Link>
         <Nav.Link href='/login' style={{ position: 'absolute', right: 110, bottom: 10 }}><BiLogIn style={{ position: "relative", bottom: "2px" }} />{' '}{t('Login.1')}</Nav.Link>
       </>
-    );
+    )
 
     const userLinks = (
       <>

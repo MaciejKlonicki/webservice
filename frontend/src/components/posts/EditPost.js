@@ -30,12 +30,12 @@ const EditPost = ({ t }) => {
     const updatePost = (e) => {
         e.preventDefault()
 
-        let formData = new FormData();
-        formData.append('title', title);
-        formData.append('body', body);
-        formData.append('author', author);
-        formData.append('type', type);
-        formData.append('photo', photo);
+        let formData = new FormData()
+        formData.append('title', title)
+        formData.append('body', body)
+        formData.append('author', author)
+        formData.append('type', type)
+        formData.append('photo', photo)
 
         PostService.updatePost(formData, id).then((res) => {
             setSuccess('Post updated successfully!')
@@ -66,13 +66,13 @@ const EditPost = ({ t }) => {
     }
 
     const handlePhotoChange = (event) => {
-        setPhoto(event.target.files[0]);
-    };
+        setPhoto(event.target.files[0])
+    }
 
     const cancel = () => {
         history.push('/')
         window.location.reload(true)
-    };
+    }
 
     const titles = <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>{t('EditPost.1')}</h2>
 
@@ -113,7 +113,7 @@ const EditPost = ({ t }) => {
                 </FormGroup>
             </Form>
         </Container>
-    );
+    )
 }
 
 export default withTranslation()(EditPost)
