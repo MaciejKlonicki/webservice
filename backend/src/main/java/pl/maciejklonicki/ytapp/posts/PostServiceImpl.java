@@ -66,6 +66,10 @@ public class PostServiceImpl implements PostService {
         oldPost.setBody(post.getBody());
         oldPost.setAuthor(post.getAuthor());
         oldPost.setType(post.getType());
+        byte[] newPhoto = post.getPhoto();
+        if (newPhoto != null && newPhoto.length > 0) {
+            oldPost.setPhoto(newPhoto);
+        }
         return postRepository.save(oldPost);
     }
 
@@ -75,16 +79,6 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId));
         post.incrementPopularity();
         postRepository.save(post);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Post> getAllPostsOrderedByPopularity() {
-        return postRepository.findAllByOrderByPopularityDesc();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Post> getAllPostsOrderedByCreationDate() {
-        return postRepository.findAllByOrderByCreationDateDesc();
     }
 
     @Transactional(readOnly = true)
