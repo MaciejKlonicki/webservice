@@ -78,7 +78,7 @@ const EditPost = ({ t }) => {
 
     return (
         <Container>
-            {errors && <Alert variant='danger' style={{ marginTop: '10px', textAlign: 'center' }}>{errors}</Alert>}
+            {errors && <Alert color='danger' style={{ marginTop: '10px', textAlign: 'center' }}>{errors}</Alert>}
             {success && <Alert variant='success' style={{ marginTop: '10px', textAlign: 'center' }}>{success}</Alert>}
             {titles}
             <Form>

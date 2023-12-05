@@ -77,13 +77,16 @@ public class PostController {
                            @RequestParam("body") String body,
                            @RequestParam("author") String author,
                            @RequestParam("type") String type,
-                           @RequestParam("photo") MultipartFile photo, @PathVariable Long id) throws IOException {
+                           @RequestParam(value = "photo", required = false) MultipartFile photo,
+                           @PathVariable Long id) throws IOException {
         Post post = new Post();
         post.setTitle(title);
         post.setBody(body);
         post.setAuthor(author);
         post.setType(type);
-        post.setPhoto(photo.getBytes());
+        if (photo != null && !photo.isEmpty()) {
+            post.setPhoto(photo.getBytes());
+        }
         return postService.updatePost(post, id);
     }
 
