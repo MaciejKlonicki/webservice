@@ -86,4 +86,22 @@ public class PostServiceImpl implements PostService {
     public List<Post> getAllPostsOrderedByCreationDate() {
         return postRepository.findAllByOrderByCreationDateDesc();
     }
+
+    @Transactional(readOnly = true)
+    public List<Post> getPostsOrderedByPopularityFilteredByType(String type) {
+        if ("All".equals(type)) {
+            return postRepository.findAllByOrderByPopularityDesc();
+        } else {
+            return postRepository.findByTypeOrderByPopularityDesc(type);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> getPostsOrderedByCreationDateFilteredByType(String type) {
+        if ("All".equals(type)) {
+            return postRepository.findAllByOrderByCreationDateDesc();
+        } else {
+            return postRepository.findByTypeOrderByCreationDateDesc(type);
+        }
+    }
 }

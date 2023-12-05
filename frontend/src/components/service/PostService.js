@@ -15,12 +15,12 @@ class PostService {
         return axios.put(POST_URL + `/${postId}/increment-popularity`);
     }
 
-    sortByCreationDate() {
-        return axios.get(POST_URL + '/sorted-by-creation-date');
+    getPostsOrderedByCreationDateAndType(type) {
+        return axios.get(`${POST_URL}/sorted-by-creation-date?type=${type}`);
     }
 
-    sortByPopularity() {
-        return axios.get(POST_URL + '/sorted-by-popularity');
+    getPostsOrderedByPopularityAndType(type) {
+        return axios.get(`${POST_URL}/sorted-by-popularity?type=${type}`);
     }
 }
 

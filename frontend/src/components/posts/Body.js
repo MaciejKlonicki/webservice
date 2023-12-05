@@ -51,13 +51,21 @@ function Body({ t }) {
     }
 
     const handleSortByCreationDate = async () => {
-        const response = await PostService.sortByCreationDate()
-        setPosts(response.data)
+        try {
+            const response = await PostService.getPostsOrderedByCreationDateAndType(selectedType);
+            setPosts(response.data);
+        } catch (error) {
+            console.error("Error sorting by creation date:", error);
+        }
     };
 
     const handleSortByPopularity = async () => {
-        const response = await PostService.sortByPopularity()
-        setPosts(response.data)
+        try {
+            const response = await PostService.getPostsOrderedByPopularityAndType(selectedType);
+            setPosts(response.data);
+        } catch (error) {
+            console.error("Error sorting by popularity:", error);
+        }
     };
 
     const incrementPopularity = async (postId) => {
