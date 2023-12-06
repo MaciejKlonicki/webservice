@@ -1,8 +1,11 @@
 package pl.maciejklonicki.ytapp.users;
 
 import lombok.*;
+import pl.maciejklonicki.ytapp.postrating.PostRating;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,4 +29,7 @@ public class Users {
 
     @Column(length = 9)
     private String mobile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PostRating> ratings = new ArrayList<>();
 }

@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.maciejklonicki.ytapp.postrating.PostRating;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +37,9 @@ public class Post {
     private byte[] photo;
     @Column(nullable = false)
     private int popularity;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<PostRating> ratings = new ArrayList<>();
 
     public void incrementPopularity() {
         this.popularity++;
