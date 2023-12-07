@@ -1,10 +1,13 @@
 package pl.maciejklonicki.ytapp.postrating;
 
 import org.springframework.stereotype.Service;
+import pl.maciejklonicki.ytapp.postrating.exception.PostAlreadyRatedException;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.posts.PostRepository;
+import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 import pl.maciejklonicki.ytapp.users.UserRepository;
 import pl.maciejklonicki.ytapp.users.Users;
+import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
 @Service
 public class PostRatingServiceImpl implements PostRatingService {
@@ -22,12 +25,12 @@ public class PostRatingServiceImpl implements PostRatingService {
     @Override
     public void ratePost(String userEmail, Long postId, int rating) {
         Users users = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("User with this ID exists!"));
+                .orElseThrow(() -> new UsersNotFoundException("User with this email: " + userEmail + "has not been found!"));
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post with this ID exists!"));
+                .orElseThrow(() -> new PostNotFoundException(postId));
 
         if (postRatingRepository.existsByUserAndPost(users, post)) {
-            throw new RuntimeException("User already starred this post!");
+            throw new PostAlreadyRatedException(postId);
         }
 
         PostRating postRating = new PostRating();
