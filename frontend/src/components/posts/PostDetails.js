@@ -31,8 +31,8 @@ const PostDetails = ({ match }) => {
         })
             .then((response) => response.json())
             .then((data) => console.log(data))
-            .catch((error) => console.error('Error:', error));
-    };
+            .catch((error) => console.error('Error:', error))
+    }
 
     if (!post) {
         return <div>Loading...</div>
