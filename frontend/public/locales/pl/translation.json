@@ -29,6 +29,9 @@
     "Login": {
         "1": "Zaloguj"
     },
+    "Reset": {
+        "1": "Reset"
+    },
     "Informations": {
         "1": "Informacje"
     },
@@ -215,7 +218,7 @@
         "1": "Typ:"
     },
     "BlogPhoto": {
-        "1": "Zdjęcie:"
+        "1": "Zdjęcie (max. 1MB):"
     },
     "AddPostButton": {
         "1": "Dodaj post"

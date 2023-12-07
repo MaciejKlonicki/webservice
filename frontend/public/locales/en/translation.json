@@ -29,6 +29,9 @@
     "Login": {
         "1": "Login"
     },
+    "Reset": {
+        "1": "Reset"
+    },
     "Informations": {
         "1": "Informations"
     },
@@ -140,7 +143,7 @@
         "1": "Enter e-mail"
     },
     "EnterPasswordRegister": {
-        "1": "Wprowadź password"
+        "1": "Enter password"
     },
     "EnterPhoneRegister": {
         "1": "Enter phone number"
@@ -214,7 +217,7 @@
         "1": "Type:"
     },
     "BlogPhoto": {
-        "1": "Photo:"
+        "1": "Photo  (max. 1MB):"
     },
     "AddPostButton": {
         "1": "Add post"

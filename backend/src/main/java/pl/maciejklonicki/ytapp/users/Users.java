@@ -1,6 +1,5 @@
 package pl.maciejklonicki.ytapp.users;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import pl.maciejklonicki.ytapp.postrating.PostRating;
 
@@ -31,7 +30,6 @@ public class Users {
     @Column(length = 9)
     private String mobile;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PostRating> ratings = new ArrayList<>();
 }

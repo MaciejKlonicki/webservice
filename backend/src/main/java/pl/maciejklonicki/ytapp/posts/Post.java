@@ -24,7 +24,7 @@ public class Post {
     private Long id;
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
     @Column(nullable = false)
     private String author;
@@ -38,7 +38,6 @@ public class Post {
     private byte[] photo;
     @Column(nullable = false)
     private int popularity;
-
     @JsonManagedReference
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostRating> ratings = new ArrayList<>();
