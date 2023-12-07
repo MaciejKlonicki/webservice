@@ -150,7 +150,7 @@ function Body({ t }) {
                                 width: '18rem',
                                 margin: '10px',
                                 marginLeft: '100px',
-                                marginTop: '35px',
+                                marginTop: '55px',
                                 left: '200px',
                                 backgroundColor: '#1f2124',
                                 cursor: 'pointer',
@@ -158,6 +158,7 @@ function Body({ t }) {
                             <Card.Body
                                 onMouseEnter={() => handleMouseEnter(post.id)}
                                 onMouseLeave={handleMouseLeave}
+                                style={{ marginRight: '5px' }}
                             >
                                 {post.photo && <img style={{ width: '250px', height: '250px', borderRadius: '5px', marginBottom: '10px', marginLeft: '3px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
                                 <Card.Title style={{ color: 'white' }}>

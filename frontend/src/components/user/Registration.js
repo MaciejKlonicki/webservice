@@ -114,7 +114,7 @@ class Registration extends Component {
                     </Button>{' '}
                     <Button size="sm" type="info" className="btn btn-info"
                         onClick = {this.refreshPage}>
-                        <FaUndo />{' '}Reset
+                        <FaUndo />{' '}{t('Reset.1')}
                     </Button>
                     </Card.Footer>
                     <br></br>

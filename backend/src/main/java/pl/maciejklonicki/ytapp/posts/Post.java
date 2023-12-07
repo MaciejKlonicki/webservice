@@ -24,7 +24,7 @@ public class Post {
     private Long id;
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
     @Column(nullable = false)
     private String author;

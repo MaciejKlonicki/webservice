@@ -60,7 +60,7 @@ class Login extends Component {
         }.bind(this))
     }
 
-    render() {
+    render() {  
         const { t } = this.props
 
         return (
@@ -70,7 +70,7 @@ class Login extends Component {
                         {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
                         {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
                         <div className='Auth-form-content'>
-                            <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>Login</h3>
+                            <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>{t('Login.1')}</h3>
                             <div style={{ color: 'white', textAlign: 'center' }} className='form-group mt-3'>
                                 <label>{t('Email.1')}</label>
                                 <input
@@ -90,14 +90,14 @@ class Login extends Component {
                             <div className="d-grid gap-2 mt-3">
                                 <Card.Footer style={{ textAlign: "center" }}>
                                     <Button size="sm" type="success" className="btn btn-success">
-                                        <FaSignInAlt />{' '}Login
+                                        <FaSignInAlt />{' '}{t('Login.1')}
                                     </Button>{' '}
                                     <Button onClick={this.refreshPage} size="sm" type="info" className="btn btn-info">
-                                        <FaUndo />{' '}Reset
+                                        <FaUndo />{' '}{t('Reset.1')}
                                     </Button>
                                 </Card.Footer>
                                 <br></br>
-                                <p style={{ "paddingLeft": "2%", "color": "rgb(255, 255, 255)" }}>{t('NoAccount.1')}{' '}<a href="/register">{t('CreateAccount.1')}</a></p>
+                                <p style={{ "color": "rgb(255, 255, 255)" }}>{t('NoAccount.1')}{' '}<a href="/register">{t('CreateAccount.1')}</a></p>
                             </div>
                         </div>
                     </form>
