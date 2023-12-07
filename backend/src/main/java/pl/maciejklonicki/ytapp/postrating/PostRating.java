@@ -1,5 +1,7 @@
 package pl.maciejklonicki.ytapp.postrating;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,12 @@ public class PostRating {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @JsonIgnore()
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;

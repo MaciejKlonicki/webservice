@@ -1,5 +1,6 @@
 package pl.maciejklonicki.ytapp.posts;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public class Post {
     @Column(nullable = false)
     private int popularity;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostRating> ratings = new ArrayList<>();
 

@@ -14,6 +14,26 @@ const PostDetails = ({ match }) => {
             .then((data) => setPost(data))
     }, [match.params.id])
 
+    const handleRatingChange = (newValue) => {
+        const postId = match.params.id
+        const userEmail = localStorage.getItem("email")
+    
+        fetch(`http://localhost:8080/api/post-ratings/rate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userEmail,
+                postId,
+                rating: newValue,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error('Error:', error));
+    };
+
     if (!post) {
         return <div>Loading...</div>
     }
@@ -22,14 +42,14 @@ const PostDetails = ({ match }) => {
         <>
             <div>
                 <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>{post.title}</h2>
-                <p style={{ color: 'white', textAlign: 'center', margin: "0px 100px 50px 100px" }}>{post.body}</p>
-                <p style={{ color: 'white', textAlign: 'right', marginRight: "100px" }}>Written by <b>{post.author}</b></p>
+                <p style={{ color: 'white', textAlign: 'center', margin: '0px 100px 50px 100px' }}>{post.body}</p>
+                <p style={{ color: 'white', textAlign: 'right', marginRight: '100px' }}>Written by <b>{post.author}</b></p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'right' }}>
                 <Box
                     sx={{
                         '& > legend': { mt: 2 },
-                        marginRight: "60px"
+                        marginRight: '60px',
                     }}
                 >
                     <Typography style={{ color: 'white' }} component="legend">Rate</Typography>
@@ -38,12 +58,12 @@ const PostDetails = ({ match }) => {
                         value={value}
                         onChange={(event, newValue) => {
                             setValue(newValue);
+                            handleRatingChange(newValue);
                         }}
                     />
                 </Box>
             </div>
         </>
-
     );
 };
 

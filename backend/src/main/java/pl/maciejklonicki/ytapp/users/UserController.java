@@ -9,18 +9,18 @@ import pl.maciejklonicki.ytapp.users.dto.UsersDTO;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
-    public UserController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
     @PostMapping
     public ResponseEntity<Users> addNewUser (@RequestBody Users users) {
-        return userServiceImpl.addNewUser(users);
+        return userService.addNewUser(users);
     }
 
     @PostMapping("/login")
     public ResponseEntity<Users> loginUser (@RequestBody UsersDTO usersDTO) {
-        return userServiceImpl.logInUser(usersDTO);
+        return userService.logInUser(usersDTO);
     }
 }
