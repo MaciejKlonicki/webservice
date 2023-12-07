@@ -38,7 +38,6 @@ public class Post {
     private byte[] photo;
     @Column(nullable = false)
     private int popularity;
-
     @JsonManagedReference
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostRating> ratings = new ArrayList<>();

@@ -218,7 +218,7 @@
         "1": "Typ:"
     },
     "BlogPhoto": {
-        "1": "Zdjęcie:"
+        "1": "Zdjęcie (max. 1MB):"
     },
     "AddPostButton": {
         "1": "Dodaj post"

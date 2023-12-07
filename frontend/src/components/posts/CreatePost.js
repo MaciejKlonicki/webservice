@@ -40,6 +40,11 @@ class CreatePost extends Component {
             return
         }
 
+        if (photo.size > 1024 * 1024) {
+            this.setState({ "errors": "The photo size exceeds the limit of 1MB." })
+            return
+        }
+
         formData.append('title', event.target.title.value)
         formData.append('body', event.target.body.value)
         formData.append('author', event.target.author.value)

@@ -1,7 +1,5 @@
 package pl.maciejklonicki.ytapp.users;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import pl.maciejklonicki.ytapp.postrating.PostRating;
 

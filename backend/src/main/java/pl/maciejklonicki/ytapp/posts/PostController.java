@@ -47,6 +47,11 @@ public class PostController {
             @RequestParam("type") String type,
             @RequestParam("creationDate") String creationDate,
             @RequestParam("photo") MultipartFile photo) {
+
+        if (photo.getSize() > 1024 * 1024) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
         Post post = new Post();
         post.setTitle(title);
         post.setBody(body);
