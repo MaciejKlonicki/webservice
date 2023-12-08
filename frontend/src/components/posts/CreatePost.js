@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Alert } from 'react-bootstrap'
+import { Alert, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { withTranslation } from 'react-i18next'
-
+import { FiInfo } from "react-icons/fi";
 
 class CreatePost extends Component {
 
@@ -74,19 +74,38 @@ class CreatePost extends Component {
     }
 
     render() {
+
         const { t } = this.props
+
+        const titleTooltip = (
+            <Tooltip id="title-tooltip">
+                Max length is 100 characters.
+            </Tooltip>
+        )
+
+        const authorTooltip = (
+            <Tooltip id="author-tooltip">
+                Max length is 50 characters.
+            </Tooltip>
+        )
+
         return (
             <div style={{ maxWidth: "1300px", margin: "0 auto", textAlign: "center" }}>
                 <h2 style={{ color: "white", marginTop: "10px", marginBottom: "10px" }}>{t('AddNewPost.1')}</h2>
                 <form onSubmit={this.handleSubmit}>
                     {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
                     {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
-                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogTitle.1')}</label>
+                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogTitle.1')}
+                        <OverlayTrigger placement="top" overlay={titleTooltip}>
+                            <span style={{ marginLeft: '5px', cursor: 'pointer' }}><FiInfo style={{ marginBottom: '2px' }} /></span>
+                        </OverlayTrigger>
+                    </label>
                     <input
                         style={{ width: "100%", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
                         name="title"
                         type="text"
                         required
+                        maxLength={100}
                     />
                     <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogBody.1')}</label>
                     <textarea
@@ -94,12 +113,17 @@ class CreatePost extends Component {
                         required
                         name="body"
                     />
-                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogAuthor.1')}</label>
+                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogAuthor.1')}
+                        <OverlayTrigger placement="top" overlay={authorTooltip}>
+                            <span style={{ marginLeft: '5px', cursor: 'pointer' }}><FiInfo style={{ marginBottom: '2px' }} /></span>
+                        </OverlayTrigger>
+                    </label>
                     <input
                         style={{ width: "100%", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
                         type="text"
                         required
                         name="author"
+                        maxLength={50}
                     />
                     <label style={{ textAlign: "left", display: "block", color: "white", marginBottom: "10px" }}>{t('BlogType.1')}</label>
                     <select name='type' style={{ padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px", width: "100%" }}>
