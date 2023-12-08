@@ -147,9 +147,9 @@ function Body({ t }) {
                             }}
                             style={{
                                 display: 'inline-block',
-                                width: '18rem',
+                                width: '20rem',
                                 margin: '10px',
-                                marginLeft: '100px',
+                                marginLeft: '80px',
                                 marginTop: '55px',
                                 left: '200px',
                                 backgroundColor: '#1f2124',
@@ -160,7 +160,7 @@ function Body({ t }) {
                                 onMouseLeave={handleMouseLeave}
                                 style={{ marginRight: '5px' }}
                             >
-                                {post.photo && <img style={{ width: '250px', height: '250px', borderRadius: '5px', marginBottom: '10px', marginLeft: '3px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
+                                {post.photo && <img style={{ width: '290px', height: '250px', borderRadius: '5px', marginBottom: '10px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
                                 <Card.Title style={{ color: 'white' }}>
                                     {post.title}
                                     {hoveredPostId === post.id && (
