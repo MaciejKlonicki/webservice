@@ -33,16 +33,18 @@ class Registration extends Component {
     handlePasswordChange = event => {
         const inputValue = event.target.value;
 
-        const hasUppercase = /[A-Z]/.test(inputValue);
-        const hasNumber = /\d/.test(inputValue);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputValue);
+        const hasUppercase = /[A-Z]/.test(inputValue)
+        const hasNumber = /\d/.test(inputValue)
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputValue)
+        const hasAtLeast6Characters = inputValue.length >= 6
 
         this.setState({
             password: inputValue,
             passwordRequirements: (
                 (!hasUppercase ? 'One uppercase letter, ' : '') +
                 (!hasNumber ? 'One digit, ' : '') +
-                (!hasSpecialChar ? 'One special character' : '')
+                (!hasSpecialChar ? 'One special character, ' : '') +
+                (!hasAtLeast6Characters ? 'At least 6 characters' : '')
             ).trim(),
         });
     }
@@ -53,6 +55,19 @@ class Registration extends Component {
     }
 
     registerUser(username, email, password, mobile) {
+
+        const hasUppercase = /[A-Z]/.test(password)
+        const hasNumber = /\d/.test(password)
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+        const hasAtLeast6Characters = password.length >= 6;
+
+        if (!(hasUppercase && hasNumber && hasSpecialChar && hasAtLeast6Characters)) {
+            this.setState({
+                "errors": "Password is too weak. Please meet the requirements."
+            });
+            return;
+        }
+
         fetch('http://localhost:8080/api/users', {
             method: 'POST',
             headers: {
