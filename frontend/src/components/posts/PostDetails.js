@@ -2,8 +2,9 @@ import { Box, Rating } from '@mui/material';
 import React, { useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography'
 import { useHistory } from "react-router-dom"
+import { withTranslation } from 'react-i18next'
 
-const PostDetails = ({ match }) => {
+const PostDetails = ({ match, t }) => {
     const [post, setPost] = useState(null)
     const [value, setValue] = React.useState(2)
     const history = useHistory()
@@ -84,10 +85,10 @@ const PostDetails = ({ match }) => {
                     marginBottom: '15px'
                 }}
             >
-                Go back
+                {t('Back.1')}
             </button>
         </>
     );
 };
 
-export default PostDetails
+export default withTranslation()(PostDetails)
