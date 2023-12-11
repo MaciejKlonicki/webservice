@@ -161,7 +161,7 @@ function Body({ t }) {
                                 style={{ marginRight: '5px' }}
                             >
                                 {post.photo && <img style={{ width: '290px', height: '250px', borderRadius: '5px', marginBottom: '10px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
-                                <Card.Title style={{ color: 'white' }}>
+                                <Card.Title style={{ color: 'white', marginRight: '11px' }}>
                                     {post.title}
                                     {hoveredPostId === post.id && (
                                         <>
@@ -187,6 +187,7 @@ function Body({ t }) {
                                 <Card.Text style={{ color: 'white' }}>
                                     {t('Written.1')} <b>{post.author}</b> {t('On.1')} {new Date(post.creationDate).toLocaleDateString()}
                                 </Card.Text>
+                                <p style={{ color: 'white' }}>{t('Views.1')}<b>{post.popularity}</b></p>
                             </Card.Body>
                         </Card>
                     ))}
