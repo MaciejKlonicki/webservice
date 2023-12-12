@@ -51,7 +51,7 @@ const PostDetails = ({ match, t }) => {
             <div>
                 <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>{post.title}</h2>
                 <p style={{ color: 'white', textAlign: 'center', margin: '0px 200px 50px 200px' }}>{post.body}</p>
-                <p style={{ color: 'white', textAlign: 'right', marginRight: '100px' }}>Written by <b>{post.author}</b></p>
+                <p style={{ color: 'white', textAlign: 'right', marginRight: '100px' }}>{t('Written.1')} <b>{post.author}</b></p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'right' }}>
                 <Box
@@ -60,7 +60,7 @@ const PostDetails = ({ match, t }) => {
                         marginRight: '100px',
                     }}
                 >
-                    <Typography style={{ color: 'white' }} component="legend">Rate</Typography>
+                    <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')} ({post ? post.totalRatings : 0})</Typography>
                     <Rating
                         name="simple-controlled"
                         value={value}
