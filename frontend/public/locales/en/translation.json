@@ -242,6 +242,9 @@
     "PageNotFound": {
         "1": "That page cannot be found..."
     },
+    "Rate": {
+        "1": "Rate"
+    },
     "Back": {
         "1": "Go back"
     }

@@ -39,5 +39,8 @@ public class PostRatingServiceImpl implements PostRatingService {
         postRating.setRating(rating);
 
         postRatingRepository.save(postRating);
+
+        post.setTotalRatings(post.getTotalRatings() + 1);
+        postRepository.save(post);
     }
 }
