@@ -187,7 +187,10 @@ function Body({ t }) {
                                 <Card.Text style={{ color: 'white' }}>
                                     {t('Written.1')} <b>{post.author}</b> {t('On.1')} {new Date(post.creationDate).toLocaleDateString()}
                                 </Card.Text>
-                                <p style={{ color: 'white' }}>{t('Views.1')}<b>{post.popularity}</b></p>
+                                <div style={{ display: 'inline-flex' }}>
+                                    <p style={{ color: 'white' }}>{t('Views.1')}<b>{post.popularity}</b></p>
+                                    <p style={{ color: 'white', marginLeft: '140px' }}>{t('Ratings.1')}<b>{post.totalRatings}</b></p>
+                                </div>
                             </Card.Body>
                         </Card>
                     ))}
