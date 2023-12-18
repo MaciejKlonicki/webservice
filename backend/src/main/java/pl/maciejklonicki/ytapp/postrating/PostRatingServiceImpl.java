@@ -9,6 +9,8 @@ import pl.maciejklonicki.ytapp.users.UserRepository;
 import pl.maciejklonicki.ytapp.users.Users;
 import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
+import java.util.Optional;
+
 @Service
 public class PostRatingServiceImpl implements PostRatingService {
 
@@ -24,10 +26,8 @@ public class PostRatingServiceImpl implements PostRatingService {
 
     @Override
     public void ratePost(String userEmail, Long postId, int rating) {
-        Users users = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new UsersNotFoundException("User with this email: " + userEmail + "has not been found!"));
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException(postId));
+        Users users = getUserByEmail(userEmail);
+        Post post = getPostById(postId);
 
         if (postRatingRepository.existsByUserAndPost(users, post)) {
             throw new PostAlreadyRatedException(postId);
@@ -42,5 +42,23 @@ public class PostRatingServiceImpl implements PostRatingService {
 
         post.setTotalRatings(post.getTotalRatings() + 1);
         postRepository.save(post);
+    }
+
+    @Override
+    public Optional<PostRating> getRatedPostByUser(String userEmail, Long postId) {
+        Users user = getUserByEmail(userEmail);
+        Post post = getPostById(postId);
+
+        return postRatingRepository.findByUserAndPost(user, post);
+    }
+
+    private Users getUserByEmail(String userEmail) {
+        return userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UsersNotFoundException("User with this email: " + userEmail + " has not been found!"));
+    }
+
+    private Post getPostById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException(postId));
     }
 }

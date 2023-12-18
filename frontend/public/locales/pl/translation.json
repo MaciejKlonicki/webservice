@@ -246,6 +246,12 @@
     "Rate": {
         "1": "Oceń"
     },
+    "Rated": {
+        "1": "Oceniono"
+    },
+    "Ratings": {
+        "1": "Ocen: "
+    },
     "Back": {
         "1": "Wróć"
     }

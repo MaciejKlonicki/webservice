@@ -245,6 +245,12 @@
     "Rate": {
         "1": "Rate"
     },
+    "Rated": {
+        "1": "Rated"
+    },
+    "Ratings": {
+        "1": "Ratings: "
+    },
     "Back": {
         "1": "Go back"
     }

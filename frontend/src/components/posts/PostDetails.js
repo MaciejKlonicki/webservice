@@ -1,39 +1,51 @@
-import { Box, Rating } from '@mui/material';
+import { Box, Rating } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography'
 import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
 
 const PostDetails = ({ match, t }) => {
+
     const [post, setPost] = useState(null)
-    const [value, setValue] = React.useState(2)
+    const [userRating, setUserRating] = useState(0)
     const history = useHistory()
+    const postId = match.params.id
+    const userEmail = localStorage.getItem("email")
 
     useEffect(() => {
-        const postId = match.params.id
+        const fetchData = async () => {
+            try {
+                const postResponse = await fetch(`http://localhost:8080/api/posts/${postId}`)
+                const postData = await postResponse.json()
+                setPost(postData)
 
-        fetch(`http://localhost:8080/api/posts/${postId}`)
-            .then((response) => response.json())
-            .then((data) => setPost(data))
-    }, [match.params.id])
+                const ratingResponse = await fetch(`http://localhost:8080/api/post-ratings/get-rating?userEmail=${userEmail}&postId=${postId}`)
+                const ratingData = await ratingResponse.json()
+                setUserRating(ratingData.rating || 0)
+            } catch (error) {
+                console.error('Error:', error)
+            }
+        }
 
-    const handleRatingChange = (newValue) => {
-        const postId = match.params.id
-        const userEmail = localStorage.getItem("email")
+        fetchData()
+    }, [postId, userEmail])
 
+    const handleRatingChange = (rating) => {
         fetch(`http://localhost:8080/api/post-ratings/rate`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 userEmail,
                 postId,
-                rating: newValue,
-            }),
+                rating: rating
+            })
         })
             .then((response) => response.json())
-            .then((data) => console.log(data))
+            .then(() => {
+                setUserRating(rating)
+            })
             .catch((error) => console.error('Error:', error))
     }
 
@@ -60,13 +72,13 @@ const PostDetails = ({ match, t }) => {
                         marginRight: '100px',
                     }}
                 >
-                    <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')} ({post ? post.totalRatings : 0})</Typography>
+                    <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')}</Typography>
                     <Rating
                         name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                            handleRatingChange(newValue);
+                        value={userRating}
+                        onChange={(event, rating) => {
+                            handleRatingChange(rating)
+                            setUserRating(rating)
                         }}
                     />
                 </Box>
@@ -88,7 +100,7 @@ const PostDetails = ({ match, t }) => {
                 {t('Back.1')}
             </button>
         </>
-    );
-};
+    )
+}
 
 export default withTranslation()(PostDetails)
