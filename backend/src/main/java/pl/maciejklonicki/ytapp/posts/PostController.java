@@ -35,8 +35,9 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public Post getSinglePost(@PathVariable Long id) {
-        return postService.getSinglePost(id);
+    public ResponseEntity<Post> getSinglePost(@PathVariable Long id) {
+        Post post = postService.getSinglePost(id);
+        return ResponseEntity.ok(post);
     }
 
     @PostMapping
@@ -111,5 +112,11 @@ public class PostController {
     public ResponseEntity<List<Post>> getPostsSortedByCreationDate(@RequestParam(name = "type", defaultValue = "All") String type) {
         List<Post> sortedPosts = postService.getPostsOrderedByCreationDateFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
+    }
+
+    @GetMapping("/{postId}/average-rating")
+    public ResponseEntity<Double> getAverageRatingForPost(@PathVariable Long postId) {
+        Double averageRating = postService.getAverageRatingForPost(postId);
+        return ResponseEntity.ok(averageRating);
     }
 }

@@ -56,4 +56,16 @@ public class Post {
     public void incrementPopularity() {
         this.popularity++;
     }
+    public double calculateAverageRating() {
+        if (ratings.isEmpty()) {
+            return 0.0;
+        }
+
+        int sumOfRatings = 0;
+        for (PostRating postRating : ratings) {
+            sumOfRatings += postRating.getRating();
+        }
+
+        return (double) sumOfRatings / ratings.size();
+    }
 }

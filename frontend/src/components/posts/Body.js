@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
 import { MdDeleteForever, MdModeEdit } from "react-icons/md"
 import PostService from "../service/PostService"
+import { Rating } from '@mui/material'
 
 function Body({ t }) {
 
@@ -15,6 +16,7 @@ function Body({ t }) {
     const [searchTerm, setSearchTerm] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
+    const [averageRatings, setAverageRatings] = useState({})
     const recordPerPage = 12
 
     const routeChange = (postId) => {
@@ -71,7 +73,7 @@ function Body({ t }) {
     const incrementPopularity = async (postId) => {
         await PostService.incrementPopularity(postId)
         setCurrentPage(1)
-    };
+    }
 
     const editPost = (id) => {
         let path = `/edit/${id}`
@@ -80,12 +82,21 @@ function Body({ t }) {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setPosts(data.content)
-                setTotalPages(data.totalPages)
-            })
+        const fetchData = async () => {
+            const postsResponse = await fetch(`http://localhost:8080/api/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`)
+            const postsData = await postsResponse.json()
+            setPosts(postsData.content)
+            setTotalPages(postsData.totalPages)
+
+            const averageRatingsData = {}
+            for (const post of postsData.content) {
+                const averageRatingResponse = await PostService.averageRating(post.id)
+                averageRatingsData[post.id] = averageRatingResponse.data
+            }
+            setAverageRatings(averageRatingsData)
+        }
+
+        fetchData()
     }, [currentPage, selectedType, searchTerm])
 
     const showNextPage = () => {
@@ -191,6 +202,13 @@ function Body({ t }) {
                                     <p style={{ color: 'white' }}>{t('Views.1')}<b>{post.popularity}</b></p>
                                     <p style={{ color: 'white', marginLeft: '140px' }}>{t('Ratings.1')}<b>{post.totalRatings}</b></p>
                                 </div>
+                                <Rating
+                                    name={`average-rating-${post.id}`}
+                                    value={averageRatings[post.id] || 0}
+                                    precision={0.5}
+                                    readOnly
+                                    style={{ marginLeft: '75px' }}
+                                />
                             </Card.Body>
                         </Card>
                     ))}
@@ -228,4 +246,5 @@ function Body({ t }) {
         </>
     )
 }
+
 export default withTranslation()(Body)
