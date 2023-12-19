@@ -3,7 +3,6 @@ package pl.maciejklonicki.ytapp.posts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -47,7 +46,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getSinglePost (Long id) {
-        return postRepository.findById(id).orElseThrow();
+        return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
     }
 
     @Override
@@ -97,5 +96,12 @@ public class PostServiceImpl implements PostService {
         } else {
             return postRepository.findByTypeOrderByCreationDateDesc(type);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Double getAverageRatingForPost(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId));
+        return post.calculateAverageRating();
     }
 }

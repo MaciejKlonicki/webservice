@@ -15,6 +15,10 @@ class PostService {
         return axios.put(POST_URL + `/${postId}/increment-popularity`);
     }
 
+    averageRating(postId) {
+        return axios.get(POST_URL + `/${postId}/average-rating`);
+    }
+
     getPostsOrderedByCreationDateAndType(type) {
         return axios.get(`${POST_URL}/sorted-by-creation-date?type=${type}`);
     }
