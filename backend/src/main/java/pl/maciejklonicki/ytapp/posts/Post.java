@@ -56,6 +56,7 @@ public class Post {
     public void incrementPopularity() {
         this.popularity++;
     }
+
     public double calculateAverageRating() {
         if (ratings.isEmpty()) {
             return 0.0;

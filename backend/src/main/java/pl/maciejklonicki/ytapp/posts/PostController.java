@@ -114,6 +114,12 @@ public class PostController {
         return ResponseEntity.ok(sortedPosts);
     }
 
+    @GetMapping("/sorted-by-rating")
+    public ResponseEntity<List<Post>> getPostsSortedByRating(@RequestParam(name = "type", defaultValue = "All") String type) {
+        List<Post> sortedPosts = postService.getPostsOrderedByRatingFilteredByType(type);
+        return ResponseEntity.ok(sortedPosts);
+    }
+
     @GetMapping("/{postId}/average-rating")
     public ResponseEntity<Double> getAverageRatingForPost(@PathVariable Long postId) {
         Double averageRating = postService.getAverageRatingForPost(postId);
