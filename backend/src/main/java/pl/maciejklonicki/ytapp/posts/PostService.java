@@ -14,5 +14,6 @@ public interface PostService {
     void incrementPostPopularity(Long postId);
     List<Post> getPostsOrderedByPopularityFilteredByType(String type);
     List<Post> getPostsOrderedByCreationDateFilteredByType(String type);
+    List<Post> getPostsOrderedByRatingFilteredByType(String type);
     Double getAverageRatingForPost(Long postId);
 }

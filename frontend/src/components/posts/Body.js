@@ -57,7 +57,7 @@ function Body({ t }) {
             const response = await PostService.getPostsOrderedByCreationDateAndType(selectedType)
             setPosts(response.data)
         } catch (error) {
-            console.error("Error sorting by creation date:", error)
+            console.error("Error sorting by creation date: ", error)
         }
     }
 
@@ -66,7 +66,16 @@ function Body({ t }) {
             const response = await PostService.getPostsOrderedByPopularityAndType(selectedType)
             setPosts(response.data)
         } catch (error) {
-            console.error("Error sorting by popularity:", error)
+            console.error("Error sorting by popularity: ", error)
+        }
+    }
+
+    const handleSortByRating = async () => {
+        try {
+            const response = await PostService.getPostsOrderedByRatingAndType(selectedType)
+            setPosts(response.data)
+        } catch (error) {
+            console.error("Error sorting by rating: ", error)
         }
     }
 
@@ -123,7 +132,7 @@ function Body({ t }) {
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={handleSortByCreationDate}>{t('CreationDate.1')}</Dropdown.Item>
                         <Dropdown.Item onClick={handleSortByPopularity}>{t('Popularity.1')}</Dropdown.Item>
-                        <Dropdown.Item>{t('Stars.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSortByRating}>{t('Stars.1')}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <Dropdown>

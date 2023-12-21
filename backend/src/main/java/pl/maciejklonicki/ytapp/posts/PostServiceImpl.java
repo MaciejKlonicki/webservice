@@ -98,6 +98,15 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public List<Post> getPostsOrderedByRatingFilteredByType(String type) {
+        if ("All".equals(type)) {
+            return postRepository.findAllByOrderByAverageRatingDesc();
+        } else {
+            return postRepository.findByTypeOrderByAverageRatingDesc(type);
+        }
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Double getAverageRatingForPost(Long postId) {
