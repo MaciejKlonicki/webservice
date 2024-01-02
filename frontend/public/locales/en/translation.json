@@ -253,5 +253,11 @@
     },
     "Back": {
         "1": "Go back"
+    },
+    "ChangeRating": {
+        "1": "Change rating"
+    },
+    "EditPostRating": {
+        "1": "Edit post rating"
     }
 }

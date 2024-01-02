@@ -9,6 +9,7 @@ import CreatePost from './components/posts/CreatePost'
 import PostDetails from './components/posts/PostDetails'
 import EditPost from './components/posts/EditPost'
 import NotFound from './components/NotFound'
+import EditPostRating from './components/posts/EditPostRating'
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
         <PrivateRoute path='/create-post' component={CreatePost} />
         <PrivateRoute path='/posts/:id' component={PostDetails} />
         <PrivateRoute path='/edit/:id' component={EditPost} />
+        <PrivateRoute path='/edit-rating/:id' component={EditPostRating} />
         <Route path='*' component={NotFound} />
       </Switch>
     </Router>

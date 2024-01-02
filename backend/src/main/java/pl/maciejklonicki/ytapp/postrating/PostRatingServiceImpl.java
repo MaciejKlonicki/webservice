@@ -2,6 +2,7 @@ package pl.maciejklonicki.ytapp.postrating;
 
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.postrating.exception.PostAlreadyRatedException;
+import pl.maciejklonicki.ytapp.postrating.exception.PostRatingNotFoundException;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.posts.PostRepository;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
@@ -50,6 +51,18 @@ public class PostRatingServiceImpl implements PostRatingService {
         Post post = getPostById(postId);
 
         return postRatingRepository.findByUserAndPost(user, post);
+    }
+
+    @Override
+    public void editPostRating(String userEmail, Long postId, int newRating) {
+        Users user = getUserByEmail(userEmail);
+        Post post = getPostById(postId);
+
+        PostRating existingRating = postRatingRepository.findByUserAndPost(user, post)
+                .orElseThrow(() -> new PostRatingNotFoundException(userEmail, postId));
+
+        existingRating.setRating(newRating);
+        postRatingRepository.save(existingRating);
     }
 
     private Users getUserByEmail(String userEmail) {

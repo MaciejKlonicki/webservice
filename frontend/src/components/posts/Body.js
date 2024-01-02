@@ -111,7 +111,6 @@ function Body({ t }) {
     const showNextPage = () => {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1)
-            console.log("next")
         }
     }
 
