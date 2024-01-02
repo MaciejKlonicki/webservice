@@ -2,8 +2,8 @@ package pl.maciejklonicki.ytapp.postrating;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import pl.maciejklonicki.ytapp.postrating.dto.EditPostRatingRequest;
+import pl.maciejklonicki.ytapp.postrating.dto.RatePostRequest;
 
 @RestController
 @RequestMapping("/api/post-ratings")
@@ -29,6 +29,16 @@ public class PostRatingController {
     public Object getRatingByUserAndPost(@RequestParam String userEmail, @RequestParam Long postId) {
         try {
             return postRatingService.getRatedPostByUser(userEmail, postId);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/edit-rating")
+    public ResponseEntity<String> editPostRating(@RequestBody EditPostRatingRequest editPostRatingRequest) {
+        try {
+            postRatingService.editPostRating(editPostRatingRequest.userEmail(), editPostRatingRequest.postId(), editPostRatingRequest.newRating());
+            return ResponseEntity.ok("Success");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

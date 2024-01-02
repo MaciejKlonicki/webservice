@@ -254,5 +254,11 @@
     },
     "Back": {
         "1": "Wróć"
+    },
+    "ChangeRating": {
+        "1": "Zmień ocenę"
+    },
+    "EditPostRating": {
+        "1": "Zmień ocenę posta"
     }
 }

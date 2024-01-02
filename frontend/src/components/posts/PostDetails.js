@@ -54,6 +54,11 @@ const PostDetails = ({ match, t }) => {
         window.location.reload(true)
     }
 
+    const handleChangeRating = (postId) => {
+        history.push(`/edit-rating/${postId}`)
+        window.location.reload(true)
+    }
+
     if (!post) {
         return <div>Loading...</div>
     }
@@ -64,42 +69,61 @@ const PostDetails = ({ match, t }) => {
                 <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>{post.title}</h2>
                 <p style={{ color: 'white', textAlign: 'center', margin: '0px 200px 50px 200px' }}>{post.body}</p>
                 <p style={{ color: 'white', textAlign: 'right', marginRight: '100px' }}>{t('Written.1')} <b>{post.author}</b></p>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'right' }}>
-                <Box
-                    sx={{
-                        '& > legend': { mt: 2 },
-                        marginRight: '100px',
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+                    <Box
+                        sx={{
+                            '& > legend': { mt: 2 },
+                            marginRight: '10px',
+                        }}
+                    >
+                        <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')}</Typography>
+                        <Rating
+                            style={{ marginRight: "30px" }}
+                            name="simple-controlled"
+                            value={userRating}
+                            onChange={(event, rating) => {
+                                handleRatingChange(rating)
+                                setUserRating(rating)
+                            }}
+                            disabled={userRating !== 0}
+                        />
+                    </Box>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5px' }}>
+                    {userRating > 0 && (
+                        <button
+                            onClick={() => handleChangeRating(post.id)}
+                            className="btn btn-primary"
+                            style={{
+                                border: "0",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                                marginTop: "5px",
+                                marginRight: "70px"
+                            }}
+                        >
+                            {t('ChangeRating.1')}
+                        </button>
+                    )}
+                </div>
+                <button
+                    onClick={cancel}
+                    className="btn btn-secondary"
+                    style={{
+                        border: "0",
+                        borderRadius: "8px",
+                        cursor: "pointer",
+                        margin: "5px auto",
+                        display: "block",
+                        marginBottom: '15px'
                     }}
                 >
-                    <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')}</Typography>
-                    <Rating
-                        name="simple-controlled"
-                        value={userRating}
-                        onChange={(event, rating) => {
-                            handleRatingChange(rating)
-                            setUserRating(rating)
-                        }}
-                    />
-                </Box>
+                    {t('Back.1')}
+                </button>
             </div>
-            <button
-                onClick={cancel}
-                className="btn btn-secondary"
-                style={{
-                    border: "0",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    marginTop: "5px",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    display: "block",
-                    marginBottom: '15px'
-                }}
-            >
-                {t('Back.1')}
-            </button>
         </>
+
     )
 }
 
