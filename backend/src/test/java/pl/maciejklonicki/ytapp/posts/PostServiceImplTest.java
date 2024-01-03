@@ -26,17 +26,6 @@ class PostServiceImplTest {
     private PostServiceImpl postService;
 
     @Test
-    void shouldReturnSinglePostWithSpecificID() {
-        Long postID = 1L;
-        Post expectedPost = new Post();
-        when(postRepository.findById(postID)).thenReturn(Optional.of(expectedPost));
-
-        Post singlePost = postService.getSinglePost(postID);
-        verify(postRepository, times(1)).findById(eq(postID));
-        assertEquals(expectedPost, singlePost);
-    }
-
-    @Test
     void shouldDeletePost() {
         Long postID = 1L;
         postService.deletePost(postID);

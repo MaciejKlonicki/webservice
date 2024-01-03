@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
+import pl.maciejklonicki.ytapp.posts.dto.SinglePostDTO;
 import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 import pl.maciejklonicki.ytapp.posts.exception.PostTitleAlreadyExistsException;
@@ -57,8 +58,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post getSinglePost (Long id) {
-        return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
+    public SinglePostDTO getSinglePostDTO(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
+
+        return new SinglePostDTO(
+                post.getTitle(),
+                post.getBody(),
+                post.getAuthor()
+        );
     }
 
     @Override
