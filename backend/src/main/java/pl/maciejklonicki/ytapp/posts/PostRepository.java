@@ -21,4 +21,5 @@ public interface PostRepository extends JpaRepository <Post, Long> {
     @Query("SELECT p, CASE WHEN SIZE(p.ratings) > 0 THEN AVG(r.rating) ELSE 0 END as avgRating FROM Post p LEFT JOIN p.ratings r WHERE p.type = :type GROUP BY p ORDER BY avgRating DESC")
     List<Post> findByTypeOrderByAverageRatingDesc(@Param("type") PostType type);
     boolean existsById(@NonNull Long id);
+    boolean existsByTitle(String title);
 }

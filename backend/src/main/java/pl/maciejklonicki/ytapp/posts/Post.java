@@ -1,10 +1,7 @@
 package pl.maciejklonicki.ytapp.posts;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.maciejklonicki.ytapp.postrating.PostRating;
 
 import javax.persistence.*;
@@ -17,13 +14,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")

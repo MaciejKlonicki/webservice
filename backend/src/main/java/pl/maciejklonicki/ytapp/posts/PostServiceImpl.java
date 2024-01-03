@@ -4,11 +4,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
+import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
+import pl.maciejklonicki.ytapp.posts.exception.PostTitleAlreadyExistsException;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +30,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ResponseEntity<Post> addPost (Post newPost) {
-        Post savedPost = postRepository.save(newPost);
+    public ResponseEntity<Post> addPost (CreatePostDTO createPostDTO) {
+        if (postRepository.existsByTitle(createPostDTO.title())) {
+            throw new PostTitleAlreadyExistsException(createPostDTO.title());
+        }
+        Post post = createPostFromDTO(createPostDTO);
+        Post savedPost = postRepository.save(post);
         return ResponseEntity.ok(savedPost);
     }
 
@@ -55,20 +67,31 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post updatePost(Post post, Long id) {
+    public ResponseEntity<Post> updatePost(UpdatePostDTO updatePostDTO, Long id) {
         Optional<Post> optionalPost = postRepository.findById(id);
         if (optionalPost.isEmpty()) {
             throw new PostNotFoundException(id);
         }
+
         Post oldPost = optionalPost.get();
-        oldPost.setTitle(post.getTitle());
-        oldPost.setBody(post.getBody());
-        oldPost.setType(post.getType());
-        byte[] newPhoto = post.getPhoto();
-        if (newPhoto != null && newPhoto.length > 0) {
-            oldPost.setPhoto(newPhoto);
+
+        oldPost.setTitle(updatePostDTO.title());
+        oldPost.setBody(updatePostDTO.body());
+        oldPost.setType(updatePostDTO.type());
+
+        byte[] newPhoto = null;
+        try {
+            if (updatePostDTO.photo() != null) {
+                newPhoto = updatePostDTO.photo().getBytes();
+                if (newPhoto.length > 0) {
+                    oldPost.setPhoto(newPhoto);
+                }
+            }
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return postRepository.save(oldPost);
+
+        return ResponseEntity.ok(postRepository.save(oldPost));
     }
 
     @Override
@@ -111,5 +134,36 @@ public class PostServiceImpl implements PostService {
     public Double getAverageRatingForPost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId));
         return post.calculateAverageRating();
+    }
+
+    private Post createPostFromDTO(CreatePostDTO createPostDTO) {
+        Date creationDate = convertStringToDate(createPostDTO.creationDate());
+
+        byte[] photoBytes = null;
+        try {
+            if (createPostDTO.photo() != null) {
+                photoBytes = createPostDTO.photo().getBytes();
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error converting MultipartFile to byte array", e);
+        }
+
+        return Post.builder()
+                .title(createPostDTO.title())
+                .body(createPostDTO.body())
+                .author(createPostDTO.author())
+                .type(createPostDTO.type())
+                .creationDate(creationDate)
+                .photo(photoBytes)
+                .build();
+    }
+
+    private Date convertStringToDate(String dateString) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Invalid date format", e);
+        }
     }
 }

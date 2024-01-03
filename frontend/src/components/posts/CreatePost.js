@@ -12,7 +12,7 @@ class CreatePost extends Component {
     }
 
     initialState = {
-        success: '', errors: ''
+        success: '', errors: '', error: ''
     }
 
     refreshPage() {
@@ -67,6 +67,8 @@ class CreatePost extends Component {
                     this.props.history.push('/')
                     this.refreshPage()
                 }, 1000)
+            } else {
+                this.setState({ "error": "This article title already exists!" })
             }
         }).catch(error => {
             this.setState({ "errors": "Something went wrong!" })
@@ -88,6 +90,7 @@ class CreatePost extends Component {
                 <h2 style={{ color: "white", marginTop: "10px", marginBottom: "10px" }}>{t('AddNewPost.1')}</h2>
                 <form onSubmit={this.handleSubmit}>
                     {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
+                    {this.state.error && <Alert variant='danger'>{this.state.error}</Alert>}
                     {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
                     <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogTitle.1')}
                         <OverlayTrigger placement="top" overlay={titleTooltip}>
