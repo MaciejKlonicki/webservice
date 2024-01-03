@@ -4,14 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
+import pl.maciejklonicki.ytapp.posts.dto.SinglePostDTO;
 import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,9 +33,9 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getSinglePost(@PathVariable Long id) {
-        Post post = postService.getSinglePost(id);
-        return ResponseEntity.ok(post);
+    public ResponseEntity<SinglePostDTO> getSinglePost(@PathVariable Long id) {
+        SinglePostDTO singlePost = postService.getSinglePostDTO(id);
+        return ResponseEntity.ok(singlePost);
     }
 
     @PostMapping
