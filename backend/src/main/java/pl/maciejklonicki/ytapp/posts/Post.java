@@ -32,8 +32,9 @@ public class Post {
     @Column(nullable = false, length = 50)
     private String author;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String type;
+    private PostType type;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

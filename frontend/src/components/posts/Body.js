@@ -12,7 +12,7 @@ function Body({ t }) {
     const [posts, setPosts] = useState([])
     const [hoveredPostId, setHoveredPostId] = useState(null)
     const [hoveredIcon, setHoveredIcon] = useState(null)
-    const [selectedType, setSelectedType] = useState('All')
+    const [selectedType, setSelectedType] = useState('ALL')
     const [searchTerm, setSearchTerm] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
@@ -140,11 +140,11 @@ function Body({ t }) {
                         {t('Type.1')}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => setSelectedType('All')}>{t('All.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('Sport')}>{t('Sport.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('Education')}>{t('Education.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('Music')}>{t('Music.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('Other')}>{t('Other.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('ALL')}>{t('All.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('SPORT')}>{t('Sport.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('EDUCATION')}>{t('Education.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('MUSIC')}>{t('Music.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSelectedType('OTHER')}>{t('Other.1')}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <input

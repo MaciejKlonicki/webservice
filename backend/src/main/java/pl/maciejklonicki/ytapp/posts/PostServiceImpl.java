@@ -7,7 +7,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 
 import java.util.List;
@@ -29,12 +28,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<Post> getAllPosts(int page, int size, String type, String searchTerm) {
+    public Page<Post> getAllPosts(int page, int size, PostType type, String searchTerm) {
         Pageable pageable = PageRequest.of(page, size);
 
         Specification<Post> spec = Specification.where(null);
 
-        if (type != null && !type.isEmpty() && !type.equalsIgnoreCase("All")) {
+        if (type != null && type != PostType.ALL) {
             spec = spec.and((root, query, cb) -> cb.equal(root.get("type"), type));
         }
 
@@ -81,8 +80,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<Post> getPostsOrderedByPopularityFilteredByType(String type) {
-        if ("All".equals(type)) {
+    public List<Post> getPostsOrderedByPopularityFilteredByType(PostType type) {
+        if (PostType.ALL.equals(type)) {
             return postRepository.findAllByOrderByPopularityDesc();
         } else {
             return postRepository.findByTypeOrderByPopularityDesc(type);
@@ -90,8 +89,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<Post> getPostsOrderedByCreationDateFilteredByType(String type) {
-        if ("All".equals(type)) {
+    public List<Post> getPostsOrderedByCreationDateFilteredByType(PostType type) {
+        if (PostType.ALL.equals(type)) {
             return postRepository.findAllByOrderByCreationDateDesc();
         } else {
             return postRepository.findByTypeOrderByCreationDateDesc(type);
@@ -99,8 +98,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<Post> getPostsOrderedByRatingFilteredByType(String type) {
-        if ("All".equals(type)) {
+    public List<Post> getPostsOrderedByRatingFilteredByType(PostType type) {
+        if (PostType.ALL.equals(type)) {
             return postRepository.findAllByOrderByAverageRatingDesc();
         } else {
             return postRepository.findByTypeOrderByAverageRatingDesc(type);
