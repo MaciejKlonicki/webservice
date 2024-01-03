@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface PostService {
     ResponseEntity<Post> addPost (Post newPost);
-    Page<Post> getAllPosts(int page, int size, String type, String searchTerm);
+    Page<Post> getAllPosts(int page, int size, PostType type, String searchTerm);
     Post getSinglePost (Long id);
     void deletePost(Long id);
     Post updatePost(Post post, Long id);
     void incrementPostPopularity(Long postId);
-    List<Post> getPostsOrderedByPopularityFilteredByType(String type);
-    List<Post> getPostsOrderedByCreationDateFilteredByType(String type);
-    List<Post> getPostsOrderedByRatingFilteredByType(String type);
+    List<Post> getPostsOrderedByPopularityFilteredByType(PostType type);
+    List<Post> getPostsOrderedByCreationDateFilteredByType(PostType type);
+    List<Post> getPostsOrderedByRatingFilteredByType(PostType type);
     Double getAverageRatingForPost(Long postId);
 }

@@ -28,7 +28,7 @@ public class PostController {
     public ResponseEntity<Page<Post>> getAllPosts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size,
-            @RequestParam(required = false) String type,
+            @RequestParam(required = false) PostType type,
             @RequestParam(required = false) String searchTerm
     ) {
         Page<Post> postPage = postService.getAllPosts(page, size, type, searchTerm);
@@ -76,14 +76,12 @@ public class PostController {
     @PutMapping("/{id}")
     public Post updatePost(@RequestParam("title") String title,
                            @RequestParam("body") String body,
-                           @RequestParam("author") String author,
-                           @RequestParam("type") String type,
+                           @RequestParam("type") PostType type,
                            @RequestParam(value = "photo", required = false) MultipartFile photo,
                            @PathVariable Long id) throws IOException {
         Post post = new Post();
         post.setTitle(title);
         post.setBody(body);
-        post.setAuthor(author);
         post.setType(type);
         if (photo != null && !photo.isEmpty()) {
             post.setPhoto(photo.getBytes());
@@ -98,19 +96,19 @@ public class PostController {
     }
 
     @GetMapping("/sorted-by-popularity")
-    public ResponseEntity<List<Post>> getPostsSortedByPopularity(@RequestParam(name = "type", defaultValue = "All") String type) {
+    public ResponseEntity<List<Post>> getPostsSortedByPopularity(@RequestParam(name = "type", defaultValue = "All") PostType type) {
         List<Post> sortedPosts = postService.getPostsOrderedByPopularityFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 
     @GetMapping("/sorted-by-creation-date")
-    public ResponseEntity<List<Post>> getPostsSortedByCreationDate(@RequestParam(name = "type", defaultValue = "All") String type) {
+    public ResponseEntity<List<Post>> getPostsSortedByCreationDate(@RequestParam(name = "type", defaultValue = "All") PostType type) {
         List<Post> sortedPosts = postService.getPostsOrderedByCreationDateFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 
     @GetMapping("/sorted-by-rating")
-    public ResponseEntity<List<Post>> getPostsSortedByRating(@RequestParam(name = "type", defaultValue = "All") String type) {
+    public ResponseEntity<List<Post>> getPostsSortedByRating(@RequestParam(name = "type", defaultValue = "All") PostType type) {
         List<Post> sortedPosts = postService.getPostsOrderedByRatingFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }

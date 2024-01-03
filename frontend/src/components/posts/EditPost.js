@@ -86,10 +86,10 @@ const EditPost = ({ t }) => {
                 <FormGroup>
                     <Label for="type" style={{ color: 'white' }}>{t('BlogType.1')}</Label>
                     <Input type="select" name="type" value={type} onChange={changeTypeHandler}>
-                        <option value="Sport">{t('Sport.1')}</option>
-                        <option value="Education">{t('Education.1')}</option>
-                        <option value="Music">{t('Music.1')}</option>
-                        <option value="Other">{t('Other.1')}</option>
+                        <option value="SPORT">{t('Sport.1')}</option>
+                        <option value="EDUCATION">{t('Education.1')}</option>
+                        <option value="MUSIC">{t('Music.1')}</option>
+                        <option value="OTHER">{t('Other.1')}</option>
                     </Input>
                 </FormGroup>
                 <FormGroup>
