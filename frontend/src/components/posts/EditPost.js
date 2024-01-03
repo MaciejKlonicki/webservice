@@ -11,7 +11,6 @@ const EditPost = ({ t }) => {
     const { id } = useParams()
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
-    const [author, setAuthor] = useState('')
     const [type, setType] = useState('')
     const [photo, setPhoto] = useState(null)
     const [success, setSuccess] = useState('')
@@ -22,7 +21,6 @@ const EditPost = ({ t }) => {
             let post = res.data
             setTitle(post.title)
             setBody(post.body)
-            setAuthor(post.author)
             setType(post.type)
         })
     }, [id])
@@ -33,7 +31,6 @@ const EditPost = ({ t }) => {
         let formData = new FormData()
         formData.append('title', title)
         formData.append('body', body)
-        formData.append('author', author)
         formData.append('type', type)
         formData.append('photo', photo)
 
@@ -55,10 +52,6 @@ const EditPost = ({ t }) => {
 
     const changeBodyHandler = (event) => {
         setBody(event.target.value)
-    }
-
-    const changeAuthorHandler = (event) => {
-        setAuthor(event.target.value)
     }
 
     const changeTypeHandler = (event) => {
@@ -89,10 +82,6 @@ const EditPost = ({ t }) => {
                 <FormGroup>
                     <Label for="body" style={{ color: 'white' }}>{t('BlogBody.1')}</Label>
                     <Input type="textarea" name="body" value={body} onChange={changeBodyHandler} style={{ height: '200px' }} />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="author" style={{ color: 'white' }}>{t('BlogAuthor.1')}</Label>
-                    <Input type="text" name="author" value={author} onChange={changeAuthorHandler} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="type" style={{ color: 'white' }}>{t('BlogType.1')}</Label>

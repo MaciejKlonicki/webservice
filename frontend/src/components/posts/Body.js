@@ -18,6 +18,7 @@ function Body({ t }) {
     const [totalPages, setTotalPages] = useState(1)
     const [averageRatings, setAverageRatings] = useState({})
     const recordPerPage = 12
+    const currentUserEmail = localStorage.getItem("email")
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -182,7 +183,7 @@ function Body({ t }) {
                                 {post.photo && <img style={{ width: '290px', height: '250px', borderRadius: '5px', marginBottom: '10px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
                                 <Card.Title style={{ color: 'white', marginRight: '11px' }}>
                                     {post.title}
-                                    {hoveredPostId === post.id && (
+                                    {hoveredPostId === post.id && currentUserEmail === post.author && (
                                         <>
                                             <MdDeleteForever
                                                 onMouseEnter={() => setHoveredIcon('delete')}

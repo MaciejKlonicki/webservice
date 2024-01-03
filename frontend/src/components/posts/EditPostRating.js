@@ -50,11 +50,12 @@ const EditPostRating = ({ match, t }) => {
 
     return (
         <div style={{ maxWidth: "1300px", margin: "100px auto", textAlign: "center" }}>
-            <h1 style={{ color: "white", marginTop: "10px", marginBottom: "10px" }}>{t('EditPostRating.1')}</h1>
+            <h1 style={{ color: "white", marginTop: "10px", marginBottom: "20px" }}>{t('EditPostRating.1')}</h1>
             <Box
                 sx={{
                     '& > legend': { mt: 2 },
                     marginRight: '10px',
+                    marginBottom: '20px'
                 }}
             >
                 <Rating

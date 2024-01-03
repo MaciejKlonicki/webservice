@@ -31,7 +31,7 @@ class CreatePost extends Component {
         const formData = new FormData()
         const title = event.target.title.value
         const body = event.target.body.value
-        const author = event.target.author.value
+        const author = localStorage.getItem("email")
         const type = event.target.type.value
         const photo = event.target.photo.files[0]
 
@@ -47,7 +47,7 @@ class CreatePost extends Component {
 
         formData.append('title', event.target.title.value)
         formData.append('body', event.target.body.value)
-        formData.append('author', event.target.author.value)
+        formData.append('author', author)
         formData.append('type', event.target.type.value)
         formData.append('creationDate', new Date().toISOString())
         formData.append('photo', event.target.photo.files[0])
@@ -83,12 +83,6 @@ class CreatePost extends Component {
             </Tooltip>
         )
 
-        const authorTooltip = (
-            <Tooltip id="author-tooltip">
-                Max length is 50 characters.
-            </Tooltip>
-        )
-
         return (
             <div style={{ maxWidth: "1300px", margin: "0 auto", textAlign: "center" }}>
                 <h2 style={{ color: "white", marginTop: "10px", marginBottom: "10px" }}>{t('AddNewPost.1')}</h2>
@@ -113,24 +107,26 @@ class CreatePost extends Component {
                         required
                         name="body"
                     />
-                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogAuthor.1')}
-                        <OverlayTrigger placement="top" overlay={authorTooltip}>
-                            <span style={{ marginLeft: '5px', cursor: 'pointer' }}><FiInfo style={{ marginBottom: '2px' }} /></span>
-                        </OverlayTrigger>
-                    </label>
-                    <input
-                        style={{ width: "100%", padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px" }}
-                        type="text"
-                        required
-                        name="author"
-                        maxLength={50}
-                    />
+                    <label style={{ textAlign: "left", display: "block", color: "white" }}>{t('BlogAuthor.1')}</label>
+                    <div
+                        style={{
+                            width: "100%",
+                            padding: "6px 10px",
+                            margin: "10px 0",
+                            border: "1px solid #ddd",
+                            borderRadius: "5px",
+                            backgroundColor: "#f8f9fa",
+                            textAlign: 'left'
+                        }}
+                    >
+                        {localStorage.getItem("email")}
+                    </div>
                     <label style={{ textAlign: "left", display: "block", color: "white", marginBottom: "10px" }}>{t('BlogType.1')}</label>
                     <select name='type' style={{ padding: "6px 10px", margin: "10px 0", border: "1px solid #ddd", boxSizing: "border-box", display: "block", borderRadius: "5px", width: "100%" }}>
-                        <option value="Sport">{t('Sport.1')}</option>
-                        <option value="Education">{t('Education.1')}</option>
-                        <option value="Music">{t('Music.1')}</option>
-                        <option value="Other">{t('Other.1')}</option>
+                        <option value="SPORT">{t('Sport.1')}</option>
+                        <option value="EDUCATION">{t('Education.1')}</option>
+                        <option value="MUSIC">{t('Music.1')}</option>
+                        <option value="OTHER">{t('Other.1')}</option>
                     </select>
                     <label style={{ textAlign: "left", display: "block", color: "white", width: '100%' }}>{t('BlogPhoto.1')}</label>
                     <input
