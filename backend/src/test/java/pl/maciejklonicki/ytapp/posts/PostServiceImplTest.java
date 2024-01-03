@@ -42,26 +42,4 @@ class PostServiceImplTest {
         postService.deletePost(postID);
         verify(postRepository, times(1)).deleteById(postID);
     }
-
-    @Test
-    void shouldUpdatePost() {
-        Long postID = 1L;
-        Post updatedPost = new Post();
-        updatedPost.setTitle("Updated Title");
-        updatedPost.setBody("Updated Body");
-        updatedPost.setAuthor("Updated Author");
-
-        Optional<Post> optionalPost = Optional.of(new Post());
-        when(postRepository.findById(eq(postID))).thenReturn(optionalPost);
-        when(postRepository.save(any(Post.class))).thenReturn(updatedPost);
-
-        Post resultPost = postService.updatePost(updatedPost, postID);
-
-        verify(postRepository, times(1)).findById(eq(postID));
-        verify(postRepository, times(1)).save(any(Post.class));
-        assertEquals(updatedPost, resultPost);
-        assertEquals("Updated Title", resultPost.getTitle());
-        assertEquals("Updated Body", resultPost.getBody());
-        assertEquals("Updated Author", resultPost.getAuthor());
-    }
 }

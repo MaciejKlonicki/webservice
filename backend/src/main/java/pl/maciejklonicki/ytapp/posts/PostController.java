@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
+import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -43,29 +44,11 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> addPost(@ModelAttribute CreatePostDTO createPostDTO) {
-
-        if (createPostDTO.getPhoto().getSize() > 1024 * 1024) {
+        if (createPostDTO.photo() != null && createPostDTO.photo().getSize() > 1024 * 1024) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        Post post = new Post();
-        post.setTitle(createPostDTO.getTitle());
-        post.setBody(createPostDTO.getBody());
-        post.setAuthor(createPostDTO.getAuthor());
-        post.setType(createPostDTO.getType());
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            Date parsedDate = dateFormat.parse(createPostDTO.getCreationDate());
-            post.setCreationDate(parsedDate);
-        } catch (ParseException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-        try {
-            post.setPhoto(createPostDTO.getPhoto().getBytes());
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-        return postService.addPost(post);
+        return postService.addPost(createPostDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -74,20 +57,14 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@RequestParam("title") String title,
-                           @RequestParam("body") String body,
-                           @RequestParam("type") PostType type,
-                           @RequestParam(value = "photo", required = false) MultipartFile photo,
-                           @PathVariable Long id) throws IOException {
-        Post post = new Post();
-        post.setTitle(title);
-        post.setBody(body);
-        post.setType(type);
-        if (photo != null && !photo.isEmpty()) {
-            post.setPhoto(photo.getBytes());
+    public ResponseEntity<Post> updatePost(@ModelAttribute UpdatePostDTO updatePostDTO, @PathVariable Long id) {
+        if (updatePostDTO.photo() != null && updatePostDTO.photo().getSize() > 1024 * 1024) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return postService.updatePost(post, id);
+
+        return postService.updatePost(updatePostDTO, id);
     }
+
 
     @PutMapping("/{id}/increment-popularity")
     public ResponseEntity<Void> incrementPostPopularity(@PathVariable Long id) {
