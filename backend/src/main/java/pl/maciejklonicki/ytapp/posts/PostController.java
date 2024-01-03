@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -41,32 +42,26 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> addPost(
-            @RequestParam("title") String title,
-            @RequestParam("body") String body,
-            @RequestParam("author") String author,
-            @RequestParam("type") String type,
-            @RequestParam("creationDate") String creationDate,
-            @RequestParam("photo") MultipartFile photo) {
+    public ResponseEntity<Post> addPost(@ModelAttribute CreatePostDTO createPostDTO) {
 
-        if (photo.getSize() > 1024 * 1024) {
+        if (createPostDTO.getPhoto().getSize() > 1024 * 1024) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         Post post = new Post();
-        post.setTitle(title);
-        post.setBody(body);
-        post.setAuthor(author);
-        post.setType(type);
+        post.setTitle(createPostDTO.getTitle());
+        post.setBody(createPostDTO.getBody());
+        post.setAuthor(createPostDTO.getAuthor());
+        post.setType(createPostDTO.getType());
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            Date parsedDate = dateFormat.parse(creationDate);
+            Date parsedDate = dateFormat.parse(createPostDTO.getCreationDate());
             post.setCreationDate(parsedDate);
         } catch (ParseException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         try {
-            post.setPhoto(photo.getBytes());
+            post.setPhoto(createPostDTO.getPhoto().getBytes());
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

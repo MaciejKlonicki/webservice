@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 
 import java.util.List;
@@ -63,7 +64,6 @@ public class PostServiceImpl implements PostService {
         Post oldPost = optionalPost.get();
         oldPost.setTitle(post.getTitle());
         oldPost.setBody(post.getBody());
-        oldPost.setAuthor(post.getAuthor());
         oldPost.setType(post.getType());
         byte[] newPhoto = post.getPhoto();
         if (newPhoto != null && newPhoto.length > 0) {
