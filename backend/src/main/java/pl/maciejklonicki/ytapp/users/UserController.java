@@ -2,6 +2,7 @@ package pl.maciejklonicki.ytapp.users;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.maciejklonicki.ytapp.users.dto.RegisterUserDTO;
 import pl.maciejklonicki.ytapp.users.dto.UsersDTO;
 
 @RestController
@@ -15,8 +16,8 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping
-    public ResponseEntity<Users> addNewUser (@RequestBody Users users) {
-        return userService.addNewUser(users);
+    public ResponseEntity<Users> addNewUser (@RequestBody RegisterUserDTO registerUserDTO) {
+        return userService.addNewUser(registerUserDTO);
     }
 
     @PostMapping("/login")
