@@ -56,7 +56,7 @@ class CreatePost extends Component {
     }
 
     addPost(formData) {
-        fetch('http://localhost:8080/api/posts', {
+        fetch('http://localhost:8080/api/v1/posts', {
             method: 'POST',
             body: formData,
         }).then(response => {

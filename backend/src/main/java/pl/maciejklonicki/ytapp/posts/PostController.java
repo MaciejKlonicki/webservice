@@ -11,7 +11,7 @@ import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/posts")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
 

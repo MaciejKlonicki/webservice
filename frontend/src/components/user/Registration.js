@@ -68,7 +68,7 @@ class Registration extends Component {
             return;
         }
 
-        fetch('http://localhost:8080/api/users', {
+        fetch('http://localhost:8080/api/v1/auth/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -89,7 +89,7 @@ class Registration extends Component {
                     this.refreshPage()
                 }, 1000)
             } else {
-                this.setState({ "errors": "Something went wrong!" })
+                this.setState({ "errors": "The username or email address is already taken! Please change your registration details" })
             }
         }.bind(this)).catch(function (error) {
             this.setState({ "errors": "Something went wrong!" })

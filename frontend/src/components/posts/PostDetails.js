@@ -15,7 +15,7 @@ const PostDetails = ({ match, t }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const postResponse = await fetch(`http://localhost:8080/api/posts/${postId}`)
+                const postResponse = await fetch(`http://localhost:8080/api/v1/posts/${postId}`)
                 const postData = await postResponse.json()
                 setPost(postData)
 
@@ -54,7 +54,7 @@ const PostDetails = ({ match, t }) => {
         window.location.reload(true)
     }
 
-    const handleChangeRating = (postId) => {
+    const handleChangeRating = () => {
         history.push(`/edit-rating/${postId}`)
         window.location.reload(true)
     }

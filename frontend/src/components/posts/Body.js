@@ -33,7 +33,7 @@ function Body({ t }) {
     }
 
     const remove = async (id) => {
-        await fetch(`http://localhost:8080/api/posts/${id}`, {
+        await fetch(`http://localhost:8080/api/v1/posts/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -93,7 +93,7 @@ function Body({ t }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const postsResponse = await fetch(`http://localhost:8080/api/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`)
+            const postsResponse = await fetch(`http://localhost:8080/api/v1/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`)
             const postsData = await postsResponse.json()
             setPosts(postsData.content)
             setTotalPages(postsData.totalPages)
