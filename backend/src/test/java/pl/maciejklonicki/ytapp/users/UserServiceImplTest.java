@@ -19,34 +19,4 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
-
-    @InjectMocks
-    private UserServiceImpl userService;
-
-    @Mock
-    private UserRepository userRepository;
-
-    @Test
-    void checkIfUserCanLoginWithCorrectIdentifiers() {
-        UsersDTO usersDTO = new UsersDTO("email@email.com", "password");
-        Users userWithMatchingPassword = new Users();
-        userWithMatchingPassword.setEmail("email@email.com");
-        userWithMatchingPassword.setPassword(BCrypt.hashpw("password", BCrypt.gensalt()));
-
-        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(userWithMatchingPassword));
-
-        ResponseEntity<Users> usersResponseEntity = userService.logInUser(usersDTO);
-
-        assertEquals(HttpStatus.OK, usersResponseEntity.getStatusCode());
-        verify(userRepository, times(1)).findByEmail(eq("email@email.com"));
-    }
-
-    @Test
-    void checkIfUserCannotLoginUnauthorized() {
-        UsersDTO usersDTO = new UsersDTO("error@email.com", "wrongPassword");
-
-        ResponseEntity<Users> usersResponseEntity = userService.logInUser(usersDTO);
-        assertEquals(HttpStatus.UNAUTHORIZED, usersResponseEntity.getStatusCode());
-        verify(userRepository, times(1)).findByEmail(eq("error@email.com"));
-    }
 }

@@ -3,6 +3,7 @@ import { Alert, Button, Card } from 'react-bootstrap'
 import { FaUndo, FaSignInAlt } from 'react-icons/fa'
 import { withTranslation } from 'react-i18next'
 import i18n from '../../i18next'
+import { jwtDecode } from "jwt-decode"
 
 class Login extends Component {
     constructor(props) {
@@ -25,29 +26,33 @@ class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        this.loginUser(event.target.email.value, event.target.password.value)
+        this.loginUser(event.target.username.value, event.target.password.value)
     }
 
-    loginUser(email, password) {
-        fetch('http://localhost:8080/api/users/login', {
+    loginUser(username, password) {
+        fetch('http://localhost:8080/api/v1/auth/authenticate', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: email,
+                username: username,
                 password: password,
             })
-        }).then(function (response) {
-            if (response.status === 200) {
-                this.setState({ "success": "You are logged in!" })
+        }).then(async function (response) {
+            if (response.ok) {
+                const responseData = await response.json()
+                const token = responseData.token
+
+                const decoded = jwtDecode(token)
+
+                localStorage.setItem("token", token)
+                localStorage.setItem("email", decoded.email)
                 
+                this.setState({ "success": "You are logged in!" })
                 setTimeout(() => {
-                    localStorage.setItem("email", email)
-                    this.props.updateEmail()
-                    this.props.history.push('/')
-                    this.refreshPage()
+                    // this.props.history.push('/')
+                    // this.refreshPage()
                 }, 1000)
             } else {
                 this.setState({ "error": "Invalid credentials" })
@@ -72,13 +77,13 @@ class Login extends Component {
                         <div className='Auth-form-content'>
                             <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>{t('Login.1')}</h3>
                             <div style={{ color: 'white', textAlign: 'center' }} className='form-group mt-3'>
-                                <label>{t('Email.1')}</label>
+                                <label>{t('RegisterLogin.1')}</label>
                                 <input
-                                    name='email'
-                                    type="email"
+                                    name='username'
+                                    type="text"
                                     className="form-control mt-1"
                                     style={{ width: '320px', margin: '0 auto' }}
-                                    placeholder={t('EnterEmail.1')} />
+                                    placeholder={t('EnterNameRegister.1')} />
                                 <label>{t('Password.1')}</label>
                                 <input
                                     name='password'

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const POST_URL = "http://localhost:8080/api/posts"
+const POST_URL = "http://localhost:8080/api/v1/posts"
 
 class PostService {
     getPostById(id) {
