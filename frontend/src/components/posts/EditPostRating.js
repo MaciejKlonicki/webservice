@@ -13,7 +13,7 @@ const EditPostRating = ({ match, t }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const ratingResponse = await fetch(`http://localhost:8080/api/post-ratings/get-rating?userEmail=${userEmail}&postId=${postId}`)
+                const ratingResponse = await fetch(`http://localhost:8080/api/v1/post-ratings/get-rating?userEmail=${userEmail}&postId=${postId}`)
                 const ratingData = await ratingResponse.json()
                 setUserRating(ratingData.rating || 0)
             } catch (error) {
@@ -25,7 +25,7 @@ const EditPostRating = ({ match, t }) => {
     }, [postId, userEmail])
 
     const handleChangePostRating = (newRating) => {
-        fetch(`http://localhost:8080/api/post-ratings/edit-rating`, {
+        fetch(`http://localhost:8080/api/v1/post-ratings/edit-rating`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

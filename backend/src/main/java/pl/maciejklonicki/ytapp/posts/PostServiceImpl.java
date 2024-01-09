@@ -64,7 +64,8 @@ public class PostServiceImpl implements PostService {
         return new SinglePostDTO(
                 post.getTitle(),
                 post.getBody(),
-                post.getAuthor()
+                post.getAuthor(),
+                post.getType()
         );
     }
 
@@ -100,6 +101,7 @@ public class PostServiceImpl implements PostService {
 
         return ResponseEntity.ok(postRepository.save(oldPost));
     }
+
 
     @Override
     @Transactional

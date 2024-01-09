@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Alert, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { withTranslation } from 'react-i18next'
-import { FiInfo } from "react-icons/fi";
+import { FiInfo } from "react-icons/fi"
 
 class CreatePost extends Component {
 

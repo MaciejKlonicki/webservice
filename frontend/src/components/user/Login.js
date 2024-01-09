@@ -51,8 +51,8 @@ class Login extends Component {
                 
                 this.setState({ "success": "You are logged in!" })
                 setTimeout(() => {
-                    // this.props.history.push('/')
-                    // this.refreshPage()
+                    this.props.history.push('/')
+                    this.refreshPage()
                 }, 1000)
             } else {
                 this.setState({ "error": "Invalid credentials" })

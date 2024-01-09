@@ -19,7 +19,7 @@ const PostDetails = ({ match, t }) => {
                 const postData = await postResponse.json()
                 setPost(postData)
 
-                const ratingResponse = await fetch(`http://localhost:8080/api/post-ratings/get-rating?userEmail=${userEmail}&postId=${postId}`)
+                const ratingResponse = await fetch(`http://localhost:8080/api/v1/post-ratings/get-rating?userEmail=${userEmail}&postId=${postId}`)
                 const ratingData = await ratingResponse.json()
                 setUserRating(ratingData.rating || 0)
             } catch (error) {
@@ -31,7 +31,7 @@ const PostDetails = ({ match, t }) => {
     }, [postId, userEmail])
 
     const handleRatingChange = (rating) => {
-        fetch(`http://localhost:8080/api/post-ratings/rate`, {
+        fetch(`http://localhost:8080/api/v1/post-ratings/rate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
