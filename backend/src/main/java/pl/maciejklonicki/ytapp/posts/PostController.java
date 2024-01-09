@@ -54,13 +54,8 @@ public class PostController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Post> updatePost(@ModelAttribute UpdatePostDTO updatePostDTO, @PathVariable Long id) {
-        if (updatePostDTO.photo() != null && updatePostDTO.photo().getSize() > 1024 * 1024) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
         return postService.updatePost(updatePostDTO, id);
     }
-
 
     @PutMapping("/{id}/increment-popularity")
     public ResponseEntity<Void> incrementPostPopularity(@PathVariable Long id) {

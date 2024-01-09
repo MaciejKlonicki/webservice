@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from "react-router-dom"
 import PostService from "../service/PostService"
-import { Container, FormGroup, Form, Button } from 'react-bootstrap'
+import { Container, FormGroup, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { Input, Label, Alert } from 'reactstrap'
 import { withTranslation } from 'react-i18next'
+import { FiInfo } from "react-icons/fi"
 
 const EditPost = ({ t }) => {
 
@@ -32,7 +33,10 @@ const EditPost = ({ t }) => {
         formData.append('title', title)
         formData.append('body', body)
         formData.append('type', type)
-        formData.append('photo', photo)
+
+        if (photo) {
+            formData.append('photo', photo);
+        }
 
         PostService.updatePost(formData, id).then((res) => {
             setSuccess('Post updated successfully!')
@@ -67,6 +71,12 @@ const EditPost = ({ t }) => {
         window.location.reload(true)
     }
 
+    const titleTooltip = (
+        <Tooltip id="title-tooltip">
+            Max length is 100 characters.
+        </Tooltip>
+    )
+
     const titles = <h2 style={{ color: 'white', textAlign: 'center', marginTop: '20px' }}>{t('EditPost.1')}</h2>
 
     return (
@@ -77,6 +87,9 @@ const EditPost = ({ t }) => {
             <Form>
                 <FormGroup>
                     <Label for="title" style={{ color: 'white' }}>{t('BlogTitle.1')}</Label>
+                    <OverlayTrigger placement="top" overlay={titleTooltip}>
+                            <span style={{ marginLeft: '5px', cursor: 'pointer', color: 'white' }}><FiInfo style={{ marginBottom: '2px' }} /></span>
+                        </OverlayTrigger>
                     <Input type="text" name="title" value={title} onChange={changeTitleHandler} />
                 </FormGroup>
                 <FormGroup>

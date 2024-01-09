@@ -6,7 +6,7 @@ import pl.maciejklonicki.ytapp.postrating.dto.EditPostRatingRequest;
 import pl.maciejklonicki.ytapp.postrating.dto.RatePostRequest;
 
 @RestController
-@RequestMapping("/api/post-ratings")
+@RequestMapping("/api/v1/post-ratings")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PostRatingController {
     private final PostRatingService postRatingService;
