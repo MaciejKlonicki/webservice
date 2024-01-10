@@ -52,7 +52,7 @@ public class PostController {
         postService.deletePost(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Post> updatePost(@ModelAttribute UpdatePostDTO updatePostDTO, @PathVariable Long id) {
         return postService.updatePost(updatePostDTO, id);
     }

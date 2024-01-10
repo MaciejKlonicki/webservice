@@ -31,7 +31,7 @@ class CreatePost extends Component {
         const formData = new FormData()
         const title = event.target.title.value
         const body = event.target.body.value
-        const author = localStorage.getItem("email")
+        const author = localStorage.getItem("username")
         const type = event.target.type.value
         const photo = event.target.photo.files[0]
 
@@ -56,8 +56,12 @@ class CreatePost extends Component {
     }
 
     addPost(formData) {
+
         fetch('http://localhost:8080/api/v1/posts', {
             method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
             body: formData,
         }).then(response => {
             if (response.status === 200) {

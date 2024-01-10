@@ -6,6 +6,5 @@ import pl.maciejklonicki.ytapp.posts.PostType;
 public record UpdatePostDTO (
       String title,
       String body,
-      PostType type,
-      MultipartFile photo
+      PostType type
 ) { }

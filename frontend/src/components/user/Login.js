@@ -42,11 +42,17 @@ class Login extends Component {
         }).then(async function (response) {
             if (response.ok) {
                 const responseData = await response.json()
-                const token = responseData.token
+                
+                const accessToken = responseData.access_token
+                const refreshToken = responseData.refresh_token
 
-                const decoded = jwtDecode(token)
+                const decoded = jwtDecode(accessToken)
 
-                localStorage.setItem("token", token)
+                localStorage.setItem("access_token", accessToken)
+                localStorage.setItem("refresh_token", refreshToken)
+                localStorage.setItem("user_id", decoded.userId)
+                localStorage.setItem("username", decoded.sub)
+                localStorage.setItem("role", decoded.role)
                 localStorage.setItem("email", decoded.email)
                 
                 this.setState({ "success": "You are logged in!" })

@@ -5,7 +5,7 @@ import lombok.*;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.users.Users;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @Entity

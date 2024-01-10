@@ -34,7 +34,8 @@ const PostDetails = ({ match, t }) => {
         fetch(`http://localhost:8080/api/v1/post-ratings/rate`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
             },
             body: JSON.stringify({
                 userEmail,
@@ -70,26 +71,28 @@ const PostDetails = ({ match, t }) => {
                 <p style={{ color: 'white', textAlign: 'center', margin: '0px 200px 50px 200px' }}>{post.body}</p>
                 <p style={{ color: 'white', textAlign: 'right', marginRight: '100px' }}>{t('Written.1')} <b>{post.author}</b></p>
 
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-                    <Box
-                        sx={{
-                            '& > legend': { mt: 2 },
-                            marginRight: '10px',
-                        }}
-                    >
-                        <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')}</Typography>
-                        <Rating
-                            style={{ marginRight: "30px" }}
-                            name="simple-controlled"
-                            value={userRating}
-                            onChange={(event, rating) => {
-                                handleRatingChange(rating)
-                                setUserRating(rating)
+                {userEmail && (
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+                        <Box
+                            sx={{
+                                '& > legend': { mt: 2 },
+                                marginRight: '10px',
                             }}
-                            disabled={userRating !== 0}
-                        />
-                    </Box>
-                </div>
+                        >
+                            <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')}</Typography>
+                            <Rating
+                                style={{ marginRight: "30px" }}
+                                name="simple-controlled"
+                                value={userRating}
+                                onChange={(event, rating) => {
+                                    handleRatingChange(rating)
+                                    setUserRating(rating)
+                                }}
+                                disabled={userRating !== 0}
+                            />
+                        </Box>
+                    </div>
+                )}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5px' }}>
                     {userRating > 0 && (
                         <button

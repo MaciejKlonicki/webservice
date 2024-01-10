@@ -71,8 +71,7 @@ class Registration extends Component {
         fetch('http://localhost:8080/api/v1/auth/register', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 username: username,

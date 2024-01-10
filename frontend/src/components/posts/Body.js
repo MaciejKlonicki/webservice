@@ -18,7 +18,7 @@ function Body({ t }) {
     const [totalPages, setTotalPages] = useState(1)
     const [averageRatings, setAverageRatings] = useState({})
     const recordPerPage = 12
-    const currentUserEmail = localStorage.getItem("email")
+    const currentUsername = localStorage.getItem("username")
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -36,8 +36,8 @@ function Body({ t }) {
         await fetch(`http://localhost:8080/api/v1/posts/${id}`, {
             method: 'DELETE',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then(() => {
             let updatePost = [...posts].filter(i => i.id !== id)
@@ -183,7 +183,7 @@ function Body({ t }) {
                                 {post.photo && <img style={{ width: '290px', height: '250px', borderRadius: '5px', marginBottom: '10px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
                                 <Card.Title style={{ color: 'white', marginRight: '11px' }}>
                                     {post.title}
-                                    {hoveredPostId === post.id && currentUserEmail === post.author && (
+                                    {hoveredPostId === post.id && currentUsername === post.author && (
                                         <>
                                             <MdDeleteForever
                                                 onMouseEnter={() => setHoveredIcon('delete')}
