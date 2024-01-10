@@ -2,13 +2,19 @@ import axios from 'axios'
 
 const POST_URL = "http://localhost:8080/api/v1/posts"
 
+const config = {
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+    }
+}
+
 class PostService {
     getPostById(id) {
         return axios.get(POST_URL + '/' + id)
     }
 
     updatePost(post, id) {
-        return axios.put(POST_URL + '/' + id, post)
+        return axios.put(POST_URL + '/update/' + id, post, config)
     }
 
     incrementPopularity(postId) {

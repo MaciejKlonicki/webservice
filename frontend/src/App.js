@@ -30,12 +30,12 @@ class App extends Component {
     <Router>
       <Route path="/" component={NavigationBar} />
       <Switch>
-        <PrivateRoute path="/" exact component={Body} />
+        <Route path="/" exact component={Body} />
         <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />} />
         <Route path='/register' component={Registration} />
         <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/create-post' component={CreatePost} />
-        <PrivateRoute path='/posts/:id' component={PostDetails} />
+        <Route path='/posts/:id' component={PostDetails} />
         <PrivateRoute path='/edit/:id' component={EditPost} />
         <PrivateRoute path='/edit-rating/:id' component={EditPostRating} />
         <Route path='*' component={NotFound} />

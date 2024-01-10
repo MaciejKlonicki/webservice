@@ -13,7 +13,6 @@ const EditPost = ({ t }) => {
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const [type, setType] = useState('')
-    const [photo, setPhoto] = useState(null)
     const [success, setSuccess] = useState('')
     const [errors, setErrors] = useState('')
 
@@ -33,10 +32,6 @@ const EditPost = ({ t }) => {
         formData.append('title', title)
         formData.append('body', body)
         formData.append('type', type)
-
-        if (photo) {
-            formData.append('photo', photo);
-        }
 
         PostService.updatePost(formData, id).then((res) => {
             setSuccess('Post updated successfully!')
@@ -60,10 +55,6 @@ const EditPost = ({ t }) => {
 
     const changeTypeHandler = (event) => {
         setType(event.target.value)
-    }
-
-    const handlePhotoChange = (event) => {
-        setPhoto(event.target.files[0])
     }
 
     const cancel = () => {
@@ -104,10 +95,6 @@ const EditPost = ({ t }) => {
                         <option value="MUSIC">{t('Music.1')}</option>
                         <option value="OTHER">{t('Other.1')}</option>
                     </Input>
-                </FormGroup>
-                <FormGroup>
-                    <Label for="photo" style={{ color: 'white' }}>{t('BlogPhoto.1')}</Label>
-                    <Input type="file" name="photo" accept="image/*" onChange={handlePhotoChange} />
                 </FormGroup>
                 <FormGroup>
                     <Button className="btn btn-secondary" style={{ marginTop: "10px", marginRight: '10px' }} onClick={cancel}>{t('Cancel.1')}</Button>

@@ -87,18 +87,6 @@ public class PostServiceImpl implements PostService {
         oldPost.setBody(updatePostDTO.body());
         oldPost.setType(updatePostDTO.type());
 
-        byte[] newPhoto = null;
-        try {
-            if (updatePostDTO.photo() != null) {
-                newPhoto = updatePostDTO.photo().getBytes();
-                if (newPhoto.length > 0) {
-                    oldPost.setPhoto(newPhoto);
-                }
-            }
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-
         return ResponseEntity.ok(postRepository.save(oldPost));
     }
 
