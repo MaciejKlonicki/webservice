@@ -4,8 +4,10 @@ import { FiSettings } from 'react-icons/fi'
 import { BiLogIn, BiLogOut } from 'react-icons/bi'
 import { BsFillPersonPlusFill } from 'react-icons/bs'
 import { withTranslation } from 'react-i18next'
+import axios from 'axios'
 
 class NavigationBar extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -32,12 +34,18 @@ class NavigationBar extends React.Component {
   }
 
   logout = () => {
-    localStorage.clear()
-    this.setState({ email: "", isAuthenticated: false })
+    try {
+      axios.post('http://localhost:8080/api/v1/auth/logout')
+      localStorage.clear()
+    } catch (error) {
+      console.error('Error during logout:', error)
+    }
   }
 
   render() {
+    
     const { t } = this.props
+
     const guestLinks = (
       <>
         <Nav.Link href='/register' style={{ position: 'absolute', right: 0, bottom: 10 }}><BsFillPersonPlusFill style={{ position: "relative", bottom: "2px" }} />{' '}{t('Register.1')}</Nav.Link>
@@ -94,4 +102,5 @@ class NavigationBar extends React.Component {
     )
   }
 }
+
 export default withTranslation()(NavigationBar)
