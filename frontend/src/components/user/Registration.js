@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next'
 import i18n from '../../i18next'
 
 class Registration extends Component {
+
     constructor(props) {
         super(props)
         this.registrationAlert = React.createRef()
@@ -12,7 +13,8 @@ class Registration extends Component {
     }
 
     initialState = {
-        success: '', errors: '', password: '', mobile: '', passwordRequirements: ''
+        success: '', errors: '', password: '', confirmPassword: '',
+        mobile: '', passwordRequirements: '', passwordMatchError: ''
     }
 
     refreshPage() {
@@ -49,12 +51,32 @@ class Registration extends Component {
         });
     }
 
-    handleSubmit = event => {
-        event.preventDefault()
-        this.registerUser(event.target.username.value, event.target.email.value, event.target.password.value, event.target.mobile.value)
+    handleConfirmPasswordChange = event => {
+        const inputValue = event.target.value
+        this.setState({ confirmPassword: inputValue })
     }
 
-    registerUser(username, email, password, mobile) {
+    handleSubmit = event => {
+        event.preventDefault()
+        const { username, email, password, confirmPassword, mobile } = event.target
+
+        if (password.value !== confirmPassword.value) {
+            this.setState({
+                passwordMatchError: 'Passwords do not match.',
+                errors: '',
+            })
+
+            setTimeout(() => {
+                this.setState({ passwordMatchError: '' })
+            }, 3000)
+
+            return
+        }
+
+        this.registerUser(username.value, email.value, password.value, confirmPassword.value, mobile.value)
+    }
+
+    registerUser(username, email, password, confirmPassword, mobile) {
 
         const hasUppercase = /[A-Z]/.test(password)
         const hasNumber = /\d/.test(password)
@@ -77,6 +99,7 @@ class Registration extends Component {
                 username: username,
                 email: email,
                 password: password,
+                confirmPassword: confirmPassword,
                 mobile: mobile,
             })
         }).then(function (response) {
@@ -104,6 +127,7 @@ class Registration extends Component {
                     <form className='Auth-form' onSubmit={this.handleSubmit} style={{ textAlign: "center" }}>
                         {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
                         {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
+                        {this.state.passwordMatchError && <Alert variant='danger'>{this.state.passwordMatchError}</Alert>}
                         <div style={{ color: 'white' }} className='Auth-form-content'>
                             <h2 style={{ marginTop: '50px' }} className='Auth-form-title'>{t('RegisterTitle.1')}</h2>
                             <div className="form-group mt-3">
@@ -142,6 +166,19 @@ class Registration extends Component {
                                         {this.state.passwordRequirements}
                                     </p>
                                 )}
+                            </div>
+                            <div className="form-group mt-3">
+                                <label>{t('ConfirmPassword.1')}</label>
+                                <input
+                                    name='confirmPassword'
+                                    required
+                                    type="password"
+                                    className="form-control mt-1"
+                                    style={{ width: '320px', margin: '0 auto' }}
+                                    placeholder={t('ConfirmPassword.1')}
+                                    value={this.state.confirmPassword}
+                                    onChange={this.handleConfirmPasswordChange}
+                                />
                             </div>
                             <div className="form-group mt-3">
                                 <label>{t('RegisterPhone.1')}</label>
