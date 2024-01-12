@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.maciejklonicki.ytapp.auth.exception.PasswordMismatchException;
 import pl.maciejklonicki.ytapp.config.JwtService;
 import pl.maciejklonicki.ytapp.token.Token;
 import pl.maciejklonicki.ytapp.token.TokenRepository;
@@ -30,6 +31,11 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+            throw new PasswordMismatchException("Password and confirmation do not match");
+        }
+
         var user = Users.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())

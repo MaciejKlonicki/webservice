@@ -124,6 +124,9 @@
     "RegisterPassword": {
         "1": "Password"
     },
+    "ConfirmPassword": {
+        "1": "Confirm Password"
+    },
     "RegisterPhone": {
         "1": "Phone number"
     },
