@@ -6,7 +6,7 @@ import { Input, Label, Alert } from 'reactstrap'
 import { withTranslation } from 'react-i18next'
 import { FiInfo } from "react-icons/fi"
 
-const EditPost = ({ t }) => {
+const EditPost = ({ t, username }) => {
 
     const history = useHistory()
     const { id } = useParams()
@@ -22,8 +22,14 @@ const EditPost = ({ t }) => {
             setTitle(post.title)
             setBody(post.body)
             setType(post.type)
+
+            if (post.author !== username && localStorage.getItem("role") !== 'ADMIN') {
+                history.push('/')
+                window.location.reload(true)
+            }
+
         })
-    }, [id])
+    }, [id, history, username])
 
     const updatePost = (e) => {
         e.preventDefault()
