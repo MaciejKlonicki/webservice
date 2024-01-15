@@ -6,23 +6,18 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
-import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
+import pl.maciejklonicki.ytapp.posts.dto.SinglePostDTO;
+import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
+import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 import pl.maciejklonicki.ytapp.posts.exception.PostTitleAlreadyExistsException;
 
-import java.awt.print.Pageable;
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -37,7 +32,6 @@ class PostServiceImplTest {
 
     @Test
     void shouldAddPostSuccessfully() {
-
         CreatePostDTO createPostDTO = new CreatePostDTO(
                 "Test Title",
                 "Test Body",
@@ -63,7 +57,6 @@ class PostServiceImplTest {
 
     @Test
     void shouldReturnTitleAlreadyExistsException() {
-
         CreatePostDTO createPostDTO = new CreatePostDTO(
                 "Existing Title",
                 "Test Body",
@@ -78,6 +71,89 @@ class PostServiceImplTest {
         assertThrows(PostTitleAlreadyExistsException.class, () -> {
             postService.addPost(createPostDTO);
         });
+
+        verify(postRepository, never()).save(any());
+    }
+
+    @Test
+    void shouldReturnSinglePost() {
+        Long postId = 1L;
+        Post post = new Post(
+                postId,
+                "Test Title",
+                "Test Body",
+                "Test Author",
+                PostType.EDUCATION,
+                new Date(),
+                null,
+                0,
+                0,
+                new ArrayList<>()
+        );
+
+        when(postRepository.findById(postId)).thenReturn(java.util.Optional.of(post));
+
+        SinglePostDTO singlePostDTO = postService.getSinglePostDTO(postId);
+
+        verify(postRepository, times(1)).findById(postId);
+
+        assertNotNull(singlePostDTO);
+        assertEquals(post.getTitle(), singlePostDTO.title());
+        assertEquals(post.getBody(), singlePostDTO.body());
+        assertEquals(post.getAuthor(), singlePostDTO.author());
+        assertEquals(post.getType(), singlePostDTO.type());
+    }
+
+    @Test
+    void shouldDeletePost() {
+        Long postId = 1L;
+
+        postService.deletePost(postId);
+
+        verify(postRepository, times(1)).deleteById(postId);
+    }
+
+    @Test
+    void shouldUpdatePost() {
+        Long postId = 1L;
+        UpdatePostDTO updatePostDTO = new UpdatePostDTO("Updated Title", "Updated Body", PostType.EDUCATION);
+
+        Post existingPost = new Post(
+                postId,
+                "Old Title",
+                "Old Body",
+                "Old Author",
+                PostType.EDUCATION,
+                new Date(),
+                null,
+                0,
+                0,
+                new ArrayList<>()
+        );
+
+        when(postRepository.findById(postId)).thenReturn(java.util.Optional.of(existingPost));
+        when(postRepository.save(any())).thenReturn(existingPost);
+
+        ResponseEntity<Post> response = postService.updatePost(updatePostDTO, postId);
+
+        verify(postRepository, times(1)).findById(postId);
+
+        assertNotNull(response.getBody());
+        assertEquals(updatePostDTO.title(), response.getBody().getTitle());
+        assertEquals(updatePostDTO.body(), response.getBody().getBody());
+        assertEquals(updatePostDTO.type(), response.getBody().getType());
+
+        verify(postRepository, times(1)).save(existingPost);
+    }
+
+    @Test
+    void shouldReturnPostNotFoundException() {
+        Long postId = 1L;
+        UpdatePostDTO updatePostDTO = new UpdatePostDTO("Updated Title", "Updated Body", PostType.MUSIC);
+
+        when(postRepository.findById(postId)).thenReturn(Optional.empty());
+
+        assertThrows(PostNotFoundException.class, () -> postService.updatePost(updatePostDTO, postId));
 
         verify(postRepository, never()).save(any());
     }
