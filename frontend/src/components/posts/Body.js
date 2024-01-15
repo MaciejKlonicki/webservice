@@ -6,7 +6,7 @@ import { MdDeleteForever, MdModeEdit } from "react-icons/md"
 import PostService from "../service/PostService"
 import { Rating } from '@mui/material'
 
-function Body({ t }) {
+function Body({ t, isAdmin }) {
 
     const history = useHistory()
     const [posts, setPosts] = useState([])
@@ -183,7 +183,7 @@ function Body({ t }) {
                                 {post.photo && <img style={{ width: '290px', height: '250px', borderRadius: '5px', marginBottom: '10px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
                                 <Card.Title style={{ color: 'white', marginRight: '11px' }}>
                                     {post.title}
-                                    {hoveredPostId === post.id && currentUsername === post.author && (
+                                    {(isAdmin || (hoveredPostId === post.id && currentUsername === post.author)) && (
                                         <>
                                             <MdDeleteForever
                                                 onMouseEnter={() => setHoveredIcon('delete')}
@@ -192,7 +192,8 @@ function Body({ t }) {
                                                     e.stopPropagation()
                                                     remove(post.id)
                                                 }}
-                                                style={{ position: 'absolute', right: 5, color: hoveredIcon === 'delete' ? 'white' : 'gray' }} />
+                                                style={{ position: 'absolute', right: 5, color: isAdmin ? 'white' : (hoveredIcon === 'delete' ? 'white' : 'gray') }}
+                                            />
                                             <MdModeEdit
                                                 onMouseEnter={() => setHoveredIcon('edit')}
                                                 onMouseLeave={() => setHoveredIcon(null)}
@@ -200,7 +201,8 @@ function Body({ t }) {
                                                     e.stopPropagation()
                                                     editPost(post.id)
                                                 }}
-                                                style={{ position: 'absolute', right: 25, color: hoveredIcon === 'edit' ? 'white' : 'gray' }} />
+                                                style={{ position: 'absolute', right: 25, color: isAdmin ? 'white' : (hoveredIcon === 'edit' ? 'white' : 'gray') }}
+                                            />
                                         </>
                                     )}
                                 </Card.Title>
