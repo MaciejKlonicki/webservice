@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
+import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
 import pl.maciejklonicki.ytapp.posts.dto.SinglePostDTO;
 import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
 
@@ -22,13 +23,13 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Post>> getAllPosts(
+    public ResponseEntity<Page<GetAllPostsDTO>> getAllPosts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size,
             @RequestParam(required = false) PostType type,
             @RequestParam(required = false) String searchTerm
     ) {
-        Page<Post> postPage = postService.getAllPosts(page, size, type, searchTerm);
+        Page<GetAllPostsDTO> postPage = postService.getAllPosts(page, size, type, searchTerm);
         return new ResponseEntity<>(postPage, HttpStatus.OK);
     }
 

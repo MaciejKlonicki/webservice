@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
+import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
 import pl.maciejklonicki.ytapp.posts.dto.SinglePostDTO;
 import pl.maciejklonicki.ytapp.posts.dto.UpdatePostDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
@@ -41,7 +42,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<Post> getAllPosts(int page, int size, PostType type, String searchTerm) {
+    public Page<GetAllPostsDTO> getAllPosts(int page, int size, PostType type, String searchTerm) {
         Pageable pageable = PageRequest.of(page, size);
 
         Specification<Post> spec = Specification.where(null);
