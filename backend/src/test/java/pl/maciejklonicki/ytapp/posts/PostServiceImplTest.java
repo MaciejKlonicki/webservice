@@ -395,4 +395,54 @@ class PostServiceImplTest {
         assertNotNull(result);
         assertEquals(3, result.getContent().size());
     }
+
+    @Test
+    void shouldReturnAllPostsByType() {
+        int page = 0;
+        int size = 10;
+        PostType type = PostType.SPORT;
+        String searchTerm = null;
+
+        List<Post> posts = Arrays.asList(
+                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null),
+                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null),
+                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null)
+        );
+
+        Page<Post> pageResult = new PageImpl<>(posts);
+
+        when(postRepository.findAll(any(Specification.class), any(Pageable.class))).thenReturn(pageResult);
+
+        Page<GetAllPostsDTO> result = postService.getAllPosts(page, size, type, searchTerm);
+
+        verify(postRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
+
+        assertNotNull(result);
+        assertEquals(3, result.getContent().size());
+    }
+
+    @Test
+    void shouldReturnAllPostsBySearchTerm() {
+        int page = 0;
+        int size = 10;
+        PostType type = null;
+        String searchTerm = "title";
+
+        List<Post> posts = Arrays.asList(
+                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null),
+                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null),
+                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null)
+        );
+
+        Page<Post> pageResult = new PageImpl<>(posts);
+
+        when(postRepository.findAll(any(Specification.class), any(Pageable.class))).thenReturn(pageResult);
+
+        Page<GetAllPostsDTO> result = postService.getAllPosts(page, size, type, searchTerm);
+
+        verify(postRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
+
+        assertNotNull(result);
+        assertEquals(3, result.getContent().size());
+    }
 }
