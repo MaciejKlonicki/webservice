@@ -227,7 +227,7 @@ There is also a "Settings" section on each user's account that allows for langua
 | POST | /api/v1/post-ratings/rate | Add post rating | [JSON](#addpostrating) |
 | PUT | /api/v1/post-ratings/edit-rating | Edit post rating | [JSON](#editpostrating) |
 
-# Sample JSON Request/Reponse
+# Sample JSON Request/Response
 
 #### <a id="signup">Sign up -> /api/v1/auth/register</a>
 ```json
