@@ -208,24 +208,24 @@ There is also a "Settings" section on each user's account that allows for langua
 
 | Method | URL | Description | Sample body |
 | :---: | :---: | :---: | :---: |
-| GET | /api/v1/posts | Get all posts | [JSON](#getAllPosts) |
-| GET | /api/v1/posts/{id} | Get single post | [JSON](#getSinglePost) |
-| GET | /api/v1/posts/sorted-by-popularity | Sort post by popularity | [JSON](#sortPostByPopularity) |
-| GET | /api/v1/posts/sorted-by-creation-date | Sort post by creation date | [JSON](#sortPostByCreationDate) |
-| GET | /api/v1/posts/sorted-by-rating | Sort post by rating | [JSON](#sortPostByRating) |
-| GET | /api/v1/posts/{postId}/average-rating | Get post average rating | [JSON](#getPostAverageRating) |
-| POST | /api/v1/posts | Create new post | [JSON](#createNewPost) |
-| DELETE | /api/v1/posts/{id} | Delete post | [JSON](#deletePost) |
-| PUT | /api/v1/posts/update/{id} | Update post | [JSON](#updatePost) |
-| PUT | /api/v1/posts/{id}/increment-popularity" | Increment post popularity | [JSON](#incrementPostPopularity) |
+| GET | /api/v1/posts | Get all posts | [JSON](#getallposts) |
+| GET | /api/v1/posts/{id} | Get single post | [JSON](#getsinglepost) |
+| GET | /api/v1/posts/sorted-by-popularity | Sort post by popularity | [JSON](#sortpostbypopularity) |
+| GET | /api/v1/posts/sorted-by-creation-date | Sort post by creation date | [JSON](#sortpostbycreationdate) |
+| GET | /api/v1/posts/sorted-by-rating | Sort post by rating | [JSON](#sortpostbyrating) |
+| GET | /api/v1/posts/{postId}/average-rating | Get post average rating | [JSON](#getpostaveragerating) |
+| POST | /api/v1/posts | Create new post | [JSON](#createnewpost) |
+| DELETE | /api/v1/posts/{id} | Delete post | [JSON](#deletepost) |
+| PUT | /api/v1/posts/update/{id} | Update post | [JSON](#updatepost) |
+| PUT | /api/v1/posts/{id}/increment-popularity" | Increment post popularity | [JSON](#incrementpostpopularity) |
 
 ### Post rating
 
 | Method | URL | Description | Sample body |
 | :---: | :---: | :---: | :---: |
-| GET | /api/v1/post-ratings/get-rating | Get post rating | [JSON](#getPostRating) |
-| POST | /api/v1/post-ratings/rate | Add post rating | [JSON](#AddPostRating) |
-| PUT | /api/v1/post-ratings/edit-rating | Edit post rating | [JSON](#editPostRating) |
+| GET | /api/v1/post-ratings/get-rating | Get post rating | [JSON](#getpostrating) |
+| POST | /api/v1/post-ratings/rate | Add post rating | [JSON](#addpostrating) |
+| PUT | /api/v1/post-ratings/edit-rating | Edit post rating | [JSON](#editpostrating) |
 
 # Sample JSON Request/Reponse
 
@@ -255,7 +255,7 @@ There is also a "Settings" section on each user's account that allows for langua
 }
 ```
 
-#### <a id="getAllPosts">Get all posts -> /api/v1/posts</a>
+#### <a id="getallposts">Get all posts -> /api/v1/posts</a>
 ```json
 [
     {
@@ -271,7 +271,7 @@ There is also a "Settings" section on each user's account that allows for langua
 ]
 ```
 
-#### <a id="getSinglePost">Get single post -> /api/v1/posts/{id}</a>
+#### <a id="getsinglepost">Get single post -> /api/v1/posts/{id}</a>
 ```json
 {
     "title": "STRING",
@@ -281,7 +281,7 @@ There is also a "Settings" section on each user's account that allows for langua
 }
 ```
 
-#### <a id="sortPostByPopularity">Sort post by popularity -> /api/v1/posts/sorted-by-popularity</a>
+#### <a id="sortpostbypopularity">Sort post by popularity -> /api/v1/posts/sorted-by-popularity</a>
 ```json
 [
     {
@@ -297,7 +297,7 @@ There is also a "Settings" section on each user's account that allows for langua
 ]
 ```
 
-#### <a id="sortPostByCreationDate">Sort post by creation date -> /api/v1/posts/sorted-by-creation-date</a>
+#### <a id="sortpostbycreationdate">Sort post by creation date -> /api/v1/posts/sorted-by-creation-date</a>
 ```json
 [
     {
@@ -313,7 +313,7 @@ There is also a "Settings" section on each user's account that allows for langua
 ]
 ```
 
-#### <a id="sortPostByRating">Sort post by rating -> /api/v1/posts/sorted-by-rating</a>
+#### <a id="sortpostbyrating">Sort post by rating -> /api/v1/posts/sorted-by-rating</a>
 ```json
 [
     {
@@ -329,12 +329,12 @@ There is also a "Settings" section on each user's account that allows for langua
 ]
 ```
 
-#### <a id="getPostAverageRating">Get post average rating -> /api/v1/posts/{postId}/average-rating</a>
+#### <a id="getpostaveragerating">Get post average rating -> /api/v1/posts/{postId}/average-rating</a>
 ```json
     Average rating: DOUBLE
 ```
 
-#### <a id="createNewPost">Create new post -> /api/v1/posts</a>
+#### <a id="createnewpost">Create new post -> /api/v1/posts</a>
 
 `Authorization -> Bearer Token`
 ```json
@@ -348,14 +348,14 @@ There is also a "Settings" section on each user's account that allows for langua
     }
 ```
 
-#### <a id="deletePost">Delete post -> /api/v1/posts/{id}</a>
+#### <a id="deletepost">Delete post -> /api/v1/posts/{id}</a>
 
 `Authorization -> Bearer Token`
 ```json
     Delete successful!
 ```
 
-#### <a id="updatePost">Update post -> /api/v1/posts/update/{id}</a>
+#### <a id="updatepost">Update post -> /api/v1/posts/update/{id}</a>
 
 `Authorization -> Bearer Token`
 ```json
@@ -366,13 +366,13 @@ There is also a "Settings" section on each user's account that allows for langua
   }
 ```
 
- #### <a id="incrementPostPopularity">Increment post popularity -> /api/v1/posts/{id}/increment-popularity</a>
+ #### <a id="incrementpostpopularity">Increment post popularity -> /api/v1/posts/{id}/increment-popularity</a>
 
  ```json
     Implemented!
 ```
 
-#### <a id="getPostRating">Get post rating -> /api/v1/post-ratings/get-rating</a>
+#### <a id="getpostrating">Get post rating -> /api/v1/post-ratings/get-rating</a>
 
 ```json
 {
@@ -381,14 +381,14 @@ There is also a "Settings" section on each user's account that allows for langua
 }
 ```
 
-#### <a id="addPostRating">Add post rating -> /api/v1/post-ratings/rate</a>
+#### <a id="addpostrating">Add post rating -> /api/v1/post-ratings/rate</a>
 
 `Authorization -> Bearer Token`
 ```json
     You rated post successfuly!
 ```
 
-#### <a id="editPostRating">Edit post rating -> /api/v1/post-ratings/edit-rating</a>
+#### <a id="editpostrating">Edit post rating -> /api/v1/post-ratings/edit-rating</a>
 
 `Authorization -> Bearer Token`
 ```json
