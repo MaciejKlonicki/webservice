@@ -19,7 +19,7 @@ public class PostRatingController {
     public ResponseEntity<String> ratePost(@RequestBody RatePostRequest ratePostRequest) {
         try {
             postRatingService.ratePost(ratePostRequest.userEmail(), ratePostRequest.postId(), ratePostRequest.rating());
-            return ResponseEntity.ok("Success");
+            return ResponseEntity.ok("You rated post successfuly!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -38,7 +38,7 @@ public class PostRatingController {
     public ResponseEntity<String> editPostRating(@RequestBody EditPostRatingRequest editPostRatingRequest) {
         try {
             postRatingService.editPostRating(editPostRatingRequest.userEmail(), editPostRatingRequest.postId(), editPostRatingRequest.newRating());
-            return ResponseEntity.ok("Success");
+            return ResponseEntity.ok("You have changed the rate of the post successfuly!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
