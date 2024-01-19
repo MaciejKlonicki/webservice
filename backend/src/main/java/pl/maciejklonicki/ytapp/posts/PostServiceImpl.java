@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.maciejklonicki.ytapp.postrating.PostRating;
 import pl.maciejklonicki.ytapp.posts.dto.CreatePostDTO;
 import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
 import pl.maciejklonicki.ytapp.posts.dto.SinglePostDTO;
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -44,7 +46,7 @@ public class PostServiceImpl implements PostService {
     public Page<GetAllPostsDTO> getAllPosts(int page, int size, PostType type, String searchTerm) {
         Pageable pageable = PageRequest.of(page, size);
 
-        Specification<Post> spec = Specification.where(null);
+        Specification<GetAllPostsDTO> spec = Specification.where(null);
 
         if (type != null && type != PostType.ALL) {
             spec = spec.and((root, query, cb) -> cb.equal(root.get("type"), type));
@@ -54,7 +56,18 @@ public class PostServiceImpl implements PostService {
             spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + searchTerm.toLowerCase() + "%"));
         }
 
-        return postRepository.findAll(spec, pageable);
+        Page<Post> postPage = postRepository.findAll(spec, pageable);
+        return postPage.map(post -> new GetAllPostsDTO(
+                post.getId(),
+                post.getTitle(),
+                post.getAuthor(),
+                post.getType(),
+                post.getCreationDate(),
+                post.getPhoto(),
+                post.getPopularity(),
+                post.getTotalRatings(),
+                post.getRatings() != null ? post.getRatings().stream().map(PostRating::getRating).collect(Collectors.toList()) : null
+        ));
     }
 
     @Override

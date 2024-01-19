@@ -84,9 +84,8 @@ public class PostController {
     }
 
     @GetMapping("/{postId}/average-rating")
-    public ResponseEntity<String> getAverageRatingForPost(@PathVariable Long postId) {
+    public ResponseEntity<Double> getAverageRatingForPost(@PathVariable Long postId) {
         Double averageRating = postService.getAverageRatingForPost(postId);
-        String responseMessage = String.format("Average rating: %.2f", averageRating);
-        return ResponseEntity.ok(responseMessage);
+        return ResponseEntity.ok(averageRating);
     }
 }
