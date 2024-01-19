@@ -9,6 +9,8 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.token.TokenRepository;
 
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
@@ -34,6 +36,13 @@ public class LogoutService implements LogoutHandler {
             storedToken.setRevoked(true);
             tokenRepository.save(storedToken);
             SecurityContextHolder.clearContext();
+
+            try {
+                response.getWriter().write("Logout successful!");
+                response.getWriter().flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

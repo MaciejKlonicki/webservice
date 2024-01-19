@@ -49,8 +49,9 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id) {
+    public ResponseEntity<String> deletePost(@PathVariable Long id) {
         postService.deletePost(id);
+        return ResponseEntity.ok("Delete successful!");
     }
 
     @PutMapping("/update/{id}")
@@ -59,32 +60,33 @@ public class PostController {
     }
 
     @PutMapping("/{id}/increment-popularity")
-    public ResponseEntity<Void> incrementPostPopularity(@PathVariable Long id) {
+    public ResponseEntity<String> incrementPostPopularity(@PathVariable Long id) {
         postService.incrementPostPopularity(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Implemented!");
     }
 
     @GetMapping("/sorted-by-popularity")
-    public ResponseEntity<List<Post>> getPostsSortedByPopularity(@RequestParam(name = "type", defaultValue = "All") PostType type) {
+    public ResponseEntity<List<Post>> getPostsSortedByPopularity(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
         List<Post> sortedPosts = postService.getPostsOrderedByPopularityFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 
     @GetMapping("/sorted-by-creation-date")
-    public ResponseEntity<List<Post>> getPostsSortedByCreationDate(@RequestParam(name = "type", defaultValue = "All") PostType type) {
+    public ResponseEntity<List<Post>> getPostsSortedByCreationDate(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
         List<Post> sortedPosts = postService.getPostsOrderedByCreationDateFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 
     @GetMapping("/sorted-by-rating")
-    public ResponseEntity<List<Post>> getPostsSortedByRating(@RequestParam(name = "type", defaultValue = "All") PostType type) {
+    public ResponseEntity<List<Post>> getPostsSortedByRating(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
         List<Post> sortedPosts = postService.getPostsOrderedByRatingFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 
     @GetMapping("/{postId}/average-rating")
-    public ResponseEntity<Double> getAverageRatingForPost(@PathVariable Long postId) {
+    public ResponseEntity<String> getAverageRatingForPost(@PathVariable Long postId) {
         Double averageRating = postService.getAverageRatingForPost(postId);
-        return ResponseEntity.ok(averageRating);
+        String responseMessage = String.format("Average rating: %.2f", averageRating);
+        return ResponseEntity.ok(responseMessage);
     }
 }
