@@ -12,7 +12,7 @@ import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository <Post, Long> {
-    Page<GetAllPostsDTO> findAll(Specification<Post> spec, Pageable pageable);
+    Page<Post> findAll(Specification<GetAllPostsDTO> spec, Pageable pageable);
     List<Post> findAllByOrderByPopularityDesc();
     List<Post> findAllByOrderByCreationDateDesc();
     @Query("SELECT p, CASE WHEN SIZE(p.ratings) > 0 THEN AVG(r.rating) ELSE 0 END as avgRating FROM Post p LEFT JOIN p.ratings r GROUP BY p ORDER BY avgRating DESC")
