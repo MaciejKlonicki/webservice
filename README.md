@@ -259,6 +259,7 @@ There is also a "Settings" section on each user's account that allows for langua
 ```json
 [
     {
+        "id": LONG,
         "title": "STRING",
         "body": "STRING",
         "author": "STRING",
@@ -331,7 +332,7 @@ There is also a "Settings" section on each user's account that allows for langua
 
 #### <a id="getpostaveragerating">Get post average rating -> /api/v1/posts/{postId}/average-rating</a>
 ```json
-    Average rating: DOUBLE
+    DOUBLE
 ```
 
 #### <a id="createnewpost">Create new post -> /api/v1/posts</a>
