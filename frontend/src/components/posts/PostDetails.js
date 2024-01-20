@@ -1,8 +1,7 @@
-import { Box, Rating } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import Typography from '@mui/material/Typography'
 import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
+import RatingBox from './RatingBox'
 
 const PostDetails = ({ match, t }) => {
 
@@ -73,24 +72,16 @@ const PostDetails = ({ match, t }) => {
 
                 {userEmail && (
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-                        <Box
-                            sx={{
-                                '& > legend': { mt: 2 },
-                                marginRight: '10px',
+                        <RatingBox
+                            value={userRating}
+                            onChange={(event, rating) => {
+                                handleRatingChange(rating);
+                                setUserRating(rating);
                             }}
-                        >
-                            <Typography style={{ color: 'white' }} component="legend">{t('Rate.1')}</Typography>
-                            <Rating
-                                style={{ marginRight: "30px" }}
-                                name="simple-controlled"
-                                value={userRating}
-                                onChange={(event, rating) => {
-                                    handleRatingChange(rating)
-                                    setUserRating(rating)
-                                }}
-                                disabled={userRating !== 0}
-                            />
-                        </Box>
+                            disabled={userRating !== 0}
+                            t={t}
+                            customStyle={{ marginRight: '30px' }}
+                        />
                     </div>
                 )}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '5px' }}>
