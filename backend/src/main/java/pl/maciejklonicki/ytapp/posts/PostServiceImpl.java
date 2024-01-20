@@ -66,7 +66,8 @@ public class PostServiceImpl implements PostService {
                 post.getPhoto(),
                 post.getPopularity(),
                 post.getTotalRatings(),
-                post.getRatings() != null ? post.getRatings().stream().map(PostRating::getRating).collect(Collectors.toList()) : null
+                post.getRatings() != null ? post.getRatings().stream()
+                        .map(PostRating::getRating).collect(Collectors.toList()) : null
         ));
     }
 

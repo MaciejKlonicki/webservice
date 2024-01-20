@@ -6,7 +6,7 @@ import { MdDeleteForever, MdModeEdit } from "react-icons/md"
 import PostService from "../service/PostService"
 import { Rating } from '@mui/material'
 
-function Body({ t, isAdmin }) {
+const  Body = ({ t, isAdmin }) => {
 
     const history = useHistory()
     const [posts, setPosts] = useState([])

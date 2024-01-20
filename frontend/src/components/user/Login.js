@@ -1,35 +1,27 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Alert, Button, Card } from 'react-bootstrap'
 import { FaUndo, FaSignInAlt } from 'react-icons/fa'
 import { withTranslation } from 'react-i18next'
-import i18n from '../../i18next'
 import { jwtDecode } from "jwt-decode"
 
-class Login extends Component {
-    constructor(props) {
-        super(props)
-        this.registrationAlert = React.createRef()
-        this.state = this.initialState
-    }
+const Login = ({ t, history }) => {
 
-    initialState = {
-        error: '', success: '', errors: ''
-    }
+    const [state, setState] = useState({
+        error: '',
+        success: '',
+        errors: ''
+    })
 
-    handleClick = (lang) => {
-        i18n.changeLanguage(lang)
-    }
-
-    refreshPage() {
+    const refreshPage = () => {
         window.location.reload(false)
     }
 
-    handleSubmit = event => {
+    const handleSubmit = (event) => {
         event.preventDefault()
-        this.loginUser(event.target.username.value, event.target.password.value)
+        loginUser(event.target.username.value, event.target.password.value)
     }
 
-    loginUser(username, password) {
+    const loginUser = (username, password) => {
         fetch('http://localhost:8080/api/v1/auth/authenticate', {
             method: 'POST',
             headers: {
@@ -42,7 +34,7 @@ class Login extends Component {
         }).then(async function (response) {
             if (response.ok) {
                 const responseData = await response.json()
-                
+
                 const accessToken = responseData.access_token
                 const refreshToken = responseData.refresh_token
 
@@ -54,67 +46,63 @@ class Login extends Component {
                 localStorage.setItem("username", decoded.sub)
                 localStorage.setItem("role", decoded.role)
                 localStorage.setItem("email", decoded.email)
-                
-                this.setState({ "success": "You are logged in!" })
+
+                setState({ "success": "You are logged in!" })
                 setTimeout(() => {
-                    this.props.history.push('/')
-                    this.refreshPage()
+                    history.push('/')
+                    refreshPage()
                 }, 1000)
             } else {
-                this.setState({ "error": "Invalid credentials" })
+                setState({ "error": "Invalid credentials" })
                 setTimeout(() => {
-                    this.refreshPage()
+                    refreshPage()
                 }, 1000)
             }
-        }.bind(this)).catch(function (error) {
-            this.setState({ "errors": "Something went wrong!" })
-        }.bind(this))
+        }).catch(function (error) {
+            setState({ "errors": "Something went wrong!" })
+        })
     }
 
-    render() {  
-        const { t } = this.props
-
-        return (
-                <div className='Auth-form-container'>
-                    <form className='Auth-form' style={{ textAlign: "center" }} onSubmit={this.handleSubmit}>
-                        {this.state.error && <Alert variant='danger'>{this.state.error}</Alert>}
-                        {this.state.errors && <Alert variant='danger'>{this.state.errors}</Alert>}
-                        {this.state.success && <Alert variant='success'>{this.state.success}</Alert>}
-                        <div className='Auth-form-content'>
-                            <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>{t('Login.1')}</h3>
-                            <div style={{ color: 'white', textAlign: 'center' }} className='form-group mt-3'>
-                                <label>{t('RegisterLogin.1')}</label>
-                                <input
-                                    name='username'
-                                    type="text"
-                                    className="form-control mt-1"
-                                    style={{ width: '320px', margin: '0 auto' }}
-                                    placeholder={t('EnterNameRegister.1')} />
-                                <label>{t('Password.1')}</label>
-                                <input
-                                    name='password'
-                                    type="password"
-                                    className="form-control mt-1"
-                                    style={{ width: '320px', margin: '0 auto' }}
-                                    placeholder={t('EnterPassword.1')} />
-                            </div>
-                            <div className="d-grid gap-2 mt-3">
-                                <Card.Footer style={{ textAlign: "center" }}>
-                                    <Button size="sm" type="success" className="btn btn-success">
-                                        <FaSignInAlt />{' '}{t('Login.1')}
-                                    </Button>{' '}
-                                    <Button onClick={this.refreshPage} size="sm" type="info" className="btn btn-info">
-                                        <FaUndo />{' '}{t('Reset.1')}
-                                    </Button>
-                                </Card.Footer>
-                                <br></br>
-                                <p style={{ "color": "rgb(255, 255, 255)" }}>{t('NoAccount.1')}{' '}<a href="/register">{t('CreateAccount.1')}</a></p>
-                            </div>
-                        </div>
-                    </form>
+    return (
+        <div className='Auth-form-container'>
+            <form className='Auth-form' style={{ textAlign: "center" }} onSubmit={handleSubmit}>
+                {state.error && <Alert variant='danger'>{state.error}</Alert>}
+                {state.errors && <Alert variant='danger'>{state.errors}</Alert>}
+                {state.success && <Alert variant='success'>{state.success}</Alert>}
+                <div className='Auth-form-content'>
+                    <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>{t('Login.1')}</h3>
+                    <div style={{ color: 'white', textAlign: 'center' }} className='form-group mt-3'>
+                        <label>{t('RegisterLogin.1')}</label>
+                        <input
+                            name='username'
+                            type="text"
+                            className="form-control mt-1"
+                            style={{ width: '320px', margin: '0 auto' }}
+                            placeholder={t('EnterNameRegister.1')} />
+                        <label>{t('Password.1')}</label>
+                        <input
+                            name='password'
+                            type="password"
+                            className="form-control mt-1"
+                            style={{ width: '320px', margin: '0 auto' }}
+                            placeholder={t('EnterPassword.1')} />
+                    </div>
+                    <div className="d-grid gap-2 mt-3">
+                        <Card.Footer style={{ textAlign: "center" }}>
+                            <Button size="sm" type="success" className="btn btn-success">
+                                <FaSignInAlt />{' '}{t('Login.1')}
+                            </Button>{' '}
+                            <Button onClick={refreshPage} size="sm" type="info" className="btn btn-info">
+                                <FaUndo />{' '}{t('Reset.1')}
+                            </Button>
+                        </Card.Footer>
+                        <br></br>
+                        <p style={{ "color": "rgb(255, 255, 255)" }}>{t('NoAccount.1')}{' '}<a href="/register">{t('CreateAccount.1')}</a></p>
+                    </div>
                 </div>
-        )
-    }
+            </form>
+        </div>
+    )
 }
 
 export default withTranslation()(Login)
