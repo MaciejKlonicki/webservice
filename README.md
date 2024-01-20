@@ -181,6 +181,7 @@ There is also a "Settings" section on each user's account that allows for langua
         |       EditPost.js
         |       EditPostRating.js
         |       PostDetails.js
+        |       RatingBox.js
         |       
         +---service
         |       PostService.js
