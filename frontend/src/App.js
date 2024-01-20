@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Login from './components/user/Login'
 import Registration from './components/user/Registration'
@@ -11,41 +11,44 @@ import EditPost from './components/posts/EditPost'
 import NotFound from './components/NotFound'
 import EditPostRating from './components/posts/EditPostRating'
 
-class App extends Component {
+const App = () => {
 
-  state = { email: "", isAuthenticated: false }
+  const setState = useState({
+    email: "",
+    isAuthenticated: false
+  })
 
-  updateEmail = () => {
+  const updateEmail = () => {
     const email = localStorage.getItem("email")
-    this.setState({ email: email })
-    if (email.length > 0) {
-      this.setState({ isAuthenticated: true })
-    } else {
-      this.setState({ isAuthenticated: false })
-    }
+    setState({
+      email: email,
+      isAuthenticated: email.length > 0
+    })
   }
 
-  render() {
-    return (
-      <Router>
-        <Route path="/" component={NavigationBar} />
-        <Switch>
-          <Route path="/" exact component={() => <Body isAdmin={localStorage.getItem("role") === "ADMIN"} />} />
-          <Route path="/login" render={props => <Login history={props.history} updateEmail={this.updateEmail} />} />
-          <Route path='/register' component={Registration} />
-          <PrivateRoute path='/settings' exact component={Settings} />
-          <PrivateRoute path='/create-post' component={CreatePost} />
-          <Route path='/posts/:id' component={PostDetails} />
-          <PrivateRoute path='/edit/:id' component={EditPost} />
-          <PrivateRoute path='/edit-rating/:id' component={EditPostRating} />
-          <Route path='*' component={NotFound} />
-        </Switch>
-      </Router>
-    )
-  }
+  return (
+    <Router>
+      <Route path="/" component={NavigationBar} />
+      <Switch>
+        <Route
+          path="/"
+          exact
+          component={() => <Body isAdmin={localStorage.getItem('role') === 'ADMIN'} />}
+        />
+        <Route path="/login" render={(props) => <Login history={props.history} updateEmail={updateEmail} />} />
+        <Route path='/register' component={Registration} />
+        <PrivateRoute path='/settings' exact component={Settings} />
+        <PrivateRoute path='/create-post' component={CreatePost} />
+        <Route path='/posts/:id' component={PostDetails} />
+        <PrivateRoute path='/edit/:id' component={EditPost} />
+        <PrivateRoute path='/edit-rating/:id' component={EditPostRating} />
+        <Route path='*' component={NotFound} />
+      </Switch>
+    </Router>
+  )
 }
 
-function PrivateRoute({ component: Component, ...rest }) {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
