@@ -1,7 +1,7 @@
 import { withTranslation } from 'react-i18next'
-import { Box, Rating } from '@mui/material'
 import { useHistory } from "react-router-dom"
 import { useEffect, useState } from 'react'
+import RatingBox from './RatingBox'
 
 const EditPostRating = ({ match, t }) => {
 
@@ -52,23 +52,15 @@ const EditPostRating = ({ match, t }) => {
     return (
         <div style={{ maxWidth: "1300px", margin: "100px auto", textAlign: "center" }}>
             <h1 style={{ color: "white", marginTop: "10px", marginBottom: "20px" }}>{t('EditPostRating.1')}</h1>
-            <Box
-                sx={{
-                    '& > legend': { mt: 2 },
-                    marginRight: '10px',
-                    marginBottom: '20px'
+            <RatingBox
+                value={userRating}
+                onChange={(event, rating) => {
+                    handleChangePostRating(rating);
+                    setUserRating(rating);
                 }}
-            >
-                <Rating
-                    name="simple-controlled"
-                    size='large'
-                    value={userRating}
-                    onChange={(event, rating) => {
-                        handleChangePostRating(rating)
-                        setUserRating(rating)
-                    }}
-                />
-            </Box>
+                t={t}
+                customStyle={{ marginRight: '0px' }}
+            />
             <button
                 onClick={cancel}
                 className="btn btn-secondary"
