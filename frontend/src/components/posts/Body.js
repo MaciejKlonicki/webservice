@@ -20,7 +20,9 @@ const Body = ({ t, isAdmin }) => {
     const [averageRatings, setAverageRatings] = useState({})
     const recordPerPage = 12
     const currentUsername = localStorage.getItem("username")
-    const [sortDirection, setSortDirection] = useState('desc')
+    const [sortDirectionCreationDate, setSortDirectionCreationDate] = useState(null)
+    const [sortDirectionPopularity, setSortDirectionPopularity] = useState(null)
+    const [sortDirectionRating, setSortDirectionRating] = useState(null)
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -62,13 +64,15 @@ const Body = ({ t, isAdmin }) => {
     const handleSortByCreationDate = async () => {
         try {
             let response
-            if (sortDirection === 'desc') {
+            if (sortDirectionCreationDate === 'desc' || sortDirectionCreationDate === null) {
                 response = await PostService.getPostsOrderedDescByCreationDateAndType(selectedType)
-                setSortDirection('asc')
+                setSortDirectionCreationDate('asc')
             } else {
                 response = await PostService.getPostsOrderedAscByCreationDateAndType(selectedType)
-                setSortDirection('desc')
+                setSortDirectionCreationDate('desc')
             }
+            setSortDirectionPopularity(null)
+            setSortDirectionRating(null)
             setPosts(response.data)
         } catch (error) {
             console.error("Error sorting by creation date: ", error)
@@ -78,13 +82,15 @@ const Body = ({ t, isAdmin }) => {
     const handleSortByPopularity = async () => {
         try {
             let response
-            if (sortDirection === 'desc') {
+            if (sortDirectionPopularity === 'desc' || sortDirectionPopularity === null) {
                 response = await PostService.getPostsOrderedDescByPopularityAndType(selectedType)
-                setSortDirection('asc')
+                setSortDirectionPopularity('asc')
             } else {
                 response = await PostService.getPostsOrderedAscByPopularityAndType(selectedType)
-                setSortDirection('desc')
+                setSortDirectionPopularity('desc')
             }
+            setSortDirectionCreationDate(null)
+            setSortDirectionRating(null)
             setPosts(response.data)
         } catch (error) {
             console.error("Error sorting by popularity: ", error)
@@ -94,13 +100,15 @@ const Body = ({ t, isAdmin }) => {
     const handleSortByRating = async () => {
         try {
             let response
-            if (sortDirection === 'desc') {
+            if (sortDirectionRating === 'desc' || sortDirectionRating === null) {
                 response = await PostService.getPostsOrderedDescByRatingAndType(selectedType)
-                setSortDirection('asc')
+                setSortDirectionRating('asc')
             } else {
                 response = await PostService.getPostsOrderedAscByRatingAndType(selectedType)
-                setSortDirection('desc')
+                setSortDirectionRating('desc')
             }
+            setSortDirectionCreationDate(null)
+            setSortDirectionPopularity(null)
             setPosts(response.data)
         } catch (error) {
             console.error("Error sorting by rating: ", error)
@@ -159,15 +167,15 @@ const Body = ({ t, isAdmin }) => {
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={handleSortByCreationDate}>
                             {t('CreationDate.1')}
-                            {sortDirection === 'desc' ? ' ↓' : ' ↑'}
+                            {sortDirectionCreationDate === 'desc' ? ' ↓' : sortDirectionCreationDate === 'asc' ? ' ↑' : ''}
                         </Dropdown.Item>
                         <Dropdown.Item onClick={handleSortByPopularity}>
                             {t('Popularity.1')}
-                            {sortDirection === 'desc' ? ' ↓' : ' ↑'}
+                            {sortDirectionPopularity === 'desc' ? ' ↓' : sortDirectionPopularity === 'asc' ? ' ↑' : ''}
                         </Dropdown.Item>
                         <Dropdown.Item onClick={handleSortByRating}>
                             {t('Stars.1')}
-                            {sortDirection === 'desc' ? ' ↓' : ' ↑'}
+                            {sortDirectionRating === 'desc' ? ' ↓' : sortDirectionRating === 'asc' ? ' ↑' : ''}
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
