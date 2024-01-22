@@ -294,7 +294,7 @@ class PostServiceImplTest {
         Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null);
 
         when(postRepository.findByTypeOrderByAverageRatingDesc(filterType)).thenReturn(Arrays.asList(post2, post1, post3));
-        List<Post> result = postService.getPostsOrderedByRatingFilteredByType(filterType);
+        List<Post> result = postService.getPostsOrderedDescByRatingFilteredByType(filterType);
         verify(postRepository, times(1)).findByTypeOrderByAverageRatingDesc(filterType);
 
         assertNotNull(result);
@@ -315,7 +315,7 @@ class PostServiceImplTest {
 
         when(postRepository.findAllByOrderByAverageRatingDesc()).thenReturn(Arrays.asList(post2, post1, post3));
 
-        List<Post> result = postService.getPostsOrderedByRatingFilteredByType(filterType);
+        List<Post> result = postService.getPostsOrderedDescByRatingFilteredByType(filterType);
         verify(postRepository, times(1)).findAllByOrderByAverageRatingDesc();
 
         assertNotNull(result);

@@ -20,6 +20,7 @@ public interface PostService {
     List<Post> getPostsOrderedAscByPopularityFilteredByType(PostType type);
     List<Post> getPostsOrderedDescByCreationDateFilteredByType(PostType type);
     List<Post> getPostsOrderedAscByCreationDateFilteredByType(PostType type);
-    List<Post> getPostsOrderedByRatingFilteredByType(PostType type);
+    List<Post> getPostsOrderedDescByRatingFilteredByType(PostType type);
+    List<Post> getPostsOrderedAscByRatingFilteredByType(PostType type);
     Double getAverageRatingForPost(Long postId);
 }

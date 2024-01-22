@@ -93,7 +93,14 @@ const Body = ({ t, isAdmin }) => {
 
     const handleSortByRating = async () => {
         try {
-            const response = await PostService.getPostsOrderedByRatingAndType(selectedType)
+            let response
+            if (sortDirection === 'desc') {
+                response = await PostService.getPostsOrderedDescByRatingAndType(selectedType)
+                setSortDirection('asc')
+            } else {
+                response = await PostService.getPostsOrderedAscByRatingAndType(selectedType)
+                setSortDirection('desc')
+            }
             setPosts(response.data)
         } catch (error) {
             console.error("Error sorting by rating: ", error)
@@ -158,7 +165,10 @@ const Body = ({ t, isAdmin }) => {
                             {t('Popularity.1')}
                             {sortDirection === 'desc' ? ' ↓' : ' ↑'}
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={handleSortByRating}>{t('Stars.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSortByRating}>
+                            {t('Stars.1')}
+                            {sortDirection === 'desc' ? ' ↓' : ' ↑'}
+                        </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <Dropdown>
