@@ -79,7 +79,7 @@ const CreatePost = ({ t }) => {
 
     const titleTooltip = (
         <Tooltip id="title-tooltip">
-            Max length is 100 characters.
+            {t('TitleMaxLength.1')}
         </Tooltip>
     );
 

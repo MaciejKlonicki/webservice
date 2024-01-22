@@ -65,9 +65,15 @@ public class PostController {
         return ResponseEntity.ok("Implemented!");
     }
 
-    @GetMapping("/sorted-by-popularity")
-    public ResponseEntity<List<Post>> getPostsSortedByPopularity(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
-        List<Post> sortedPosts = postService.getPostsOrderedByPopularityFilteredByType(type);
+    @GetMapping("/sorted-desc-by-popularity")
+    public ResponseEntity<List<Post>> getPostsSortedDescByPopularity(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
+        List<Post> sortedPosts = postService.getPostsOrderedDescByPopularityFilteredByType(type);
+        return ResponseEntity.ok(sortedPosts);
+    }
+
+    @GetMapping("/sorted-asc-by-popularity")
+    public ResponseEntity<List<Post>> getPostsSortedAscByPopularity(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
+        List<Post> sortedPosts = postService.getPostsOrderedAscByPopularityFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 

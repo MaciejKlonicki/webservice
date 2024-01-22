@@ -208,7 +208,7 @@ class PostServiceImplTest {
 
         when(postRepository.findByTypeOrderByPopularityDesc(filterType)).thenReturn(Arrays.asList(post2, post1, post3));
 
-        List<Post> result = postService.getPostsOrderedByPopularityFilteredByType(filterType);
+        List<Post> result = postService.getPostsOrderedDescByPopularityFilteredByType(filterType);
 
         verify(postRepository, times(1)).findByTypeOrderByPopularityDesc(filterType);
 
@@ -230,7 +230,7 @@ class PostServiceImplTest {
 
         when(postRepository.findAllByOrderByPopularityDesc()).thenReturn(Arrays.asList(post2, post1, post3));
 
-        List<Post> result = postService.getPostsOrderedByPopularityFilteredByType(filterType);
+        List<Post> result = postService.getPostsOrderedDescByPopularityFilteredByType(filterType);
 
         verify(postRepository, times(1)).findAllByOrderByPopularityDesc();
 

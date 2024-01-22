@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Dropdown, Card } from 'react-bootstrap'
+import { Dropdown, Card, Alert } from 'react-bootstrap'
 import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
 import { MdDeleteForever, MdModeEdit } from "react-icons/md"
 import PostService from "../service/PostService"
 import { Rating } from '@mui/material'
 
-const  Body = ({ t, isAdmin }) => {
+const Body = ({ t, isAdmin }) => {
 
     const history = useHistory()
     const [posts, setPosts] = useState([])
+    const [success, setSuccess] = useState(null)
     const [hoveredPostId, setHoveredPostId] = useState(null)
     const [hoveredIcon, setHoveredIcon] = useState(null)
     const [selectedType, setSelectedType] = useState('ALL')
@@ -19,6 +20,7 @@ const  Body = ({ t, isAdmin }) => {
     const [averageRatings, setAverageRatings] = useState({})
     const recordPerPage = 12
     const currentUsername = localStorage.getItem("username")
+    const [sortDirection, setSortDirection] = useState('desc')
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -42,6 +44,10 @@ const  Body = ({ t, isAdmin }) => {
         }).then(() => {
             let updatePost = [...posts].filter(i => i.id !== id)
             setPosts(updatePost)
+            setSuccess('You deleted post successfully!')
+            setTimeout(() => {
+                setSuccess(null)
+            }, 2000)
         })
     }
 
@@ -64,7 +70,14 @@ const  Body = ({ t, isAdmin }) => {
 
     const handleSortByPopularity = async () => {
         try {
-            const response = await PostService.getPostsOrderedByPopularityAndType(selectedType)
+            let response
+            if (sortDirection === 'desc') {
+                response = await PostService.getPostsOrderedDescByPopularityAndType(selectedType)
+                setSortDirection('asc')
+            } else {
+                response = await PostService.getPostsOrderedAscByPopularityAndType(selectedType)
+                setSortDirection('desc')
+            }
             setPosts(response.data)
         } catch (error) {
             console.error("Error sorting by popularity: ", error)
@@ -131,7 +144,10 @@ const  Body = ({ t, isAdmin }) => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={handleSortByCreationDate}>{t('CreationDate.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={handleSortByPopularity}>{t('Popularity.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSortByPopularity}>
+                            {t('Popularity.1')}
+                            {sortDirection === 'desc' ? ' ↓' : ' ↑'}
+                        </Dropdown.Item>
                         <Dropdown.Item onClick={handleSortByRating}>{t('Stars.1')}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -157,6 +173,7 @@ const  Body = ({ t, isAdmin }) => {
                 />
             </div>
             <div style={{ marginBottom: '25px' }}>
+                {success && <Alert variant='success' style={{ textAlign: 'center' }}>{success}</Alert>}
                 {posts
                     .map((post) => (
                         <Card

@@ -207,6 +207,9 @@
         "1": "Choose Image"
     },
 
+    "TitleMaxLength": {
+        "1": "Max length is 100 characters."
+    },
     "AddNewPost": {
         "1": "Add new post"
     },
