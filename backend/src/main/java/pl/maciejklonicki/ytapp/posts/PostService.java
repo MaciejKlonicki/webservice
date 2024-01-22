@@ -16,7 +16,8 @@ public interface PostService {
     void deletePost(Long id);
     ResponseEntity<Post> updatePost(UpdatePostDTO updatePostDTO, Long id);
     void incrementPostPopularity(Long postId);
-    List<Post> getPostsOrderedByPopularityFilteredByType(PostType type);
+    List<Post> getPostsOrderedDescByPopularityFilteredByType(PostType type);
+    List<Post> getPostsOrderedAscByPopularityFilteredByType(PostType type);
     List<Post> getPostsOrderedByCreationDateFilteredByType(PostType type);
     List<Post> getPostsOrderedByRatingFilteredByType(PostType type);
     Double getAverageRatingForPost(Long postId);

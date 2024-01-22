@@ -208,6 +208,9 @@
         "1": "Wybierz zdjęcie"
     },
 
+    "TitleMaxLength": {
+        "1": "Maksymalna długość to 100 znaków."
+    },
     "AddNewPost": {
         "1": "Dodaj nowy post"
     },

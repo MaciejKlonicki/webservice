@@ -9,6 +9,7 @@ const config = {
 }
 
 class PostService {
+    
     getPostById(id) {
         return axios.get(POST_URL + '/' + id)
     }
@@ -29,8 +30,12 @@ class PostService {
         return axios.get(`${POST_URL}/sorted-by-creation-date?type=${type}`)
     }
 
-    getPostsOrderedByPopularityAndType(type) {
-        return axios.get(`${POST_URL}/sorted-by-popularity?type=${type}`)
+    getPostsOrderedDescByPopularityAndType(type) {
+        return axios.get(`${POST_URL}/sorted-desc-by-popularity?type=${type}`)
+    }
+
+    getPostsOrderedAscByPopularityAndType(type) {
+        return axios.get(`${POST_URL}/sorted-asc-by-popularity?type=${type}`)
     }
 
     getPostsOrderedByRatingAndType(type) {

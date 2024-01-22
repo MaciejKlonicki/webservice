@@ -113,12 +113,23 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public List<Post> getPostsOrderedByPopularityFilteredByType(PostType type) {
+    public List<Post> getPostsOrderedDescByPopularityFilteredByType(PostType type) {
         if (PostType.ALL.equals(type)) {
             return postRepository.findAllByOrderByPopularityDesc();
         } else {
             return postRepository.findByTypeOrderByPopularityDesc(type);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Post> getPostsOrderedAscByPopularityFilteredByType(PostType type) {
+        if (PostType.ALL.equals(type)) {
+            return postRepository.findAllByOrderByPopularityAsc();
+        } else {
+            return postRepository.findByTypeOrderByPopularityAsc(type);
         }
     }
 
