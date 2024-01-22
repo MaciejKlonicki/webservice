@@ -211,9 +211,12 @@ There is also a "Settings" section on each user's account that allows for langua
 | :---: | :---: | :---: | :---: |
 | GET | /api/v1/posts | Get all posts | [JSON](#getallposts) |
 | GET | /api/v1/posts/{id} | Get single post | [JSON](#getsinglepost) |
-| GET | /api/v1/posts/sorted-by-popularity | Sort post by popularity | [JSON](#sortpostbypopularity) |
-| GET | /api/v1/posts/sorted-by-creation-date | Sort post by creation date | [JSON](#sortpostbycreationdate) |
-| GET | /api/v1/posts/sorted-by-rating | Sort post by rating | [JSON](#sortpostbyrating) |
+| GET | /api/v1/posts/sorted-desc-by-popularity | Sort post descending by popularity | [JSON](#sortpostdescendingbypopularity) |
+| GET | /api/v1/posts/sorted-desc-by-creation-date | Sort post descending by creation date | [JSON](#sortpostdescendingbycreationdate) |
+| GET | /api/v1/posts/sorted-desc-by-rating | Sort post descending by rating | [JSON](#sortpostdescendingbyrating) |
+| GET | /api/v1/posts/sorted-asc-by-popularity | Sort post ascending by popularity | [JSON](#sortpostascendingbypopularity) |
+| GET | /api/v1/posts/sorted-asc-by-creation-date | Sort post ascending by creation date | [JSON](#sortpostascendingbycreationdate) |
+| GET | /api/v1/posts/sorted-asc-by-rating | Sort post ascending by rating | [JSON](#sortpostascendingbyrating) |
 | GET | /api/v1/posts/{postId}/average-rating | Get post average rating | [JSON](#getpostaveragerating) |
 | POST | /api/v1/posts | Create new post | [JSON](#createnewpost) |
 | DELETE | /api/v1/posts/{id} | Delete post | [JSON](#deletepost) |
@@ -283,7 +286,7 @@ There is also a "Settings" section on each user's account that allows for langua
 }
 ```
 
-#### <a id="sortpostbypopularity">Sort post by popularity -> /api/v1/posts/sorted-by-popularity</a>
+#### <a id="sortpostdescendingbypopularity">Sort post descending by popularity -> /api/v1/posts/sorted-by-popularity</a>
 ```json
 [
     {
@@ -299,7 +302,7 @@ There is also a "Settings" section on each user's account that allows for langua
 ]
 ```
 
-#### <a id="sortpostbycreationdate">Sort post by creation date -> /api/v1/posts/sorted-by-creation-date</a>
+#### <a id="sortpostdescendingbycreationdate">Sort post descending by creation date -> /api/v1/posts/sorted-by-creation-date</a>
 ```json
 [
     {
@@ -315,7 +318,55 @@ There is also a "Settings" section on each user's account that allows for langua
 ]
 ```
 
-#### <a id="sortpostbyrating">Sort post by rating -> /api/v1/posts/sorted-by-rating</a>
+#### <a id="sortpostdescendingbyrating">Sort post descending by rating -> /api/v1/posts/sorted-by-rating</a>
+```json
+[
+    {
+        "title": "STRING",
+        "body": "STRING",
+        "author": "STRING",
+        "type": "STRING",
+        "creationDate": "DATE",
+        "photo": "BYTE []",
+        "popularity": 0,
+        "totalRatings": 0
+    }
+]
+```
+
+#### <a id="sortpostascendingbypopularity">Sort post ascending by popularity -> /api/v1/posts/sorted-by-popularity</a>
+```json
+[
+    {
+        "title": "STRING",
+        "body": "STRING",
+        "author": "STRING",
+        "type": "STRING",
+        "creationDate": "DATE",
+        "photo": "BYTE []",
+        "popularity": 0,
+        "totalRatings": 0
+    }
+]
+```
+
+#### <a id="sortpostascendingbycreationdate">Sort post ascending by creation date -> /api/v1/posts/sorted-by-creation-date</a>
+```json
+[
+    {
+        "title": "STRING",
+        "body": "STRING",
+        "author": "STRING",
+        "type": "STRING",
+        "creationDate": "DATE",
+        "photo": "BYTE []",
+        "popularity": 0,
+        "totalRatings": 0
+    }
+]
+```
+
+#### <a id="sortpostascendingbyrating">Sort post ascending by rating -> /api/v1/posts/sorted-by-rating</a>
 ```json
 [
     {
