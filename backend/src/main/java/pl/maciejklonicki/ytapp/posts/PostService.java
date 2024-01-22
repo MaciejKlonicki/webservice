@@ -18,7 +18,8 @@ public interface PostService {
     void incrementPostPopularity(Long postId);
     List<Post> getPostsOrderedDescByPopularityFilteredByType(PostType type);
     List<Post> getPostsOrderedAscByPopularityFilteredByType(PostType type);
-    List<Post> getPostsOrderedByCreationDateFilteredByType(PostType type);
+    List<Post> getPostsOrderedDescByCreationDateFilteredByType(PostType type);
+    List<Post> getPostsOrderedAscByCreationDateFilteredByType(PostType type);
     List<Post> getPostsOrderedByRatingFilteredByType(PostType type);
     Double getAverageRatingForPost(Long postId);
 }

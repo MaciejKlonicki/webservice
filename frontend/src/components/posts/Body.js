@@ -61,7 +61,14 @@ const Body = ({ t, isAdmin }) => {
 
     const handleSortByCreationDate = async () => {
         try {
-            const response = await PostService.getPostsOrderedByCreationDateAndType(selectedType)
+            let response
+            if (sortDirection === 'desc') {
+                response = await PostService.getPostsOrderedDescByCreationDateAndType(selectedType)
+                setSortDirection('asc')
+            } else {
+                response = await PostService.getPostsOrderedAscByCreationDateAndType(selectedType)
+                setSortDirection('desc')
+            }
             setPosts(response.data)
         } catch (error) {
             console.error("Error sorting by creation date: ", error)
@@ -143,7 +150,10 @@ const Body = ({ t, isAdmin }) => {
                         {t('Sort.1')}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleSortByCreationDate}>{t('CreationDate.1')}</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSortByCreationDate}>
+                            {t('CreationDate.1')}
+                            {sortDirection === 'desc' ? ' ↓' : ' ↑'}
+                        </Dropdown.Item>
                         <Dropdown.Item onClick={handleSortByPopularity}>
                             {t('Popularity.1')}
                             {sortDirection === 'desc' ? ' ↓' : ' ↑'}

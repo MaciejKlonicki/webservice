@@ -133,12 +133,23 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public List<Post> getPostsOrderedByCreationDateFilteredByType(PostType type) {
+    public List<Post> getPostsOrderedDescByCreationDateFilteredByType(PostType type) {
         if (PostType.ALL.equals(type)) {
             return postRepository.findAllByOrderByCreationDateDesc();
         } else {
             return postRepository.findByTypeOrderByCreationDateDesc(type);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Post> getPostsOrderedAscByCreationDateFilteredByType(PostType type) {
+        if (PostType.ALL.equals(type)) {
+            return postRepository.findAllByOrderByCreationDateAsc();
+        } else {
+            return postRepository.findByTypeOrderByCreationDateAsc(type);
         }
     }
 

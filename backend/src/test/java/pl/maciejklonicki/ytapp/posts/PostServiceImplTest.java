@@ -252,7 +252,7 @@ class PostServiceImplTest {
 
         when(postRepository.findByTypeOrderByCreationDateDesc(filterType)).thenReturn(Arrays.asList(post2, post1, post3));
 
-        List<Post> result = postService.getPostsOrderedByCreationDateFilteredByType(filterType);
+        List<Post> result = postService.getPostsOrderedDescByCreationDateFilteredByType(filterType);
         verify(postRepository, times(1)).findByTypeOrderByCreationDateDesc(filterType);
 
         assertNotNull(result);
@@ -273,7 +273,7 @@ class PostServiceImplTest {
 
         when(postRepository.findAllByOrderByCreationDateDesc()).thenReturn(Arrays.asList(post2, post1, post3));
 
-        List<Post> result = postService.getPostsOrderedByCreationDateFilteredByType(filterType);
+        List<Post> result = postService.getPostsOrderedDescByCreationDateFilteredByType(filterType);
 
         verify(postRepository, times(1)).findAllByOrderByCreationDateDesc();
 
