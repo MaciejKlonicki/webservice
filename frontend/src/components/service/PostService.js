@@ -26,8 +26,12 @@ class PostService {
         return axios.get(POST_URL + `/${postId}/average-rating`)
     }
 
-    getPostsOrderedByCreationDateAndType(type) {
-        return axios.get(`${POST_URL}/sorted-by-creation-date?type=${type}`)
+    getPostsOrderedDescByCreationDateAndType(type) {
+        return axios.get(`${POST_URL}/sorted-desc-by-creation-date?type=${type}`)
+    }
+
+    getPostsOrderedAscByCreationDateAndType(type) {
+        return axios.get(`${POST_URL}/sorted-asc-by-creation-date?type=${type}`)
     }
 
     getPostsOrderedDescByPopularityAndType(type) {

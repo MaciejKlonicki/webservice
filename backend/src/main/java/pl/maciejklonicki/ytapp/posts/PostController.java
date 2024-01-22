@@ -77,9 +77,15 @@ public class PostController {
         return ResponseEntity.ok(sortedPosts);
     }
 
-    @GetMapping("/sorted-by-creation-date")
-    public ResponseEntity<List<Post>> getPostsSortedByCreationDate(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
-        List<Post> sortedPosts = postService.getPostsOrderedByCreationDateFilteredByType(type);
+    @GetMapping("/sorted-desc-by-creation-date")
+    public ResponseEntity<List<Post>> getPostsSortedDescByCreationDate(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
+        List<Post> sortedPosts = postService.getPostsOrderedDescByCreationDateFilteredByType(type);
+        return ResponseEntity.ok(sortedPosts);
+    }
+
+    @GetMapping("/sorted-asc-by-creation-date")
+    public ResponseEntity<List<Post>> getPostsSortedAscByCreationDate(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
+        List<Post> sortedPosts = postService.getPostsOrderedAscByCreationDateFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 
