@@ -89,9 +89,15 @@ public class PostController {
         return ResponseEntity.ok(sortedPosts);
     }
 
-    @GetMapping("/sorted-by-rating")
-    public ResponseEntity<List<Post>> getPostsSortedByRating(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
-        List<Post> sortedPosts = postService.getPostsOrderedByRatingFilteredByType(type);
+    @GetMapping("/sorted-desc-by-rating")
+    public ResponseEntity<List<Post>> getPostsSortedDescByRating(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
+        List<Post> sortedPosts = postService.getPostsOrderedDescByRatingFilteredByType(type);
+        return ResponseEntity.ok(sortedPosts);
+    }
+
+    @GetMapping("/sorted-asc-by-rating")
+    public ResponseEntity<List<Post>> getPostsSortedAscByRating(@RequestParam(name = "type", defaultValue = "ALL") PostType type) {
+        List<Post> sortedPosts = postService.getPostsOrderedAscByRatingFilteredByType(type);
         return ResponseEntity.ok(sortedPosts);
     }
 

@@ -42,8 +42,12 @@ class PostService {
         return axios.get(`${POST_URL}/sorted-asc-by-popularity?type=${type}`)
     }
 
-    getPostsOrderedByRatingAndType(type) {
-        return axios.get(`${POST_URL}/sorted-by-rating?type=${type}`)
+    getPostsOrderedDescByRatingAndType(type) {
+        return axios.get(`${POST_URL}/sorted-desc-by-rating?type=${type}`)
+    }
+
+    getPostsOrderedAscByRatingAndType(type) {
+        return axios.get(`${POST_URL}/sorted-asc-by-rating?type=${type}`)
     }
 }
 
