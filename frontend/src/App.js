@@ -10,6 +10,7 @@ import PostDetails from './components/posts/PostDetails'
 import EditPost from './components/posts/EditPost'
 import NotFound from './components/NotFound'
 import EditPostRating from './components/posts/EditPostRating'
+import UserPosts from './components/posts/UserPosts'
 
 const App = () => {
 
@@ -42,6 +43,7 @@ const App = () => {
         <Route path='/posts/:id' component={PostDetails} />
         <PrivateRoute path='/edit/:id' component={EditPost} />
         <PrivateRoute path='/edit-rating/:id' component={EditPostRating} />
+        <PrivateRoute path='/my-posts' component={UserPosts} />
         <Route path='*' component={NotFound} />
       </Switch>
     </Router>

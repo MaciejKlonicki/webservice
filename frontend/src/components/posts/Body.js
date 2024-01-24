@@ -20,9 +20,11 @@ const Body = ({ t, isAdmin }) => {
     const [averageRatings, setAverageRatings] = useState({})
     const recordPerPage = 12
     const currentUsername = localStorage.getItem("username")
+    const userEmail = localStorage.getItem("email")
     const [sortDirectionCreationDate, setSortDirectionCreationDate] = useState(null)
     const [sortDirectionPopularity, setSortDirectionPopularity] = useState(null)
     const [sortDirectionRating, setSortDirectionRating] = useState(null)
+    const [showMyPosts, setShowMyPosts] = useState(false)
 
     const routeChange = (postId) => {
         let postDetails = `/posts/${postId}`
@@ -34,6 +36,24 @@ const Body = ({ t, isAdmin }) => {
         let createPost = `create-post`
         history.push(createPost)
         window.location.reload(true)
+    }
+
+    const handleMyPosts = async () => {
+        try {
+            let apiUrl = `http://localhost:8080/api/v1/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`
+
+            if (!showMyPosts) {
+                apiUrl = `http://localhost:8080/api/v1/posts/user/${currentUsername}?page=${currentPage - 1}&size=${recordPerPage}`
+            }
+
+            const response = await fetch(apiUrl)
+            const postData = await response.json()
+            setPosts(postData.content)
+            setTotalPages(postData.totalPages)
+            setShowMyPosts(!showMyPosts)
+        } catch (error) {
+            console.error("Error fetching posts:", error)
+        }
     }
 
     const remove = async (id) => {
@@ -128,7 +148,13 @@ const Body = ({ t, isAdmin }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const postsResponse = await fetch(`http://localhost:8080/api/v1/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`)
+            let apiUrl = `http://localhost:8080/api/v1/posts?page=${currentPage - 1}&size=${recordPerPage}&type=${selectedType}&searchTerm=${searchTerm}`
+
+            if (showMyPosts) {
+                apiUrl = `http://localhost:8080/api/v1/posts/user/${currentUsername}?page=${currentPage - 1}&size=${recordPerPage}`
+            }
+
+            const postsResponse = await fetch(apiUrl)
             const postsData = await postsResponse.json()
             setPosts(postsData.content)
             setTotalPages(postsData.totalPages)
@@ -142,7 +168,7 @@ const Body = ({ t, isAdmin }) => {
         }
 
         fetchData()
-    }, [currentPage, selectedType, searchTerm])
+    }, [currentPage, selectedType, searchTerm, currentUsername, showMyPosts])
 
     const showNextPage = () => {
         if (currentPage < totalPages) {
@@ -159,9 +185,11 @@ const Body = ({ t, isAdmin }) => {
     return (
         <>
             <div className='borderRightElement' style={{ position: "fixed", height: "90%", marginTop: "5px", paddingRight: "205px", borderRight: "1.8px solid #444444" }}>
-                <button onClick={handleSubmit} style={{ position: "fixed", left: "20px", top: "100px", width: "150px" }} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
+                {userEmail && (
+                    <button onClick={handleSubmit} style={{ position: "fixed", left: "20px", top: "100px", width: "150px" }} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
+                )}
                 <Dropdown>
-                    <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: "160px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
+                    <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "290px" : "170px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
                         {t('Sort.1')}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -180,7 +208,7 @@ const Body = ({ t, isAdmin }) => {
                     </Dropdown.Menu>
                 </Dropdown>
                 <Dropdown>
-                    <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: "225px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
+                    <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "225px" : "110px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
                         {t('Type.1')}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -192,7 +220,7 @@ const Body = ({ t, isAdmin }) => {
                     </Dropdown.Menu>
                 </Dropdown>
                 <input
-                    style={{ position: 'fixed', top: '290px', width: '150px', left: '20px' }}
+                    style={{ position: 'fixed', top: userEmail ? "355px" : "230px", width: '150px', left: '20px' }}
                     type="search"
                     className='form-control rounded'
                     placeholder="Search"
@@ -200,6 +228,9 @@ const Body = ({ t, isAdmin }) => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
+            {userEmail && (
+                <button onClick={handleMyPosts} style={{ position: "fixed", left: "20px", top: "160px", width: "150px" }} type="button" className="btn btn-primary">{showMyPosts ? 'All posts' : 'My posts'}</button>
+            )}
             <div style={{ marginBottom: '25px' }}>
                 {success && <Alert variant='success' style={{ textAlign: 'center' }}>{success}</Alert>}
                 {posts
