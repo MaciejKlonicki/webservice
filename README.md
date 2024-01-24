@@ -211,6 +211,7 @@ There is also a "Settings" section on each user's account that allows for langua
 | :---: | :---: | :---: | :---: |
 | GET | /api/v1/posts | Get all posts | [JSON](#getallposts) |
 | GET | /api/v1/posts/{id} | Get single post | [JSON](#getsinglepost) |
+| GET | /api/v1/posts/user/{username} | Get user posts| [JSON](#getuserposts) |
 | GET | /api/v1/posts/sorted-desc-by-popularity | Sort post descending by popularity | [JSON](#sortpostdescendingbypopularity) |
 | GET | /api/v1/posts/sorted-desc-by-creation-date | Sort post descending by creation date | [JSON](#sortpostdescendingbycreationdate) |
 | GET | /api/v1/posts/sorted-desc-by-rating | Sort post descending by rating | [JSON](#sortpostdescendingbyrating) |
@@ -284,6 +285,25 @@ There is also a "Settings" section on each user's account that allows for langua
     "author": "STRING",
     "type": "STRING"
 }
+```
+
+#### <a id="getuserposts">Get user posts -> /api/v1/posts/user/{username}</a>
+
+`Authorization -> Bearer Token`
+```json
+[
+    {
+        "id": LONG,
+        "title": "STRING",
+        "body": "STRING",
+        "author": "STRING",
+        "type": "STRING",
+        "creationDate": "DATE",
+        "photo": "BYTE []",
+        "popularity": 0,
+        "totalRatings": 0
+    }
+]
 ```
 
 #### <a id="sortpostdescendingbypopularity">Sort post descending by popularity -> /api/v1/posts/sorted-by-popularity</a>
