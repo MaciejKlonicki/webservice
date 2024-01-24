@@ -1,6 +1,7 @@
 package pl.maciejklonicki.ytapp.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.maciejklonicki.ytapp.postcomment.PostComment;
 import pl.maciejklonicki.ytapp.postrating.PostRating;
 
 import java.util.ArrayList;
@@ -43,6 +45,10 @@ public class Users implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private transient List<PostRating> ratings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<PostComment> comments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

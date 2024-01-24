@@ -48,8 +48,8 @@ class PostRatingServiceImplTest {
         Long postId = 1L;
         int rating = 5;
 
-        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>());
-        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null);
+        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>(), new ArrayList<>());
+        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null, null);
 
         when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(Optional.of(user));
         when(postRepository.findById(postId)).thenReturn(Optional.of(post));
@@ -67,8 +67,8 @@ class PostRatingServiceImplTest {
         Long postId = 1L;
         int rating = 5;
 
-        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>());
-        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null);
+        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>(), new ArrayList<>());
+        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null, null);
 
         when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(Optional.of(user));
         when(postRepository.findById(postId)).thenReturn(Optional.of(post));
@@ -85,8 +85,8 @@ class PostRatingServiceImplTest {
     void shouldGetRatedPostByUser() {
         Long postId = 1L;
 
-        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>());
-        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null);
+        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>(), new ArrayList<>());
+        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null, null);
 
         when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(Optional.of(user));
         when(postRepository.findById(postId)).thenReturn(Optional.of(post));
@@ -104,8 +104,8 @@ class PostRatingServiceImplTest {
         Long postId = 1L;
         int newRating = 4;
 
-        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>());
-        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null);
+        Users user = new Users(1L, TEST_USER, TEST_EMAIL, TEST_PASSWORD, TEST_MOBILE, Role.USER, new ArrayList<>(), new ArrayList<>());
+        Post post = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 0, 0, null, null);
         PostRating existingRating = new PostRating(1L, user, post, 3);
 
         when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(Optional.of(user));

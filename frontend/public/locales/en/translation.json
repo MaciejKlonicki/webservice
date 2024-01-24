@@ -188,6 +188,9 @@
     "MyPosts": {
         "1": "My posts"
     },
+    "AllPosts": {
+        "1": "All posts"
+    },
     "On": {
         "1": "on"
     },
@@ -265,6 +268,12 @@
     },
     "ChangeRating": {
         "1": "Change rating"
+    },
+    "AddComment": {
+        "1": "Add comment"
+    },
+    "AddCommentPlaceholder": {
+        "1": "Put your thoughts in a comment!"
     },
     "EditPostRating": {
         "1": "Edit post rating"
