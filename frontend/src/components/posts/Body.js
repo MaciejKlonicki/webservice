@@ -188,45 +188,46 @@ const Body = ({ t, isAdmin }) => {
                 {userEmail && (
                     <button onClick={handleSubmit} style={{ position: "fixed", left: "20px", top: "100px", width: "150px" }} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
                 )}
-                <Dropdown>
-                    <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "290px" : "170px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
-                        {t('Sort.1')}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleSortByCreationDate}>
-                            {t('CreationDate.1')}
-                            {sortDirectionCreationDate === 'desc' ? ' ↓' : sortDirectionCreationDate === 'asc' ? ' ↑' : ''}
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={handleSortByPopularity}>
-                            {t('Popularity.1')}
-                            {sortDirectionPopularity === 'desc' ? ' ↓' : sortDirectionPopularity === 'asc' ? ' ↑' : ''}
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={handleSortByRating}>
-                            {t('Stars.1')}
-                            {sortDirectionRating === 'desc' ? ' ↓' : sortDirectionRating === 'asc' ? ' ↑' : ''}
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown>
-                    <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "225px" : "110px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
-                        {t('Type.1')}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => setSelectedType('ALL')}>{t('All.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('SPORT')}>{t('Sport.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('EDUCATION')}>{t('Education.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('MUSIC')}>{t('Music.1')}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSelectedType('OTHER')}>{t('Other.1')}</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <input
-                    style={{ position: 'fixed', top: userEmail ? "355px" : "230px", width: '150px', left: '20px' }}
-                    type="search"
-                    className='form-control rounded'
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                {!showMyPosts && (
+                    <>
+                        <Dropdown>
+                            <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "290px" : "170px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
+                                {t('Sort.1')}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={handleSortByCreationDate}>
+                                    {t('CreationDate.1')}
+                                    {sortDirectionCreationDate === 'desc' ? ' ↓' : sortDirectionCreationDate === 'asc' ? ' ↑' : ''}
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={handleSortByPopularity}>
+                                    {t('Popularity.1')}
+                                    {sortDirectionPopularity === 'desc' ? ' ↓' : sortDirectionPopularity === 'asc' ? ' ↑' : ''}
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={handleSortByRating}>
+                                    {t('Stars.1')}
+                                    {sortDirectionRating === 'desc' ? ' ↓' : sortDirectionRating === 'asc' ? ' ↑' : ''}
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown><Dropdown>
+                            <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "225px" : "110px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
+                                {t('Type.1')}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => setSelectedType('ALL')}>{t('All.1')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('SPORT')}>{t('Sport.1')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('EDUCATION')}>{t('Education.1')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('MUSIC')}>{t('Music.1')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('OTHER')}>{t('Other.1')}</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown><input
+                            style={{ position: 'fixed', top: userEmail ? "355px" : "230px", width: '150px', left: '20px' }}
+                            type="search"
+                            className='form-control rounded'
+                            placeholder="Search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)} />
+                    </>
+                )}
             </div>
             {userEmail && (
                 <button onClick={handleMyPosts} style={{ position: "fixed", left: "20px", top: "160px", width: "150px" }} type="button" className="btn btn-primary">{showMyPosts ? 'All posts' : 'My posts'}</button>
