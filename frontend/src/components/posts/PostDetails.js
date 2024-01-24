@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
 import RatingBox from './RatingBox'
+import Table from 'react-bootstrap/Table'
 
 const PostDetails = ({ match, t }) => {
 
@@ -191,11 +192,22 @@ const PostDetails = ({ match, t }) => {
                 )}
                 <div style={{ marginTop: '20px' }}>
                     <h3 style={{ color: 'white' }}>{t('Comments.1')}</h3>
-                    <ul>
-                        {comments.map((comment, index) => (
-                            <li key={index}>{comment.username}: {comment.comment}</li>
-                        ))}
-                    </ul>
+                    <Table striped bordered hover variant="dark">
+                        <thead>
+                            <tr>
+                                <th>{t('BlogAuthor.1')}</th>
+                                <th>{t('Comments.1')}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {comments.map((comment, index) => (
+                                <tr key={index}>
+                                    <td>{comment.username}</td>
+                                    <td>{comment.comment}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
                 </div>
             </div>
         </>
