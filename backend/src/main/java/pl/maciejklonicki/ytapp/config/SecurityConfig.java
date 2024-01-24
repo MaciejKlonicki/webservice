@@ -51,6 +51,7 @@ public class SecurityConfig {
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
                                 .requestMatchers(PUT, "/api/v1/posts/update/*").hasAnyRole(ROLE_USER, ROLE_ADMIN)
+                                .requestMatchers(GET, "/api/v1/posts/user/").hasAnyRole(ROLE_USER, ROLE_ADMIN)
                                 .requestMatchers(POST, POST_ENDPOINT).hasAnyRole(ROLE_USER, ROLE_ADMIN)
                                 .requestMatchers(DELETE, POST_ENDPOINT).hasAnyRole(ROLE_USER, ROLE_ADMIN)
                                 .requestMatchers(GET, POST_ENDPOINT).permitAll()

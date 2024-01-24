@@ -39,6 +39,16 @@ public class PostController {
         return ResponseEntity.ok(singlePost);
     }
 
+    @GetMapping("/user/{username}")
+    public ResponseEntity<Page<GetAllPostsDTO>> getPostsByUser(
+            @PathVariable String username,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size
+    ) {
+        Page<GetAllPostsDTO> postPage = postService.getPostsByUser(username, page, size);
+        return new ResponseEntity<>(postPage, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Post> addPost(@ModelAttribute CreatePostDTO createPostDTO) {
         if (createPostDTO.photo() != null && createPostDTO.photo().getSize() > 1024 * 1024) {

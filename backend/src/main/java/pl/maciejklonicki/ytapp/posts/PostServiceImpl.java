@@ -56,19 +56,7 @@ public class PostServiceImpl implements PostService {
             spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + searchTerm.toLowerCase() + "%"));
         }
 
-        Page<Post> postPage = postRepository.findAll(spec, pageable);
-        return postPage.map(post -> new GetAllPostsDTO(
-                post.getId(),
-                post.getTitle(),
-                post.getAuthor(),
-                post.getType(),
-                post.getCreationDate(),
-                post.getPhoto(),
-                post.getPopularity(),
-                post.getTotalRatings(),
-                post.getRatings() != null ? post.getRatings().stream()
-                        .map(PostRating::getRating).collect(Collectors.toList()) : null
-        ));
+        return getGetAllPostsDTOS(pageable, spec);
     }
 
     @Override
@@ -81,6 +69,16 @@ public class PostServiceImpl implements PostService {
                 post.getAuthor(),
                 post.getType()
         );
+    }
+
+    @Override
+    public Page<GetAllPostsDTO> getPostsByUser(String username, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Specification<GetAllPostsDTO> spec = Specification.where((root, query, cb) ->
+                cb.equal(root.get("author"), username));
+
+        return getGetAllPostsDTOS(pageable, spec);
     }
 
     @Override
@@ -209,5 +207,21 @@ public class PostServiceImpl implements PostService {
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid date format", e);
         }
+    }
+
+    private Page<GetAllPostsDTO> getGetAllPostsDTOS(Pageable pageable, Specification<GetAllPostsDTO> spec) {
+        Page<Post> postPage = postRepository.findAll(spec, pageable);
+        return postPage.map(post -> new GetAllPostsDTO(
+                post.getId(),
+                post.getTitle(),
+                post.getAuthor(),
+                post.getType(),
+                post.getCreationDate(),
+                post.getPhoto(),
+                post.getPopularity(),
+                post.getTotalRatings(),
+                post.getRatings() != null ? post.getRatings().stream()
+                        .map(PostRating::getRating).collect(Collectors.toList()) : null
+        ));
     }
 }

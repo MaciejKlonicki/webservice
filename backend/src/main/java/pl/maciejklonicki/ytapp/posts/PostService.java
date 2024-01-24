@@ -13,6 +13,7 @@ public interface PostService {
     ResponseEntity<Post> addPost (CreatePostDTO createPostDTO);
     Page<GetAllPostsDTO> getAllPosts(int page, int size, PostType type, String searchTerm);
     SinglePostDTO getSinglePostDTO(Long id);
+    Page<GetAllPostsDTO> getPostsByUser(String username, int page, int size);
     void deletePost(Long id);
     ResponseEntity<Post> updatePost(UpdatePostDTO updatePostDTO, Long id);
     void incrementPostPopularity(Long postId);
