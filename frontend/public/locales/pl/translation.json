@@ -189,6 +189,9 @@
     "MyPosts": {
         "1": "Moje posty"
     },
+    "AllPosts": {
+        "1": "Wszystkie posty"
+    },
     "Written": {
         "1": "Napisane przez"
     },
@@ -266,6 +269,12 @@
     },
     "ChangeRating": {
         "1": "Zmień ocenę"
+    },
+    "AddComment": {
+        "1": "Dodaj komentarz"
+    },
+    "AddCommentPlaceholder": {
+        "1": "Co sądzisz o tym artykule? Podziel się swoją opinią!"
     },
     "EditPostRating": {
         "1": "Zmień ocenę posta"

@@ -10,6 +10,7 @@ const PostDetails = ({ match, t }) => {
     const history = useHistory()
     const postId = match.params.id
     const userEmail = localStorage.getItem("email")
+    const [comment, setComment] = useState("")
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,6 +58,30 @@ const PostDetails = ({ match, t }) => {
     const handleChangeRating = () => {
         history.push(`/edit-rating/${postId}`)
         window.location.reload(true)
+    }
+
+    const handleCommentChange = (event) => {
+        setComment(event.target.value)
+    }
+
+    const addComment = () => {
+        fetch(`http://localhost:8080/api/v1/post-ratings/add-comment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            },
+            body: JSON.stringify({
+                userEmail,
+                postId,
+                comment
+            })
+        })
+            .then((response) => response.json())
+            .then(() => {
+                console.log("Comment added successfully!")
+            })
+            .catch((error) => console.error('Error:', error))
     }
 
     if (!post) {
@@ -115,6 +140,44 @@ const PostDetails = ({ match, t }) => {
                 >
                     {t('Back.1')}
                 </button>
+            </div>
+            <div style={{ margin: "20px 200px" }}>
+                <h3 style={{ color: 'white' }}>{t('AddComment.1')}</h3>
+                {post.comments && post.comments.map((comment) => (
+                    <div key={comment.id} style={{ marginBottom: "10px" }}>
+                        <b>{comment.user.username}:</b> {comment.comment}
+                    </div>
+                ))}
+
+                {userEmail && (
+                    <div>
+                        <textarea
+                            value={comment}
+                            onChange={handleCommentChange}
+                            placeholder={t('AddCommentPlaceholder.1')}
+                            style={{
+                                width: "100%",
+                                marginBottom: "10px",
+                                backgroundColor: "transparent",
+                                border: "1px solid white",
+                                borderRadius: "5px",
+                                color: "white",
+                                padding: "8px"
+                            }}
+                        />
+                        <button
+                            onClick={addComment}
+                            className="btn btn-primary"
+                            style={{
+                                border: "0",
+                                borderRadius: "8px",
+                                cursor: "pointer"
+                            }}
+                        >
+                            {t('AddComment.1')}
+                        </button>
+                    </div>
+                )}
             </div>
         </>
 

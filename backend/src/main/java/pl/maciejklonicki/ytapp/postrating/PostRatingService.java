@@ -6,4 +6,5 @@ public interface PostRatingService {
     void ratePost(String userEmail, Long postId, int rating);
     Optional<PostRating> getRatedPostByUser(String userEmail, Long postId);
     void editPostRating(String userEmail, Long postId, int newRating);
+    void addCommentToPost(String userEmail, Long postId, String comment);
 }

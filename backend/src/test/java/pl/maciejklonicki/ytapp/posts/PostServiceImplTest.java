@@ -99,6 +99,7 @@ class PostServiceImplTest {
                 null,
                 0,
                 0,
+                new ArrayList<>(),
                 new ArrayList<>()
         );
 
@@ -139,6 +140,7 @@ class PostServiceImplTest {
                 null,
                 0,
                 0,
+                new ArrayList<>(),
                 new ArrayList<>()
         );
 
@@ -184,6 +186,7 @@ class PostServiceImplTest {
                 null,
                 0,
                 0,
+                new ArrayList<>(),
                 new ArrayList<>()
         );
 
@@ -202,9 +205,9 @@ class PostServiceImplTest {
     void  shouldOrderPostsByPopularityIncludingTypes() {
         PostType filterType = PostType.EDUCATION;
 
-        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null);
-        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null);
-        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null);
+        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null);
+        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null);
+        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null);
 
         when(postRepository.findByTypeOrderByPopularityDesc(filterType)).thenReturn(Arrays.asList(post2, post1, post3));
 
@@ -224,9 +227,9 @@ class PostServiceImplTest {
     void shouldOrderPostsByPopularityWithFilterALL() {
         PostType filterType = PostType.ALL;
 
-        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null);
-        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null);
-        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null);
+        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null);
+        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null);
+        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null);
 
         when(postRepository.findAllByOrderByPopularityDesc()).thenReturn(Arrays.asList(post2, post1, post3));
 
@@ -246,9 +249,9 @@ class PostServiceImplTest {
     void shouldOrderPostsByCreationDateIncludingTypes() {
         PostType filterType = PostType.MUSIC;
 
-        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null);
-        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null);
-        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null);
+        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null);
+        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null);
+        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null);
 
         when(postRepository.findByTypeOrderByCreationDateDesc(filterType)).thenReturn(Arrays.asList(post2, post1, post3));
 
@@ -267,9 +270,9 @@ class PostServiceImplTest {
     void shouldOrderPostsByCreationDateWithFilterALL() {
         PostType filterType = PostType.ALL;
 
-        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null);
-        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null);
-        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null);
+        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null);
+        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null);
+        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null);
 
         when(postRepository.findAllByOrderByCreationDateDesc()).thenReturn(Arrays.asList(post2, post1, post3));
 
@@ -289,9 +292,9 @@ class PostServiceImplTest {
     void shouldOrderPostsByRatingIncludingTypes() {
         PostType filterType = PostType.MUSIC;
 
-        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null);
-        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null);
-        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null);
+        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null);
+        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null);
+        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null);
 
         when(postRepository.findByTypeOrderByAverageRatingDesc(filterType)).thenReturn(Arrays.asList(post2, post1, post3));
         List<Post> result = postService.getPostsOrderedDescByRatingFilteredByType(filterType);
@@ -309,9 +312,9 @@ class PostServiceImplTest {
     void shouldOrderPostsByRatingWithFilterALL() {
         PostType filterType = PostType.ALL;
 
-        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null);
-        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null);
-        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null);
+        Post post1 = new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null);
+        Post post2 = new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null);
+        Post post3 = new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null);
 
         when(postRepository.findAllByOrderByAverageRatingDesc()).thenReturn(Arrays.asList(post2, post1, post3));
 
@@ -340,6 +343,7 @@ class PostServiceImplTest {
                 null,
                 0,
                 0,
+                new ArrayList<>(),
                 new ArrayList<>()
         );
 
@@ -357,7 +361,8 @@ class PostServiceImplTest {
                         new PostRating(1L, new Users(), postNoRatings, 5),
                         new PostRating(2L, new Users(), postNoRatings, 3),
                         new PostRating(3L, new Users(), postNoRatings, 4)
-                )
+                ),
+                new ArrayList<>()
         );
 
         when(postRepository.findById(postId)).thenReturn(java.util.Optional.of(postNoRatings), java.util.Optional.of(postWithRatings));
@@ -379,9 +384,9 @@ class PostServiceImplTest {
         String searchTerm = null;
 
         List<Post> posts = Arrays.asList(
-                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null),
-                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null),
-                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null)
+                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null),
+                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null),
+                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null)
         );
 
         Page<Post> pageResult = new PageImpl<>(posts);
@@ -404,9 +409,9 @@ class PostServiceImplTest {
         String searchTerm = null;
 
         List<Post> posts = Arrays.asList(
-                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null),
-                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null),
-                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null)
+                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null),
+                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null),
+                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null)
         );
 
         Page<Post> pageResult = new PageImpl<>(posts);
@@ -429,9 +434,9 @@ class PostServiceImplTest {
         String searchTerm = "title";
 
         List<Post> posts = Arrays.asList(
-                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null),
-                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null),
-                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null)
+                new Post(1L, TEST_TITLE, TEST_BODY, TEST_AUTHOR, PostType.EDUCATION, new Date(), null, 3, 0, null, null),
+                new Post(2L, TEST_TITLE + "2", TEST_BODY + "2", TEST_AUTHOR + "2", PostType.EDUCATION, new Date(), null, 5, 0, null, null),
+                new Post(3L, TEST_TITLE + "3", TEST_BODY + "3", TEST_AUTHOR + "3", PostType.EDUCATION, new Date(), null, 2, 0, null, null)
         );
 
         Page<Post> pageResult = new PageImpl<>(posts);

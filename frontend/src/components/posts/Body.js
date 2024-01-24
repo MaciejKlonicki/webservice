@@ -230,7 +230,9 @@ const Body = ({ t, isAdmin }) => {
                 )}
             </div>
             {userEmail && (
-                <button onClick={handleMyPosts} style={{ position: "fixed", left: "20px", top: "160px", width: "150px" }} type="button" className="btn btn-primary">{showMyPosts ? 'All posts' : 'My posts'}</button>
+                <button onClick={handleMyPosts} style={{ position: "fixed", left: "20px", top: "160px", width: "150px" }} type="button" className="btn btn-primary">
+                    {showMyPosts ? t('AllPosts.1') : t('MyPosts.1')}
+                </button>
             )}
             <div style={{ marginBottom: '25px' }}>
                 {success && <Alert variant='success' style={{ textAlign: 'center' }}>{success}</Alert>}

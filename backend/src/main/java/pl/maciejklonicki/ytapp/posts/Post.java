@@ -2,6 +2,7 @@ package pl.maciejklonicki.ytapp.posts;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import pl.maciejklonicki.ytapp.postcomment.PostComment;
 import pl.maciejklonicki.ytapp.postrating.PostRating;
 
 import jakarta.persistence.*;
@@ -50,6 +51,10 @@ public class Post {
     @JsonManagedReference
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostRating> ratings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<PostComment> comments;
 
     public void incrementPopularity() {
         this.popularity++;

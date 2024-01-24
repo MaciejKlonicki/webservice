@@ -2,6 +2,7 @@ package pl.maciejklonicki.ytapp.postrating;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.maciejklonicki.ytapp.postcomment.dto.CommentRequest;
 import pl.maciejklonicki.ytapp.postrating.dto.EditPostRatingRequest;
 import pl.maciejklonicki.ytapp.postrating.dto.RatePostRequest;
 
@@ -19,7 +20,7 @@ public class PostRatingController {
     public ResponseEntity<String> ratePost(@RequestBody RatePostRequest ratePostRequest) {
         try {
             postRatingService.ratePost(ratePostRequest.userEmail(), ratePostRequest.postId(), ratePostRequest.rating());
-            return ResponseEntity.ok("You rated post successfuly!");
+            return ResponseEntity.ok("You rated post successfully!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -39,6 +40,16 @@ public class PostRatingController {
         try {
             postRatingService.editPostRating(editPostRatingRequest.userEmail(), editPostRatingRequest.postId(), editPostRatingRequest.newRating());
             return ResponseEntity.ok("You have changed the rate of the post successfuly!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/add-comment")
+    public ResponseEntity<String> addCommentToPost(@RequestBody CommentRequest addCommentRequest) {
+        try {
+            postRatingService.addCommentToPost(addCommentRequest.userEmail(), addCommentRequest.postId(), addCommentRequest.comment());
+            return ResponseEntity.ok("Comment added successfully!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
