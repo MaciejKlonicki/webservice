@@ -1,8 +1,11 @@
 package pl.maciejklonicki.ytapp.postrating;
 
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.maciejklonicki.ytapp.postcomment.dto.CommentRequest;
+import pl.maciejklonicki.ytapp.postcomment.dto.GetAllCommentsDTO;
 import pl.maciejklonicki.ytapp.postrating.dto.EditPostRatingRequest;
 import pl.maciejklonicki.ytapp.postrating.dto.RatePostRequest;
 
@@ -53,5 +56,15 @@ public class PostRatingController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/get-comments")
+    public ResponseEntity<Page<GetAllCommentsDTO>> getAllCommentsForPost(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size,
+            @RequestParam Long postId
+    ) {
+        Page<GetAllCommentsDTO> commentsDTOS = postRatingService.getAllCommentsForPost(page, size, postId);
+        return new ResponseEntity<>(commentsDTOS, HttpStatus.OK);
     }
 }
