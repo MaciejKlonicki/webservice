@@ -275,6 +275,9 @@
     "AddCommentPlaceholder": {
         "1": "Put your thoughts in a comment!"
     },
+    "Comments": {
+        "1": "Comments"
+    },
     "EditPostRating": {
         "1": "Edit post rating"
     }

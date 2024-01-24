@@ -276,6 +276,9 @@
     "AddCommentPlaceholder": {
         "1": "Co sądzisz o tym artykule? Podziel się swoją opinią!"
     },
+    "Comments": {
+        "1": "Komentarze"
+    },
     "EditPostRating": {
         "1": "Zmień ocenę posta"
     }

@@ -1,11 +1,19 @@
 package pl.maciejklonicki.ytapp.postrating;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.postcomment.PostComment;
+import pl.maciejklonicki.ytapp.postcomment.PostCommentRepository;
+import pl.maciejklonicki.ytapp.postcomment.dto.GetAllCommentsDTO;
 import pl.maciejklonicki.ytapp.postrating.exception.PostAlreadyRatedException;
 import pl.maciejklonicki.ytapp.postrating.exception.PostRatingNotFoundException;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.posts.PostRepository;
+import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
 import pl.maciejklonicki.ytapp.users.UserRepository;
 import pl.maciejklonicki.ytapp.users.Users;
@@ -13,19 +21,16 @@ import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PostRatingServiceImpl implements PostRatingService {
 
     private final PostRatingRepository postRatingRepository;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-
-    public PostRatingServiceImpl(PostRatingRepository postRatingRepository, UserRepository userRepository, PostRepository postRepository) {
-        this.postRatingRepository = postRatingRepository;
-        this.userRepository = userRepository;
-        this.postRepository = postRepository;
-    }
+    private final PostCommentRepository postCommentRepository;
 
     @Override
     public void ratePost(String userEmail, Long postId, int rating) {
@@ -83,6 +88,21 @@ public class PostRatingServiceImpl implements PostRatingService {
 
         post.getComments().add(postComment);
         postRepository.save(post);
+    }
+
+    @Override
+    public Page<GetAllCommentsDTO> getAllCommentsForPost(int page, int size, Long postId) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Specification<PostComment> spec = Specification.where((root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("post").get("id"), postId));
+
+        Page<PostComment> postComments = postCommentRepository.findAll(spec, pageable);
+
+        return postComments.map(post -> new GetAllCommentsDTO(
+                post.getComment(),
+                post.getUser().getUsername()
+        ));
     }
 
     private Users getUserByEmail(String userEmail) {

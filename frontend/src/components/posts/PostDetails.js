@@ -11,10 +11,15 @@ const PostDetails = ({ match, t }) => {
     const postId = match.params.id
     const userEmail = localStorage.getItem("email")
     const [comment, setComment] = useState("")
+    const [comments, setComments] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const commentsResponse = await fetch(`http://localhost:8080/api/v1/post-ratings/get-comments?page=0&size=10&postId=${postId}`)
+                const commentsData = await commentsResponse.json()
+                setComments(commentsData.content || [])
+
                 const postResponse = await fetch(`http://localhost:8080/api/v1/posts/${postId}`)
                 const postData = await postResponse.json()
                 setPost(postData)
@@ -22,6 +27,7 @@ const PostDetails = ({ match, t }) => {
                 const ratingResponse = await fetch(`http://localhost:8080/api/v1/post-ratings/get-rating?userEmail=${userEmail}&postId=${postId}`)
                 const ratingData = await ratingResponse.json()
                 setUserRating(ratingData.rating || 0)
+
             } catch (error) {
                 console.error('Error:', error)
             }
@@ -77,9 +83,12 @@ const PostDetails = ({ match, t }) => {
                 comment
             })
         })
-            .then((response) => response.json())
+            .then((response) => {
+                response.json()
+            })
             .then(() => {
                 console.log("Comment added successfully!")
+                window.location.reload()
             })
             .catch((error) => console.error('Error:', error))
     }
@@ -142,7 +151,9 @@ const PostDetails = ({ match, t }) => {
                 </button>
             </div>
             <div style={{ margin: "20px 200px" }}>
-                <h3 style={{ color: 'white' }}>{t('AddComment.1')}</h3>
+                {userEmail && (
+                    <h3 style={{ color: 'white' }}>{t('AddComment.1')}</h3>
+                )}
                 {post.comments && post.comments.map((comment) => (
                     <div key={comment.id} style={{ marginBottom: "10px" }}>
                         <b>{comment.user.username}:</b> {comment.comment}
@@ -178,9 +189,16 @@ const PostDetails = ({ match, t }) => {
                         </button>
                     </div>
                 )}
+                <div style={{ marginTop: '20px' }}>
+                    <h3 style={{ color: 'white' }}>{t('Comments.1')}</h3>
+                    <ul>
+                        {comments.map((comment, index) => (
+                            <li key={index}>{comment.username}: {comment.comment}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </>
-
     )
 }
 
