@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Dropdown, Card, Alert } from 'react-bootstrap'
 import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
-import { MdDeleteForever, MdModeEdit } from "react-icons/md"
+import { MdDeleteForever, MdModeEdit, MdArrowLeft } from "react-icons/md"
 import PostService from "../service/PostService"
 import { Rating } from '@mui/material'
 
@@ -182,6 +182,13 @@ const Body = ({ t, isAdmin }) => {
         }
     }
 
+    const getTypeIcon = (type) => {
+        if (type === selectedType) {
+          return <MdArrowLeft style={{ marginBottom: '2px' }}/>
+        }
+        return null
+      }
+
     return (
         <>
             <div className='borderRightElement' style={{ position: "fixed", height: "90%", marginTop: "5px", paddingRight: "205px", borderRight: "1.8px solid #444444" }}>
@@ -208,18 +215,20 @@ const Body = ({ t, isAdmin }) => {
                                     {sortDirectionRating === 'desc' ? ' ↓' : sortDirectionRating === 'asc' ? ' ↑' : ''}
                                 </Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown><Dropdown>
+                        </Dropdown>
+                        <Dropdown>
                             <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "225px" : "110px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
                                 {t('Type.1')}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => setSelectedType('ALL')}>{t('All.1')}</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setSelectedType('SPORT')}>{t('Sport.1')}</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setSelectedType('EDUCATION')}>{t('Education.1')}</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setSelectedType('MUSIC')}>{t('Music.1')}</Dropdown.Item>
-                                <Dropdown.Item onClick={() => setSelectedType('OTHER')}>{t('Other.1')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('ALL')}>{t('All.1')} {getTypeIcon('ALL')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('SPORT')}>{t('Sport.1')} {getTypeIcon('SPORT')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('EDUCATION')}>{t('Education.1')} {getTypeIcon('EDUCATION')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('MUSIC')}>{t('Music.1')} {getTypeIcon('MUSIC')}</Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSelectedType('OTHER')}>{t('Other.1')} {getTypeIcon('OTHER')}</Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown><input
+                        </Dropdown>
+                        <input
                             style={{ position: 'fixed', top: userEmail ? "355px" : "230px", width: '150px', left: '20px' }}
                             type="search"
                             className='form-control rounded'
@@ -246,11 +255,11 @@ const Body = ({ t, isAdmin }) => {
                             }}
                             style={{
                                 display: 'inline-block',
-                                width: '20rem',
+                                width: '20.5rem',
                                 margin: '10px',
                                 marginLeft: '80px',
                                 marginTop: '55px',
-                                left: '200px',
+                                left: '180px',
                                 backgroundColor: '#1f2124',
                                 cursor: 'pointer',
                             }}>
@@ -259,7 +268,7 @@ const Body = ({ t, isAdmin }) => {
                                 onMouseLeave={handleMouseLeave}
                                 style={{ marginRight: '5px' }}
                             >
-                                {post.photo && <img style={{ width: '290px', height: '250px', borderRadius: '5px', marginBottom: '10px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
+                                {post.photo && <img style={{ width: '295px', height: '250px', borderRadius: '5px', marginBottom: '10px' }} src={`data:image/png;base64,${post.photo}`} alt="Post" />}
                                 <Card.Title style={{ color: 'white', marginRight: '11px' }}>
                                     {post.title}
                                     {(isAdmin || (hoveredPostId === post.id && currentUsername === post.author)) && (
