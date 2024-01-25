@@ -59,6 +59,7 @@ public class SecurityConfig {
 
                                 .requestMatchers(POST, POST_RATING_ENDPOINT).hasAnyRole(ROLE_USER, ROLE_ADMIN)
                                 .requestMatchers(PUT, POST_RATING_ENDPOINT).hasAnyRole(ROLE_USER, ROLE_ADMIN)
+                                .requestMatchers(DELETE, POST_RATING_ENDPOINT).hasAnyRole(ROLE_USER, ROLE_ADMIN)
                                 .requestMatchers(GET, POST_RATING_ENDPOINT).permitAll()
                                 .anyRequest()
                                 .authenticated()

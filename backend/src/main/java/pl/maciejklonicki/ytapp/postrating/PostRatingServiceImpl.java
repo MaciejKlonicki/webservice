@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.postcomment.PostComment;
 import pl.maciejklonicki.ytapp.postcomment.PostCommentRepository;
 import pl.maciejklonicki.ytapp.postcomment.dto.GetAllCommentsDTO;
+import pl.maciejklonicki.ytapp.postcomment.exception.CommentNotFoundException;
+import pl.maciejklonicki.ytapp.postcomment.exception.UnauthorizedUserToDeleteCommentException;
 import pl.maciejklonicki.ytapp.postrating.exception.PostAlreadyRatedException;
 import pl.maciejklonicki.ytapp.postrating.exception.PostRatingNotFoundException;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.posts.PostRepository;
 import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
+import pl.maciejklonicki.ytapp.posts.exception.UnauthorizedException;
 import pl.maciejklonicki.ytapp.users.UserRepository;
 import pl.maciejklonicki.ytapp.users.Users;
 import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
@@ -100,9 +103,22 @@ public class PostRatingServiceImpl implements PostRatingService {
         Page<PostComment> postComments = postCommentRepository.findAll(spec, pageable);
 
         return postComments.map(post -> new GetAllCommentsDTO(
+                post.getId(),
                 post.getComment(),
                 post.getUser().getUsername()
         ));
+    }
+
+    @Override
+    public void deleteComment(Long commentId, String userEmail) {
+        PostComment postComment = getCommentById(commentId);
+        Users user = getUserByEmail(userEmail);
+
+        if (!postComment.getUser().equals(user)) {
+            throw new UnauthorizedUserToDeleteCommentException(userEmail);
+        }
+
+        postCommentRepository.delete(postComment);
     }
 
     private Users getUserByEmail(String userEmail) {
@@ -113,5 +129,10 @@ public class PostRatingServiceImpl implements PostRatingService {
     private Post getPostById(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException(postId));
+    }
+
+    private PostComment getCommentById(Long commentId) {
+        return postCommentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentNotFoundException(commentId));
     }
 }

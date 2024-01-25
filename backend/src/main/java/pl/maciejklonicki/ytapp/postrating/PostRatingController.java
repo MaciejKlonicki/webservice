@@ -1,5 +1,6 @@
 package pl.maciejklonicki.ytapp.postrating;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +12,11 @@ import pl.maciejklonicki.ytapp.postrating.dto.RatePostRequest;
 
 @RestController
 @RequestMapping("/api/v1/post-ratings")
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
 public class PostRatingController {
-    private final PostRatingService postRatingService;
 
-    public PostRatingController(PostRatingService postRatingService) {
-        this.postRatingService = postRatingService;
-    }
+    private final PostRatingService postRatingService;
 
     @PostMapping("/rate")
     public ResponseEntity<String> ratePost(@RequestBody RatePostRequest ratePostRequest) {
@@ -66,5 +65,18 @@ public class PostRatingController {
     ) {
         Page<GetAllCommentsDTO> commentsDTOS = postRatingService.getAllCommentsForPost(page, size, postId);
         return new ResponseEntity<>(commentsDTOS, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-comment/{commentId}")
+    public ResponseEntity<String> deleteComment(
+            @PathVariable Long commentId,
+            @RequestParam String userEmail
+    ) {
+        try {
+            postRatingService.deleteComment(commentId, userEmail);
+            return ResponseEntity.ok("Comment deleted successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

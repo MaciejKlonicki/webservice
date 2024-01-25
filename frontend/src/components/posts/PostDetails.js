@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
 import RatingBox from './RatingBox'
 import Table from 'react-bootstrap/Table'
+import { MdDeleteForever } from 'react-icons/md'
+import { Alert } from 'react-bootstrap'
 
 const PostDetails = ({ match, t }) => {
 
@@ -11,15 +13,24 @@ const PostDetails = ({ match, t }) => {
     const history = useHistory()
     const postId = match.params.id
     const userEmail = localStorage.getItem("email")
+    const username = localStorage.getItem("username")
     const [comment, setComment] = useState("")
     const [comments, setComments] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const recordPerPage = 12
+    const [hoveredCommentId, setHoveredCommentId] = useState(null)
+    const setHoveredIcon = useState(null)
+    const [success, setSuccess] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const commentsResponse = await fetch(`http://localhost:8080/api/v1/post-ratings/get-comments?page=0&size=10&postId=${postId}`)
+                const commentsResponse = await fetch(`http://localhost:8080/api/v1/post-ratings/get-comments?page=${currentPage - 1}&size=${recordPerPage}&postId=${postId}`)
                 const commentsData = await commentsResponse.json()
+
                 setComments(commentsData.content || [])
+                setTotalPages(commentsData.totalPages)
 
                 const postResponse = await fetch(`http://localhost:8080/api/v1/posts/${postId}`)
                 const postData = await postResponse.json()
@@ -35,7 +46,7 @@ const PostDetails = ({ match, t }) => {
         }
 
         fetchData()
-    }, [postId, userEmail])
+    }, [postId, userEmail, currentPage])
 
     const handleRatingChange = (rating) => {
         fetch(`http://localhost:8080/api/v1/post-ratings/rate`, {
@@ -88,10 +99,46 @@ const PostDetails = ({ match, t }) => {
                 response.json()
             })
             .then(() => {
-                console.log("Comment added successfully!")
                 window.location.reload()
             })
             .catch((error) => console.error('Error:', error))
+    }
+
+    const deleteComment = async (commentId) => {
+        await fetch(`http://localhost:8080/api/v1/post-ratings/delete-comment/${commentId}?userEmail=${userEmail}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        }).then(() => {
+            let updateComment = [...comments].filter(i => i.commentId !== commentId)
+            setComments(updateComment)
+            setSuccess('You deleted comment successfully!')
+            setTimeout(() => {
+                setSuccess(null)
+            }, 2000)
+        })
+    }
+
+    const showNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const showPrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    const handleMouseEnter = (commentId) => {
+        setHoveredCommentId(commentId)
+    }
+
+    const handleMouseLeave = () => {
+        setHoveredCommentId(null)
     }
 
     if (!post) {
@@ -192,7 +239,8 @@ const PostDetails = ({ match, t }) => {
                 )}
                 <div style={{ marginTop: '20px' }}>
                     <h3 style={{ color: 'white' }}>{t('Comments.1')}</h3>
-                    <Table striped bordered hover variant="dark">
+                    {success && <Alert variant='success' style={{ textAlign: 'center' }}>{success}</Alert>}
+                    <Table style={{ marginBottom: '50px' }} striped bordered hover variant="dark">
                         <thead>
                             <tr>
                                 <th>{t('BlogAuthor.1')}</th>
@@ -201,13 +249,64 @@ const PostDetails = ({ match, t }) => {
                         </thead>
                         <tbody>
                             {comments.map((comment, index) => (
-                                <tr key={index}>
+                                <tr
+                                    key={index}
+                                    onMouseEnter={() => handleMouseEnter(comment.commentId)}
+                                    onMouseLeave={handleMouseLeave}
+                                >
                                     <td>{comment.username}</td>
-                                    <td>{comment.comment}</td>
+                                    <td>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                            <div>{comment.comment}</div>
+                                            {hoveredCommentId === comment.commentId && username === comment.username && (
+                                                <MdDeleteForever
+                                                    onMouseEnter={() => setHoveredIcon('delete')}
+                                                    onMouseLeave={() => setHoveredIcon(null)}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation()
+                                                        deleteComment(comment.commentId)
+                                                    }}
+                                                    style={{
+                                                        color: "red",
+                                                        cursor: "pointer",
+                                                        fontSize: "1.5em"
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <ul class="pagination" style={{ marginTop: '30px', position: "absolute", left: '200px' }}>
+                        <li class="page-item">
+                            <button
+                                type="button"
+                                class="page-link"
+                                disabled={currentPage === 1 ? true : false}
+                                onClick={showPrevPage}
+                                className='btn btn-primary'
+                                style={{ marginRight: '5px' }}
+                            >
+                                {t('Previous.1')}
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button
+                                type="button"
+                                class="page-link"
+                                disabled={currentPage === totalPages ? true : false}
+                                onClick={showNextPage}
+                                className='btn btn-primary'
+                                style={{ marginBottom: '50px' }}
+                            >
+                                {t('Next.1')}
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </>

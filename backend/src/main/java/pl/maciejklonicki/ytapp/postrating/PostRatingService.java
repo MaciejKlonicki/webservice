@@ -11,4 +11,5 @@ public interface PostRatingService {
     void editPostRating(String userEmail, Long postId, int newRating);
     void addCommentToPost(String userEmail, Long postId, String comment);
     Page<GetAllCommentsDTO> getAllCommentsForPost(int page, int size, Long postId);
+    void deleteComment(Long commentId, String userEmail);
 }
