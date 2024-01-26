@@ -39,7 +39,15 @@ const App = () => {
         <Route path='/register' component={Registration} />
         <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/create-post' component={CreatePost} />
-        <Route path='/posts/:id' component={PostDetails} />
+        <Route
+          path='/posts/:id'
+          render={(props) => (
+            <PostDetails
+              isAdmin={localStorage.getItem('role') === 'ADMIN'}
+              {...props}
+            />
+          )}
+        />
         <PrivateRoute path='/edit/:id' component={EditPost} />
         <PrivateRoute path='/edit-rating/:id' component={EditPostRating} />
         <PrivateRoute path='/my-posts' component={UserPosts} />

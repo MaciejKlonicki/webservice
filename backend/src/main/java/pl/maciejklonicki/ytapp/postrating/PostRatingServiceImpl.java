@@ -17,6 +17,7 @@ import pl.maciejklonicki.ytapp.postrating.exception.PostRatingNotFoundException;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.posts.PostRepository;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
+import pl.maciejklonicki.ytapp.users.Role;
 import pl.maciejklonicki.ytapp.users.UserRepository;
 import pl.maciejklonicki.ytapp.users.Users;
 import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
@@ -112,7 +113,7 @@ public class PostRatingServiceImpl implements PostRatingService {
         PostComment postComment = getCommentById(commentId);
         Users user = getUserByEmail(userEmail);
 
-        if (!postComment.getUser().equals(user)) {
+        if (!user.getRole().equals(Role.ADMIN) && !postComment.getUser().equals(user)) {
             throw new UnauthorizedUserToDeleteCommentException(userEmail);
         }
 
@@ -122,8 +123,9 @@ public class PostRatingServiceImpl implements PostRatingService {
     @Override
     public void editComment(Long commentId, String userEmail, String editedComment) {
         PostComment postComment = getCommentById(commentId);
+        Users user = getUserByEmail(userEmail);
 
-        if (!postComment.getUser().getEmail().equals(userEmail)) {
+        if (!user.getRole().equals(Role.ADMIN) && !postComment.getUser().equals(user)) {
             throw new UnauthorizedUserToDeleteCommentException(userEmail);
         }
 
