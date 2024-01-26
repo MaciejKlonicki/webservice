@@ -6,13 +6,12 @@ import Table from 'react-bootstrap/Table'
 import { MdDeleteForever, MdModeEdit } from 'react-icons/md'
 import { Alert } from 'react-bootstrap'
 
-const PostDetails = ({ match, t }) => {
+const PostDetails = ({ match, t, isAdmin }) => {
 
     const [post, setPost] = useState(null)
     const [userRating, setUserRating] = useState(0)
     const history = useHistory()
     const postId = match.params.id
-    const isAdmin = localStorage.getItem('role') === 'ADMIN'
     const userEmail = localStorage.getItem("email")
     const username = localStorage.getItem("username")
     const [comment, setComment] = useState("")
