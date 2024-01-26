@@ -34,8 +34,7 @@ const App = () => {
         <Route
           path="/"
           exact
-          component={() => <Body isAdmin={localStorage.getItem('role') === 'ADMIN'} />}
-        />
+          component={() => <Body isAdmin={localStorage.getItem('role') === 'ADMIN'} />} />
         <Route path="/login" render={(props) => <Login history={props.history} updateEmail={updateEmail} />} />
         <Route path='/register' component={Registration} />
         <PrivateRoute path='/settings' exact component={Settings} />

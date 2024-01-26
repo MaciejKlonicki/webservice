@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import { withTranslation } from 'react-i18next'
 import RatingBox from './RatingBox'
 import Table from 'react-bootstrap/Table'
-import { MdDeleteForever } from 'react-icons/md'
+import { MdDeleteForever, MdModeEdit } from 'react-icons/md'
 import { Alert } from 'react-bootstrap'
 
 const PostDetails = ({ match, t }) => {
@@ -12,6 +12,7 @@ const PostDetails = ({ match, t }) => {
     const [userRating, setUserRating] = useState(0)
     const history = useHistory()
     const postId = match.params.id
+    const isAdmin = localStorage.getItem('role') === 'ADMIN'
     const userEmail = localStorage.getItem("email")
     const username = localStorage.getItem("username")
     const [comment, setComment] = useState("")
@@ -22,6 +23,10 @@ const PostDetails = ({ match, t }) => {
     const [hoveredCommentId, setHoveredCommentId] = useState(null)
     const setHoveredIcon = useState(null)
     const [success, setSuccess] = useState(null)
+    const [isEditing, setIsEditing] = useState(false)
+    const [editedComment, setEditedComment] = useState("")
+    const [editingCommentId, setEditingCommentId] = useState(null)
+    const [showEditDeleteIcons, setShowEditDeleteIcons] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -104,6 +109,32 @@ const PostDetails = ({ match, t }) => {
             .catch((error) => console.error('Error:', error))
     }
 
+    const editComment = async (commentId) => {
+        try {
+            await fetch(`http://localhost:8080/api/v1/post-ratings/edit-comment/${commentId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                },
+                body: JSON.stringify({
+                    userEmail,
+                    editedComment
+                })
+            })
+
+            const updatedComments = comments.map(comment =>
+                comment.commentId === commentId ? { ...comment, comment: editedComment } : comment
+            )
+
+            setComments(updatedComments)
+            setIsEditing(false)
+            setEditedComment("")
+        } catch (error) {
+            console.error('Error:', error)
+        }
+    }
+
     const deleteComment = async (commentId) => {
         await fetch(`http://localhost:8080/api/v1/post-ratings/delete-comment/${commentId}?userEmail=${userEmail}`, {
             method: 'DELETE',
@@ -141,6 +172,27 @@ const PostDetails = ({ match, t }) => {
         setHoveredCommentId(null)
     }
 
+    const handleEditIconClick = (commentId) => {
+        setIsEditing(true)
+        setEditedComment(comments.find(comment => comment.commentId === commentId).comment)
+        setEditingCommentId(commentId)
+        setShowEditDeleteIcons(false)
+    }
+
+    const handleAcceptEditClick = async () => {
+        await editComment(editingCommentId)
+        setIsEditing(false)
+        setEditingCommentId(null)
+        setShowEditDeleteIcons(true)
+    }
+
+    const handleCancelEditClick = () => {
+        setIsEditing(false)
+        setEditedComment("")
+        setEditingCommentId(null)
+        setShowEditDeleteIcons(true)
+    }
+
     if (!post) {
         return <div>Loading...</div>
     }
@@ -157,8 +209,8 @@ const PostDetails = ({ match, t }) => {
                         <RatingBox
                             value={userRating}
                             onChange={(event, rating) => {
-                                handleRatingChange(rating);
-                                setUserRating(rating);
+                                handleRatingChange(rating)
+                                setUserRating(rating)
                             }}
                             disabled={userRating !== 0}
                             t={t}
@@ -255,23 +307,74 @@ const PostDetails = ({ match, t }) => {
                                     onMouseLeave={handleMouseLeave}
                                 >
                                     <td>{comment.username}</td>
-                                    <td>
+                                    <td style={{ width: '800px' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                            <div>{comment.comment}</div>
-                                            {hoveredCommentId === comment.commentId && username === comment.username && (
-                                                <MdDeleteForever
-                                                    onMouseEnter={() => setHoveredIcon('delete')}
-                                                    onMouseLeave={() => setHoveredIcon(null)}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation()
-                                                        deleteComment(comment.commentId)
-                                                    }}
-                                                    style={{
-                                                        color: "red",
-                                                        cursor: "pointer",
-                                                        fontSize: "1.5em"
-                                                    }}
-                                                />
+                                            <div>
+                                                {isEditing && comment.commentId === editingCommentId ? (
+                                                    <input
+                                                        type="text"
+                                                        value={editedComment}
+                                                        onChange={(e) => setEditedComment(e.target.value)}
+                                                        style={{
+                                                            backgroundColor: 'transparent',
+                                                            border: '1px solid white',
+                                                            borderRadius: '3px',
+                                                            color: 'white', 
+                                                            padding: '5px',
+                                                            width: '600px'
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    comment.comment
+                                                )}
+                                            </div>
+                                            {(isAdmin || (hoveredCommentId === comment.commentId && username === comment.username)) && (
+                                                <>
+                                                    <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}></div>
+                                                    {showEditDeleteIcons && (
+                                                        <>
+                                                            <MdModeEdit
+                                                                onMouseEnter={() => setHoveredIcon('edit')}
+                                                                onMouseLeave={() => setHoveredIcon(null)}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleEditIconClick(comment.commentId)
+                                                                }}
+                                                                style={{
+                                                                    marginTop: '3px',
+                                                                    color: "blue",
+                                                                    cursor: "pointer",
+                                                                    fontSize: "1.5em",
+                                                                    marginLeft: '10px'
+                                                                }}
+                                                            />
+                                                            <MdDeleteForever
+                                                                onMouseEnter={() => setHoveredIcon('delete')}
+                                                                onMouseLeave={() => setHoveredIcon(null)}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    deleteComment(comment.commentId)
+                                                                }}
+                                                                style={{
+                                                                    marginTop: '3px',
+                                                                    color: "red",
+                                                                    cursor: "pointer",
+                                                                    fontSize: "1.5em"
+                                                                }}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {isEditing && comment.commentId === editingCommentId && (
+                                                        <div>
+                                                            <button style={{ marginRight: '5px' }} className="btn btn-primary" onClick={handleAcceptEditClick}>
+                                                                Accept
+                                                            </button>
+                                                            <button className="btn btn-danger" onClick={handleCancelEditClick}>
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </>
                                             )}
                                         </div>
                                     </td>

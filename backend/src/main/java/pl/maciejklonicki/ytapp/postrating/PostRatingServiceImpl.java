@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.postcomment.PostComment;
 import pl.maciejklonicki.ytapp.postcomment.PostCommentRepository;
@@ -15,16 +16,13 @@ import pl.maciejklonicki.ytapp.postrating.exception.PostAlreadyRatedException;
 import pl.maciejklonicki.ytapp.postrating.exception.PostRatingNotFoundException;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.posts.PostRepository;
-import pl.maciejklonicki.ytapp.posts.dto.GetAllPostsDTO;
 import pl.maciejklonicki.ytapp.posts.exception.PostNotFoundException;
-import pl.maciejklonicki.ytapp.posts.exception.UnauthorizedException;
 import pl.maciejklonicki.ytapp.users.UserRepository;
 import pl.maciejklonicki.ytapp.users.Users;
 import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -119,6 +117,18 @@ public class PostRatingServiceImpl implements PostRatingService {
         }
 
         postCommentRepository.delete(postComment);
+    }
+
+    @Override
+    public void editComment(Long commentId, String userEmail, String editedComment) {
+        PostComment postComment = getCommentById(commentId);
+
+        if (!postComment.getUser().getEmail().equals(userEmail)) {
+            throw new UnauthorizedUserToDeleteCommentException(userEmail);
+        }
+
+        postComment.setComment(editedComment);
+        postCommentRepository.save(postComment);
     }
 
     private Users getUserByEmail(String userEmail) {

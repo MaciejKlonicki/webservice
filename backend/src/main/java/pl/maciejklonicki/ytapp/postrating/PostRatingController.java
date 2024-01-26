@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.maciejklonicki.ytapp.postcomment.PostComment;
 import pl.maciejklonicki.ytapp.postcomment.dto.CommentRequest;
+import pl.maciejklonicki.ytapp.postcomment.dto.EditCommentRequest;
 import pl.maciejklonicki.ytapp.postcomment.dto.GetAllCommentsDTO;
 import pl.maciejklonicki.ytapp.postrating.dto.EditPostRatingRequest;
 import pl.maciejklonicki.ytapp.postrating.dto.RatePostRequest;
@@ -75,6 +77,19 @@ public class PostRatingController {
         try {
             postRatingService.deleteComment(commentId, userEmail);
             return ResponseEntity.ok("Comment deleted successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/edit-comment/{commentId}")
+    public ResponseEntity<String> editComment(
+            @PathVariable Long commentId,
+            @RequestBody EditCommentRequest editCommentRequest
+    ) {
+        try {
+            postRatingService.editComment(commentId, editCommentRequest.userEmail(), editCommentRequest.editedComment());
+            return ResponseEntity.ok("Comment edited successfully!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

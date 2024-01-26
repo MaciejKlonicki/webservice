@@ -48,7 +48,7 @@ public class Users implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<PostComment> comments;
+    private transient List<PostComment> comments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
