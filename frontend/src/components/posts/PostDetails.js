@@ -5,6 +5,8 @@ import RatingBox from './RatingBox'
 import Table from 'react-bootstrap/Table'
 import { MdDeleteForever, MdModeEdit } from 'react-icons/md'
 import { Alert } from 'react-bootstrap'
+import PostRatingService from '../service/PostRatingService'
+import PostCommentService from '../service/PostCommentService'
 
 const PostDetails = ({ match, t, isAdmin }) => {
 
@@ -26,6 +28,8 @@ const PostDetails = ({ match, t, isAdmin }) => {
     const [editedComment, setEditedComment] = useState("")
     const [editingCommentId, setEditingCommentId] = useState(null)
     const [showEditDeleteIcons, setShowEditDeleteIcons] = useState(true)
+    const postRatingService = new PostRatingService()
+    const postCommentService = new PostCommentService()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,23 +57,11 @@ const PostDetails = ({ match, t, isAdmin }) => {
     }, [postId, userEmail, currentPage])
 
     const handleRatingChange = (rating) => {
-        fetch(`http://localhost:8080/api/v1/post-ratings/rate`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            },
-            body: JSON.stringify({
-                userEmail,
-                postId,
-                rating: rating
-            })
-        })
-            .then((response) => response.json())
+        postRatingService.ratePost(userEmail, postId, rating)
             .then(() => {
                 setUserRating(rating)
             })
-            .catch((error) => console.error('Error:', error))
+            .catch((error) => console.error('Error: ', error))
     }
 
     const cancel = () => {
@@ -87,21 +79,7 @@ const PostDetails = ({ match, t, isAdmin }) => {
     }
 
     const addComment = () => {
-        fetch(`http://localhost:8080/api/v1/post-ratings/add-comment`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            },
-            body: JSON.stringify({
-                userEmail,
-                postId,
-                comment
-            })
-        })
-            .then((response) => {
-                response.json()
-            })
+        postCommentService.addComment(userEmail, postId, comment)
             .then(() => {
                 window.location.reload()
             })
@@ -110,45 +88,38 @@ const PostDetails = ({ match, t, isAdmin }) => {
 
     const editComment = async (commentId) => {
         try {
-            await fetch(`http://localhost:8080/api/v1/post-ratings/edit-comment/${commentId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-                },
-                body: JSON.stringify({
-                    userEmail,
-                    editedComment
-                })
-            })
+            await postCommentService.editComment(commentId, userEmail, editedComment)
 
             const updatedComments = comments.map(comment =>
                 comment.commentId === commentId ? { ...comment, comment: editedComment } : comment
             )
 
             setComments(updatedComments)
+            setSuccess('You updated comment successfully!')
             setIsEditing(false)
             setEditedComment("")
+            
+            setTimeout(() => {
+                setSuccess(null)
+            }, 2000)
         } catch (error) {
             console.error('Error:', error)
         }
     }
 
     const deleteComment = async (commentId) => {
-        await fetch(`http://localhost:8080/api/v1/post-ratings/delete-comment/${commentId}?userEmail=${userEmail}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            }
-        }).then(() => {
-            let updateComment = [...comments].filter(i => i.commentId !== commentId)
-            setComments(updateComment)
+        try {
+            await postCommentService.deleteComment(commentId, userEmail)
+
+            let updatedComments = comments.filter(i => i.commentId !== commentId)
+            setComments(updatedComments)
             setSuccess('You deleted comment successfully!')
             setTimeout(() => {
                 setSuccess(null)
             }, 2000)
-        })
+        } catch (error) {
+            console.error('Error:', error)
+        }
     }
 
     const showNextPage = () => {
@@ -318,7 +289,7 @@ const PostDetails = ({ match, t, isAdmin }) => {
                                                             backgroundColor: 'transparent',
                                                             border: '1px solid white',
                                                             borderRadius: '3px',
-                                                            color: 'white', 
+                                                            color: 'white',
                                                             padding: '5px',
                                                             width: '600px'
                                                         }}
