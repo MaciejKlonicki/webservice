@@ -1,6 +1,7 @@
 package pl.maciejklonicki.ytapp.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import pl.maciejklonicki.ytapp.users.Users;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -71,7 +73,7 @@ class AuthenticationServiceTest {
     private AuthenticationService authenticationService;
 
     @Test
-    void shouldRegisterNewUser() {
+    void shouldRegisterNewUser() throws MessagingException, UnsupportedEncodingException {
         when(passwordEncoder.encode(TEST_PASSWORD)).thenReturn("encodedPassword");
         when(userRepository.save(any())).thenAnswer(invocation -> {
             Users savedUser = invocation.getArgument(0);
@@ -81,7 +83,7 @@ class AuthenticationServiceTest {
         when(jwtService.generateToken(any())).thenReturn(TEST_ACCESS_TOKEN);
         when(jwtService.generateRefreshToken(any())).thenReturn(TEST_REFRESH_TOKEN);
 
-        AuthenticationResponse response = authenticationService.register(registerRequest);
+        AuthenticationResponse response = authenticationService.register(registerRequest, "test");
 
         verify(userRepository, times(1)).save(any());
 

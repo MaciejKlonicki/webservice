@@ -312,7 +312,7 @@ const PostDetails = ({ match, t, isAdmin }) => {
                                                                 }}
                                                                 style={{
                                                                     marginTop: '3px',
-                                                                    color: "blue",
+                                                                    color: "#318CE7",
                                                                     cursor: "pointer",
                                                                     fontSize: "1.5em",
                                                                     marginLeft: '10px'

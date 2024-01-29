@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 24px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<h1>Email Verification Result</h1>
+
+<div th:if="${message eq 'Email verified successfully!'}" class="success-message">
+    <p th:text="${message}"></p>
+</div>
+
+<div th:if="${message ne 'Email verified successfully!'}" class="error-message">
+    <p th:text="${message}"></p>
+
+</div>
+</body>
+</html>
