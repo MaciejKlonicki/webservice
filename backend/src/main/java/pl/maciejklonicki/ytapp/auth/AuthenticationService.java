@@ -166,7 +166,7 @@ public class AuthenticationService {
     private void sendVerificationEmail(Users users, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = users.getEmail();
-        String fromAddress = "maciek.klonicki@gmail.com";
+        String fromAddress = "webservicesystems@gmail.com";
         String senderName = "Webservice";
         String subject = "Please verify your registration";
         String content = "Dear [[name]],<br>"
