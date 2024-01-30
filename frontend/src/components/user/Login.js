@@ -53,10 +53,10 @@ const Login = ({ t, history }) => {
                     refreshPage()
                 }, 1000)
             } else {
-                setState({ "error": "Invalid credentials" })
+                setState({ "error": "Check your credentials and verify your email address!" })
                 setTimeout(() => {
                     refreshPage()
-                }, 1000)
+                }, 3000)
             }
         }).catch(function (error) {
             setState({ "errors": "Something went wrong!" })

@@ -16,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.auth.exception.PasswordMismatchException;
+import pl.maciejklonicki.ytapp.auth.exception.UserNotEnabledException;
 import pl.maciejklonicki.ytapp.config.JwtService;
 import pl.maciejklonicki.ytapp.token.Token;
 import pl.maciejklonicki.ytapp.token.TokenRepository;
@@ -85,6 +86,11 @@ public class AuthenticationService {
         );
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow();
+
+        if (!user.isEnabled()) {
+            throw new UserNotEnabledException("User: " + user.getUsername() + " hasn't verify email address");
+        }
+
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);

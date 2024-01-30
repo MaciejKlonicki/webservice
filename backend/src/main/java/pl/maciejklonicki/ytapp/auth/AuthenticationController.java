@@ -51,7 +51,8 @@ public class AuthenticationController {
         if (verificationResponse.getStatusCode().is2xxSuccessful()) {
             modelAndView.addObject("message", "Email verified successfully!");
         } else {
-            modelAndView.addObject("message", "Error: Couldn't verify email. Invalid verification code.");
+            modelAndView.addObject("message",
+                    "Error: Couldn't verify email. Invalid verification code.");
         }
 
         return modelAndView;
