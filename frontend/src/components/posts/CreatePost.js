@@ -25,33 +25,33 @@ const CreatePost = ({ t }) => {
     }
 
     const handleSubmit = event => {
-        event.preventDefault();
+        event.preventDefault()
 
-        const formData = new FormData();
-        const title = event.target.title.value;
-        const body = event.target.body.value;
-        const author = localStorage.getItem("username");
-        const type = event.target.type.value;
-        const photo = event.target.photo.files[0];
+        const formData = new FormData()
+        const title = event.target.title.value
+        const body = event.target.body.value
+        const author = localStorage.getItem("username")
+        const type = event.target.type.value
+        const photo = event.target.photo.files[0]
 
         if (!title || !body || !author || !type || !photo) {
-            setState({ errors: "Please fill in all the fields." });
-            return;
+            setState({ errors: "Please fill in all the fields." })
+            return
         }
 
         if (photo.size > 1024 * 1024) {
-            setState({ errors: "The photo size exceeds the limit of 1MB." });
-            return;
+            setState({ errors: "The photo size exceeds the limit of 1MB." })
+            return
         }
 
-        formData.append('title', title);
-        formData.append('body', body);
-        formData.append('author', author);
-        formData.append('type', type);
-        formData.append('creationDate', new Date().toISOString());
-        formData.append('photo', photo);
+        formData.append('title', title)
+        formData.append('body', body)
+        formData.append('author', author)
+        formData.append('type', type)
+        formData.append('creationDate', new Date().toISOString())
+        formData.append('photo', photo)
 
-        addPost(formData);
+        addPost(formData)
     }
 
     const addPost = formData => {
@@ -63,25 +63,25 @@ const CreatePost = ({ t }) => {
             body: formData,
         }).then(response => {
             if (response.status === 200) {
-                setState({ success: "You created post successfully!" });
+                setState({ success: "You created post successfully!" })
 
                 setTimeout(() => {
-                    history.push('/');
-                    refreshPage();
-                }, 1000);
+                    history.push('/')
+                    refreshPage()
+                }, 1000)
             } else {
-                setState({ error: "This article title already exists!" });
+                setState({ error: "This article title already exists!" })
             }
         }).catch(error => {
-            setState({ errors: "Something went wrong!" });
-        });
-    };
+            setState({ errors: "Something went wrong!" })
+        })
+    }
 
     const titleTooltip = (
         <Tooltip id="title-tooltip">
             {t('TitleMaxLength.1')}
         </Tooltip>
-    );
+    )
 
     return (
         <div style={{ maxWidth: "1300px", margin: "0 auto", textAlign: "center" }}>

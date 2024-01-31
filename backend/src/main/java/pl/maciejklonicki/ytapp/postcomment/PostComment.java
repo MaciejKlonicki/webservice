@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import pl.maciejklonicki.ytapp.posts.Post;
 import pl.maciejklonicki.ytapp.users.Users;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Builder
@@ -32,4 +34,7 @@ public class PostComment {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String comment;
+
+    @Column(nullable = false)
+    private LocalDateTime creationDate;
 }
