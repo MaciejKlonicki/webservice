@@ -136,6 +136,15 @@
     "RegisterExist": {
         "1": "Already have an account?"
     },
+    "RegistrationSuccess": {
+        "1": "Registration Success"
+    },
+    "RegistrationSuccessMessage": {
+        "1": "You have successfully created an account! You can now log in."
+    },
+    "GoToLogin": {
+        "1": "Go to Login"
+    },
     "RegisterLogin": {
         "1": "Login"
     },

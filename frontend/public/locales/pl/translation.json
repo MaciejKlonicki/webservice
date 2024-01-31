@@ -137,6 +137,15 @@
     "RegisterExist": {
         "1": "Masz już konto?"
     },
+    "RegistrationSuccess": {
+        "1": "Udana rejestracja"
+    },
+    "RegistrationSuccessMessage": {
+        "1": "Poprawnie założyłeś konto! Możesz się teraz zalogować."
+    },
+    "GoToLogin": {
+        "1": "Przejdź do logowania"
+    },
     "RegisterLogin": {
         "1": "Zaloguj"
     },
