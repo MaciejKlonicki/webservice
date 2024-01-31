@@ -98,7 +98,7 @@ const PostDetails = ({ match, t, isAdmin }) => {
             setSuccess('You updated comment successfully!')
             setIsEditing(false)
             setEditedComment("")
-            
+
             setTimeout(() => {
                 setSuccess(null)
             }, 2000)
@@ -224,12 +224,6 @@ const PostDetails = ({ match, t, isAdmin }) => {
                 {userEmail && (
                     <h3 style={{ color: 'white' }}>{t('AddComment.1')}</h3>
                 )}
-                {post.comments && post.comments.map((comment) => (
-                    <div key={comment.id} style={{ marginBottom: "10px" }}>
-                        <b>{comment.user.username}:</b> {comment.comment}
-                    </div>
-                ))}
-
                 {userEmail && (
                     <div>
                         <textarea
@@ -296,6 +290,17 @@ const PostDetails = ({ match, t, isAdmin }) => {
                                                     />
                                                 ) : (
                                                     comment.comment
+                                                )}
+                                            </div>
+                                            <div>
+                                                {showEditDeleteIcons && (
+                                                    <>
+                                                        {comment.creationDate && (
+                                                            <small style={{ color: 'gray', marginLeft: '20px' }}>
+                                                                {new Date(comment.creationDate).toLocaleString()}
+                                                            </small>
+                                                        )}
+                                                    </>
                                                 )}
                                             </div>
                                             {(isAdmin || (hoveredCommentId === comment.commentId && username === comment.username)) && (

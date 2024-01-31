@@ -22,6 +22,7 @@ import pl.maciejklonicki.ytapp.users.UserRepository;
 import pl.maciejklonicki.ytapp.users.Users;
 import pl.maciejklonicki.ytapp.users.exception.UsersNotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -83,6 +84,7 @@ public class PostRatingServiceImpl implements PostRatingService {
         postComment.setUser(user);
         postComment.setPost(post);
         postComment.setComment(comment);
+        postComment.setCreationDate(LocalDateTime.now());
 
         if (post.getComments() == null) {
             post.setComments(new ArrayList<>());
@@ -104,7 +106,8 @@ public class PostRatingServiceImpl implements PostRatingService {
         return postComments.map(post -> new GetAllCommentsDTO(
                 post.getId(),
                 post.getComment(),
-                post.getUser().getUsername()
+                post.getUser().getUsername(),
+                post.getCreationDate()
         ));
     }
 
