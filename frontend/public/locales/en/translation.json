@@ -140,7 +140,7 @@
         "1": "Registration Success"
     },
     "RegistrationSuccessMessage": {
-        "1": "You have successfully created an account! You can now log in."
+        "1": "You have successfully created an account! Verify your email address"
     },
     "GoToLogin": {
         "1": "Go to Login"
