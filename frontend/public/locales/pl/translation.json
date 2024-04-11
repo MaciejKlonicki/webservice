@@ -101,6 +101,12 @@
     "NoAccount": {
         "1": "Nie masz konta?"
     },
+    "ForgotPassword": {
+        "1": "Zapomniałeś hasła?"
+    },
+    "ResetPassword": {
+        "1": "Zresetuj hasło"
+    },
     "CreateAccount": {
         "1": "Stwórz konto"
     },
@@ -290,5 +296,9 @@
     },
     "EditPostRating": {
         "1": "Zmień ocenę posta"
+    },
+
+    "ResetYourPassword": {
+        "1": "Zmień swoje hasło"
     }
 }

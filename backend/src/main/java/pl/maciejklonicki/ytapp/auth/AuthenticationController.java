@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,16 +66,18 @@ public class AuthenticationController {
     }
 
     @PostMapping("/password-reset-request")
-    public String resetPasswordRequest(@RequestBody PasswordResetRequest passwordResetRequest,
-                                       final HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<String> resetPasswordRequest(@RequestBody PasswordResetRequest passwordResetRequest,
+                                                       final HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         Optional<Users> users = userRepository.findByEmail(passwordResetRequest.getEmail());
         String passwordResetURL = "";
         if (users.isPresent()) {
             String passwordResetToken = UUID.randomUUID().toString();
             authenticationService.createPasswordResetTokenForUser(users.get(), passwordResetToken);
             passwordResetURL = passwordResetEmailLink(users.get(), getSiteURL(request), passwordResetToken);
+            return ResponseEntity.ok(passwordResetURL);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email does not exist in our database.");
         }
-        return passwordResetURL;
     }
 
     private String passwordResetEmailLink(Users users, String siteURL, String passwordResetToken)

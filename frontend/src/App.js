@@ -11,6 +11,7 @@ import EditPost from './components/posts/EditPost'
 import NotFound from './components/NotFound'
 import EditPostRating from './components/posts/EditPostRating'
 import UserPosts from './components/posts/UserPosts'
+import ResetPassword from './components/user/ResetPassword'
 
 const App = () => {
 
@@ -35,8 +36,9 @@ const App = () => {
           path="/"
           exact
           component={() => <Body isAdmin={localStorage.getItem('role') === 'ADMIN'} />} />
-        <Route path="/login" render={(props) => <Login history={props.history} updateEmail={updateEmail} />} />
+        <Route path='/login' render={(props) => <Login history={props.history} updateEmail={updateEmail} />} />
         <Route path='/register' component={Registration} />
+        <Route path='/reset-password' component={ResetPassword} />
         <PrivateRoute path='/settings' exact component={Settings} />
         <PrivateRoute path='/create-post' component={CreatePost} />
         <Route
