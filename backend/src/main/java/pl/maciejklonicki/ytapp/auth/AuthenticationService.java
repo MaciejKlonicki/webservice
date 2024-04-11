@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import pl.maciejklonicki.ytapp.auth.exception.PasswordMismatchException;
 import pl.maciejklonicki.ytapp.auth.exception.UserNotEnabledException;
 import pl.maciejklonicki.ytapp.config.JwtService;
+import pl.maciejklonicki.ytapp.password.PasswordResetTokenService;
 import pl.maciejklonicki.ytapp.token.Token;
 import pl.maciejklonicki.ytapp.token.TokenRepository;
 import pl.maciejklonicki.ytapp.token.TokenType;
@@ -27,6 +28,7 @@ import pl.maciejklonicki.ytapp.users.Users;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Optional;
 
 @Service
 public class AuthenticationService {
@@ -37,15 +39,20 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final JavaMailSender mailSender;
+    private final PasswordResetTokenService passwordResetTokenService;
 
     @Autowired
-    public AuthenticationService(JavaMailSender mailSender, UserRepository userRepository, TokenRepository tokenRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+    public AuthenticationService(JavaMailSender mailSender, UserRepository userRepository,
+                                 TokenRepository tokenRepository, PasswordEncoder passwordEncoder,
+                                 JwtService jwtService, AuthenticationManager authenticationManager,
+                                 PasswordResetTokenService passwordResetTokenService) {
         this.mailSender = mailSender;
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.passwordResetTokenService = passwordResetTokenService;
     }
 
     public AuthenticationResponse register(RegisterRequest request, String siteURL)
@@ -169,7 +176,7 @@ public class AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
-    private void sendVerificationEmail(Users users, String siteURL)
+    void sendVerificationEmail(Users users, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = users.getEmail();
         String fromAddress = "webservicesystems@gmail.com";
@@ -196,5 +203,39 @@ public class AuthenticationService {
         helper.setText(content, true);
 
         mailSender.send(message);
+    }
+
+    public void sendPasswordResetVerificationEmail(Users users, String url) throws MessagingException, UnsupportedEncodingException {
+        String subject = "Password Reset Request Verification";
+        String senderName = "User Registration Portal Service";
+        String mailContent = "<p> Hi, "+ users.getUsername()+ ", </p>"+
+                "<p><b>You recently requested to reset your password,</b>"+"" +
+                "Please, follow the link below to complete the action.</p>"+
+                "<a href=\"" +url+ "\">Reset password</a>"+
+                "<p> Users Registration Portal Service";
+        MimeMessage message = mailSender.createMimeMessage();
+        var messageHelper = new MimeMessageHelper(message);
+        messageHelper.setFrom("webservicesystems@gmail.com", senderName);
+        messageHelper.setTo(users.getEmail());
+        messageHelper.setSubject(subject);
+        messageHelper.setText(mailContent, true);
+        mailSender.send(message);
+    }
+
+    public void createPasswordResetTokenForUser(Users users, String passwordToken) {
+        passwordResetTokenService.createPasswordResetTokenForUser(users, passwordToken);
+    }
+
+    public String validatePasswordResetToken(String passwordResetToken) {
+        return passwordResetTokenService.validatePasswordResetToken(passwordResetToken);
+    }
+
+    public Users findUserByPasswordToken(String passwordResetToken) {
+        return passwordResetTokenService.findUsersByPasswordToken(passwordResetToken).get();
+    }
+
+    public void resetUserPassword(Users users, String newPassword) {
+        users.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(users);
     }
 }
