@@ -205,7 +205,7 @@ const Registration = ({ t, history }) => {
                                     </Button>
                                 </Card.Footer>
                                 <br></br>
-                                <p style={{ "paddingLeft": "2%", "color": "rgb(255, 255, 255)" }}>{t('RegisterExist.1')}{' '}<a href="/login">{t('RegisterLogin.1')}</a></p>
+                                <p style={{ "paddingLeft": "1%", "color": "rgb(255, 255, 255)" }}>{t('RegisterExist.1')}{' '}<a href="/login">{t('RegisterLogin.1')}</a></p>
                             </div>
                         </div>
                     </form>
