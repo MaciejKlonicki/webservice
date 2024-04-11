@@ -98,6 +98,7 @@ const Login = ({ t, history }) => {
                         </Card.Footer>
                         <br></br>
                         <p style={{ "color": "rgb(255, 255, 255)" }}>{t('NoAccount.1')}{' '}<a href="/register">{t('CreateAccount.1')}</a></p>
+                        <p style={{ "color": "rgb(255, 255, 255)" }}>{t('ForgotPassword.1')}{' '}<a href="/reset-password">{t('ResetPassword.1')}</a></p>
                     </div>
                 </div>
             </form>
