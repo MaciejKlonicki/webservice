@@ -27,6 +27,9 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final UserRepository userRepository;
 
+    private static final String ERROR_PAGE = "errorPage";
+    private static final String ERROR_MESSAGE = "errorMessage";
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request,
@@ -68,11 +71,11 @@ public class AuthenticationController {
     @PostMapping("/password-reset-request")
     public ResponseEntity<String> resetPasswordRequest(@RequestBody PasswordResetRequest passwordResetRequest,
                                                        final HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        Optional<Users> users = userRepository.findByEmail(passwordResetRequest.getEmail());
+        Optional<Users> users = userRepository.findByEmail(passwordResetRequest.email());
         String passwordResetURL = "";
         if (users.isPresent()) {
             String passwordResetToken = UUID.randomUUID().toString();
-            authenticationService.createPasswordResetTokenForUser(users.get(), passwordResetToken);
+            authenticationService.createOrUpdatePasswordResetTokenForUser(users.get(), passwordResetToken);
             passwordResetURL = passwordResetEmailLink(users.get(), getSiteURL(request), passwordResetToken);
             return ResponseEntity.ok(passwordResetURL);
         } else {
@@ -88,19 +91,49 @@ public class AuthenticationController {
     }
 
     @PostMapping("/reset-password")
-    public String resetPassword(@RequestBody PasswordResetRequest passwordResetRequest,
-                                @RequestParam("code") String passwordResetToken) {
+    public ModelAndView processPasswordReset(@RequestParam("code") String passwordResetToken,
+                                             @ModelAttribute PasswordResetRequest passwordResetRequest) {
+        ModelAndView modelAndView = new ModelAndView();
+
         String tokenValidationResult = authenticationService.validatePasswordResetToken(passwordResetToken);
         if (!tokenValidationResult.equalsIgnoreCase("valid")) {
-            return "Invalid password reset token";
+            modelAndView.setViewName(ERROR_PAGE);
+            modelAndView.addObject(ERROR_MESSAGE, "Invalid password reset token");
+            return modelAndView;
         }
-        Users users = authenticationService.findUserByPasswordToken(passwordResetToken);
-        if (users != null) {
-            authenticationService.resetUserPassword(users, passwordResetRequest.getNewPassword());
-            return "Password has been reset successfully";
-        } else {
-            return "Invalid password reset token";
+
+        Users user = authenticationService.findUserByPasswordToken(passwordResetToken);
+        if (user == null) {
+            modelAndView.setViewName(ERROR_PAGE);
+            modelAndView.addObject(ERROR_MESSAGE, "User not found with the provided token");
+            return modelAndView;
         }
+
+        try {
+            authenticationService.resetUserPassword(user, passwordResetRequest.newPassword(),
+                    passwordResetRequest.confirmPassword());
+            modelAndView.setViewName("passwordResetResult");
+            modelAndView.addObject("message", "Password has been reset successfully");
+        } catch (IllegalArgumentException e) {
+            modelAndView.setViewName(ERROR_PAGE);
+            modelAndView.addObject(ERROR_MESSAGE, e.getMessage());
+        }
+        return modelAndView;
+    }
+
+    @GetMapping("/reset-password")
+    public ModelAndView showResetPasswordForm(@RequestParam("code") String passwordResetToken) {
+        ModelAndView modelAndView = new ModelAndView("changePasswordForm");
+
+        String tokenValidationResult = authenticationService.validatePasswordResetToken(passwordResetToken);
+        if (!tokenValidationResult.equalsIgnoreCase("valid")) {
+            modelAndView.setViewName(ERROR_PAGE);
+            modelAndView.addObject(ERROR_MESSAGE, "Invalid password reset token");
+            return modelAndView;
+        }
+
+        modelAndView.addObject("code", passwordResetToken);
+        return modelAndView;
     }
 
     private String getSiteURL(HttpServletRequest request) {

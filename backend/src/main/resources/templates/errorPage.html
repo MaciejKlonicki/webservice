@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #e74c3c; /* Kolor czerwony */
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555; /* Kolor szary */
+        }
+    </style>
+</head>
+<body>
+<h1>Error Page</h1>
+<p th:text="${errorMessage}"></p>
+</body>
+</html>

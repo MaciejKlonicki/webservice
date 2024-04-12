@@ -23,7 +23,6 @@ public class PasswordResetTokenService {
     if (token == null) {
       return "Invalid password reset token";
     }
-    Users users = token.getUser();
     Calendar calendar = Calendar.getInstance();
     if ((token.getExpirationTime().getTime() - calendar.getTime().getTime()) <= 0) {
       return "Link already expired, resend link";
@@ -33,5 +32,13 @@ public class PasswordResetTokenService {
 
   public Optional<Users> findUsersByPasswordToken(String passwordToken) {
     return Optional.ofNullable(passwordResetTokenRepository.findByToken(passwordToken).getUser());
+  }
+
+  public Optional<PasswordResetToken> findPasswordResetTokenByUserId(Long userId) {
+    return passwordResetTokenRepository.findByUserId(userId);
+  }
+
+  public void savePasswordResetToken(PasswordResetToken passwordResetToken) {
+    passwordResetTokenRepository.save(passwordResetToken);
   }
 }
