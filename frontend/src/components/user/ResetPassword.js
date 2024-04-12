@@ -30,7 +30,7 @@ const ResetPassword = ({ t }) => {
             body: JSON.stringify(data)
         }).then(response => {
             if (response.status === 200) {
-                setState({ success: "Check your email address to complete the operation", loading: false })
+                setState({ success: "Check your email address to reset the password", loading: false })
             } else if (response.status === 404) {
                 setState({ error: "Email does not exist!", loading: false })
                 setTimeout(() => {
@@ -75,7 +75,7 @@ const ResetPassword = ({ t }) => {
                         {state.success && !redirecting && <Alert variant='success'>{state.success}</Alert>}
                         {state.error && <Alert variant='danger'>{state.error}</Alert>}
                         <div className='Auth-form-content'>
-                            <img style={{ marginTop: '20px', marginLeft: '50px' }} src='/images/lock.png' alt='place-logo' />
+                            <img style={{ marginTop: '20px' }} src='/images/lock.png' alt='place-logo' />
                             <h3 style={{ color: 'white', marginTop: '50px' }} className='Auth-form-title'>{t('ResetYourPassword.1')}</h3>
                             <div style={{ color: 'white', textAlign: 'center' }} className='form-group mt-3'>
                                 <label>{t('EnterEmail.1')}</label>
