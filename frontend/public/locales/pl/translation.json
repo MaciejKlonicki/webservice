@@ -300,5 +300,9 @@
 
     "ResetYourPassword": {
         "1": "Zmień swoje hasło"
+    },
+
+    "NoArticlesAvailable": {
+        "1": "Brak dostępnych artykułów"
     }
 }

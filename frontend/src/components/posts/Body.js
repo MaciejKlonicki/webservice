@@ -193,12 +193,12 @@ const Body = ({ t, isAdmin }) => {
         <>
             <div className='borderRightElement' style={{ position: "fixed", height: "90%", marginTop: "5px", paddingRight: "205px", borderRight: "1.8px solid #444444" }}>
                 {userEmail && (
-                    <button onClick={handleSubmit} style={{ position: "fixed", left: "20px", top: "100px", width: "150px" }} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
+                    <button onClick={handleSubmit} style={{ position: "fixed", left: "20px", top: "100px", width: "160px" }} type="button" className="btn btn-primary">{t('CreatePost.1')}</button>
                 )}
                 {!showMyPosts && (
                     <>
                         <Dropdown>
-                            <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "290px" : "170px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
+                            <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "290px" : "170px", width: "160px" }} className="btn btn-primary" id="dropdown-basic">
                                 {t('Sort.1')}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
@@ -217,7 +217,7 @@ const Body = ({ t, isAdmin }) => {
                             </Dropdown.Menu>
                         </Dropdown>
                         <Dropdown>
-                            <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "225px" : "110px", width: "150px" }} className="btn btn-primary" id="dropdown-basic">
+                            <Dropdown.Toggle style={{ position: "fixed", left: "20px", top: userEmail ? "225px" : "110px", width: "160px" }} className="btn btn-primary" id="dropdown-basic">
                                 {t('Type.1')}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
@@ -229,7 +229,7 @@ const Body = ({ t, isAdmin }) => {
                             </Dropdown.Menu>
                         </Dropdown>
                         <input
-                            style={{ position: 'fixed', top: userEmail ? "355px" : "230px", width: '150px', left: '20px' }}
+                            style={{ position: 'fixed', top: userEmail ? "355px" : "230px", width: '160px', left: '20px' }}
                             type="search"
                             className='form-control rounded'
                             placeholder="Search"
@@ -239,13 +239,16 @@ const Body = ({ t, isAdmin }) => {
                 )}
             </div>
             {userEmail && (
-                <button onClick={handleMyPosts} style={{ position: "fixed", left: "20px", top: "160px", width: "150px" }} type="button" className="btn btn-primary">
+                <button onClick={handleMyPosts} style={{ position: "fixed", left: "20px", top: "160px", width: "160px" }} type="button" className="btn btn-primary">
                     {showMyPosts ? t('AllPosts.1') : t('MyPosts.1')}
                 </button>
             )}
             <div style={{ marginBottom: '25px' }}>
                 {success && <Alert variant='success' style={{ textAlign: 'center' }}>{success}</Alert>}
-                {posts
+                {posts.length === 0 ? (
+                <h1 style={{ textAlign: 'center', color: 'white', marginTop: '10px' }}>{t('NoArticlesAvailable.1')}</h1>
+                ) : (
+                posts
                     .map((post) => (
                         <Card
                             key={post.id}
@@ -310,10 +313,12 @@ const Body = ({ t, isAdmin }) => {
                                 />
                             </Card.Body>
                         </Card>
-                    ))}
+                    ))
+                )}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '50px' }}>
-                <ul class="pagination" style={{ marginTop: '30px', position: "absolute", left: '300px' }}>
+            {totalPages > 1 && (
+                <ul class="pagination" style={{ marginTop: '30px', position: "absolute", left: '260px' }}>
                     <li class="page-item">
                         <button
                             type="button"
@@ -338,9 +343,12 @@ const Body = ({ t, isAdmin }) => {
                         </button>
                     </li>
                 </ul>
-                <div style={{ fontFamily: 'monospace', color: 'white', position: "absolute", right: '140px', marginTop: '10px' }}>
+            )}
+            {totalPages > 1 && (
+                <div style={{ fontFamily: 'monospace', color: 'white', position: "absolute", right: '80px', marginTop: '10px' }}>
                     {currentPage}/{totalPages}
                 </div>
+            )}
             </div>
         </>
     )

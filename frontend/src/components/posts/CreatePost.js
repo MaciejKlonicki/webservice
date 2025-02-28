@@ -85,7 +85,7 @@ const CreatePost = ({ t }) => {
 
     return (
         <div style={{ maxWidth: "1300px", margin: "0 auto", textAlign: "center" }}>
-            <h2 style={{ color: "white", marginTop: "10px", marginBottom: "10px" }}>{t('AddNewPost.1')}</h2>
+            <h2 style={{ color: "white", marginTop: "0px", marginBottom: "30px" }}>{t('AddNewPost.1')}</h2>
             <form onSubmit={handleSubmit}>
                 {state.errors && <Alert variant='danger'>{state.errors}</Alert>}
                 {state.error && <Alert variant='danger'>{state.error}</Alert>}
