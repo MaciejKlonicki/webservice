@@ -299,5 +299,9 @@
 
     "ResetYourPassword": {
         "1": "Reset Your Password"
+    },
+
+    "NoArticlesAvailable": {
+        "1": "No articles available"
     }
 }
